@@ -12,6 +12,13 @@ namespace ExonymsAPI.Service.Gatherers
     {
         public const string DefaultNameLanguageCode = "en";
 
+        INameNormaliser nameNormaliser;
+
+        public WikiDataGatherer(INameNormaliser nameNormaliser)
+        {
+            this.nameNormaliser = nameNormaliser;
+        }
+
         public async Task<Location> Gather(string wikiDataId)
         {
             Location location = new Location();
@@ -36,12 +43,15 @@ namespace ExonymsAPI.Service.Gatherers
                 if (labels.TryGetValue(DefaultNameLanguageCode, out var defaultLabel))
                 {
                     location.DefaultName = (string)defaultLabel["value"];
+                    location.DefaultName = nameNormaliser.NormaliseName(DefaultNameLanguageCode, location.DefaultName);
                 }
 
                 foreach (var label in labels)
                 {
                     string languageCode = label.Key;
                     string name = (string)label.Value["value"];
+
+                    name = nameNormaliser.NormaliseName(languageCode, name);
 
                     if (name.Equals(location.DefaultName) &&
                         languageCode != DefaultNameLanguageCode)
@@ -55,10 +65,16 @@ namespace ExonymsAPI.Service.Gatherers
                 foreach (var sitelink in sitelinks)
                 {
                     string languageCode = sitelink.Key.Replace("wiki", "");
-                    string name = (string)sitelink.Value["title"];
 
-                    if (name.Equals(location.DefaultName) ||
-                        location.Names.ContainsKey(languageCode))
+                    if (location.Names.ContainsKey(languageCode))
+                    {
+                        continue;
+                    }
+
+                    string name = (string)sitelink.Value["title"];
+                    name = nameNormaliser.NormaliseName(languageCode, name);
+
+                    if (name.Equals(location.DefaultName))
                     {
                         continue;
                     }
