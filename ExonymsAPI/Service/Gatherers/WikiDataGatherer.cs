@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using ExonymsAPI.Service.Models;
+using ExonymsAPI.Service.Normalisers;
 using Newtonsoft.Json.Linq;
 
 namespace ExonymsAPI.Service.Gatherers
@@ -13,10 +14,14 @@ namespace ExonymsAPI.Service.Gatherers
         public const string DefaultNameLanguageCode = "en";
 
         INameNormaliser nameNormaliser;
+        INameTransliterator nameTransliterator;
 
-        public WikiDataGatherer(INameNormaliser nameNormaliser)
+        public WikiDataGatherer(
+            INameNormaliser nameNormaliser,
+            INameTransliterator nameTransliterator)
         {
             this.nameNormaliser = nameNormaliser;
+            this.nameTransliterator = nameTransliterator;
         }
 
         public async Task<Location> Gather(string wikiDataId)
@@ -51,6 +56,12 @@ namespace ExonymsAPI.Service.Gatherers
                     string languageCode = label.Key;
                     string name = (string)label.Value["value"];
 
+                    if (name.Equals(location.DefaultName))
+                    {
+                        continue;
+                    }
+
+                    name = await nameTransliterator.Transliterate(languageCode, name);
                     name = nameNormaliser.Normalise(languageCode, name);
 
                     if (name.Equals(location.DefaultName) &&

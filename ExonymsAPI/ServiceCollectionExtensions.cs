@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using ExonymsAPI.Service;
 using ExonymsAPI.Service.Gatherers;
+using ExonymsAPI.Service.Normalisers;
 
 namespace ExonymsAPI
 {
@@ -12,6 +13,7 @@ namespace ExonymsAPI
             return services
                 .AddSingleton<IExonymsService, ExonymsService>()
                 .AddSingleton<INameNormaliser, NameNormaliser>()
+                .AddSingleton<INameTransliterator, NameTransliterator>()
                 .AddSingleton<IWikiDataGatherer, WikiDataGatherer>();
         }
     }

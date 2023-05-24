@@ -1,4 +1,4 @@
-namespace ExonymsAPI.Service
+namespace ExonymsAPI.Service.Normalisers
 {
     public interface INameNormaliser
     {

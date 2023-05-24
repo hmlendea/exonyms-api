@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 using NuciExtensions;
 
-namespace ExonymsAPI.Service
+namespace ExonymsAPI.Service.Normalisers
 {
     public class NameNormaliser : INameNormaliser
     {
