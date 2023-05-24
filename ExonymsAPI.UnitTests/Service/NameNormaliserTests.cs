@@ -14,6 +14,23 @@ namespace ExonymsAPI.UnitTests.Service
         }
 
         [Test]
+        [TestCase(" Constantinople", "Constantinople")]
+        [TestCase("Kreisfreie  Aachen", "Kreisfreie Aachen")]
+        [TestCase("Madrid ", "Madrid")]
+        public void GivenAName_WhenNormalisingIt_ThenTheWhitespacesAreTrimmed(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Category:Bucharest", "Bucharest")]
+        [TestCase("Kategorie:freiburg", "Freiburg")]
+        public void GivenAName_WhenNormalisingIt_ThenOnlyTheNamePartIsReturned(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
         [TestCase("Abati Tyndyrn", "Tyndyrn")]
         [TestCase("Abaty Tyndyrn", "Tyndyrn")]
         [TestCase("abbaye de Tintern", "Tintern")]

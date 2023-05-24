@@ -19,14 +19,19 @@ namespace ExonymsAPI.Service.Normalisers
             normalisedName = Regex.Replace(normalisedName, ",.*", string.Empty);
             normalisedName = Regex.Replace(normalisedName, "\\s*<alternateName .*$", string.Empty);
             normalisedName = Regex.Replace(normalisedName, "[…]", string.Empty);
-            normalisedName = Regex.Replace(normalisedName, "Category:*", string.Empty);
+            normalisedName = Regex.Replace(normalisedName, "^[A-Za-z]*:", string.Empty);
 
             normalisedName = RemoveWords(normalisedName);
             normalisedName = RemoveLanguageSpecificWords(languageCode, normalisedName);
 
             normalisedName = ApplyCasingRules(languageCode, normalisedName);
 
-            return normalisedName.Trim();
+            normalisedName = Regex.Replace(normalisedName, @"\s\s*", " ");
+            normalisedName = Regex.Replace(normalisedName, @"^\s*", string.Empty);
+            normalisedName = Regex.Replace(normalisedName, @"\s*$", string.Empty);
+            normalisedName = normalisedName.Trim();
+
+            return normalisedName;
         }
 
         private string ApplyCasingRules(string languageCode, string name)
@@ -556,7 +561,6 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"(" +
                 @"[AaĀā]p[h]*[a]*|" +
-                @"[Dd]|" +
                 @"[Dd][aeio][ls]*|" +
                 @"gia|" +
                 @"ja|" +
@@ -573,7 +577,6 @@ namespace ExonymsAPI.Service.Normalisers
                 @")" +
                 @"[ ""\'’']",
                 string.Empty);
-
 
             return cleanedName.Trim();
         }
