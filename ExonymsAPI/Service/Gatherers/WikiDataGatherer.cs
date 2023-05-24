@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using ExonymsAPI.Service.Models;
@@ -56,7 +57,8 @@ namespace ExonymsAPI.Service.Gatherers
                     string languageCode = label.Key;
                     string name = (string)label.Value["value"];
 
-                    if (name.Equals(location.DefaultName))
+                    if (name.Equals(location.DefaultName) ||
+                        string.IsNullOrWhiteSpace(name))
                     {
                         continue;
                     }
@@ -75,7 +77,7 @@ namespace ExonymsAPI.Service.Gatherers
 
                 foreach (var sitelink in sitelinks)
                 {
-                    string languageCode = sitelink.Key.Replace("wiki", "");
+                    string languageCode = Regex.Replace(sitelink.Key, @"(news|quote|source|voyage|wiki)", "");
 
                     if (location.Names.ContainsKey(languageCode))
                     {
@@ -93,10 +95,6 @@ namespace ExonymsAPI.Service.Gatherers
                     location.Names.Add(languageCode, name);
                 }
             }
-
-            location.Names = location.Names
-                .OrderBy(x => x.Key)
-                .ToDictionary(x => x.Key, x => x.Value);
 
             return location;
         }

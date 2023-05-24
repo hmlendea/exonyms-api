@@ -58,8 +58,7 @@ namespace ExonymsAPI.Service.Gatherers
 
                         if (string.IsNullOrWhiteSpace(languageCode) ||
                             location.Names.ContainsKey(languageCode) ||
-                            IgnoredLanguageCodes.Contains(languageCode) ||
-                            languageCode.EndsWith("news"))
+                            IgnoredLanguageCodes.Contains(languageCode))
                         {
                             continue;
                         }
@@ -85,10 +84,6 @@ namespace ExonymsAPI.Service.Gatherers
                     }
                 }
             }
-
-            location.Names = location.Names
-                .OrderBy(x => x.Key)
-                .ToDictionary(x => x.Key, x => x.Value);
 
             return location;
         }
