@@ -1,8 +1,4 @@
-using System;
-using System.Linq;
 using System.Text.RegularExpressions;
-
-using NuciExtensions;
 
 namespace ExonymsAPI.Service.Normalisers
 {
@@ -24,26 +20,12 @@ namespace ExonymsAPI.Service.Normalisers
             normalisedName = RemoveWords(normalisedName);
             normalisedName = RemoveLanguageSpecificWords(languageCode, normalisedName);
 
-            normalisedName = ApplyCasingRules(languageCode, normalisedName);
-
             normalisedName = Regex.Replace(normalisedName, @"\s\s*", " ");
             normalisedName = Regex.Replace(normalisedName, @"^[\s\-]*", string.Empty);
             normalisedName = Regex.Replace(normalisedName, @"[\s\-]*$", string.Empty);
             normalisedName = normalisedName.Trim();
 
             return normalisedName;
-        }
-
-        private string ApplyCasingRules(string languageCode, string name)
-        {
-            string[] nonCapitalisedLanguages = { "ar", "ga", "jam", "jbo" };
-
-            if (!nonCapitalisedLanguages.Contains(languageCode))
-            {
-                return name.ToTitleCase();
-            }
-
-            return name;
         }
 
         private string RemoveWords(string name)
