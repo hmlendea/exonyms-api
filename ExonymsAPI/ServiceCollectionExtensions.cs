@@ -14,6 +14,7 @@ namespace ExonymsAPI
                 .AddSingleton<IExonymsService, ExonymsService>()
                 .AddSingleton<INameNormaliser, NameNormaliser>()
                 .AddSingleton<INameTransliterator, NameTransliterator>()
+                .AddSingleton<IGeoNamesGatherer, GeoNamesGatherer>()
                 .AddSingleton<IWikiDataGatherer, WikiDataGatherer>();
         }
     }

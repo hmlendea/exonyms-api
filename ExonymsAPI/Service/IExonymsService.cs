@@ -6,6 +6,6 @@ namespace ExonymsAPI.Service
 {
     public interface IExonymsService
     {
-        Task<Location> Gather(string wikiDataId);
+        Task<Location> Gather(string geoNamesId, string wikiDataId);
     }
 }

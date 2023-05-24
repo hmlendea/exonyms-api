@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,9 +20,10 @@ namespace ExonymsAPI.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAsync(
+            [FromQuery] string geoNamesId,
             [FromQuery] string wikiDataId)
         {
-            Location location = await this.exonymsService.Gather(wikiDataId);
+            Location location = await this.exonymsService.Gather(geoNamesId, wikiDataId);
 
             return Ok(location);
         }
