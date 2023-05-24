@@ -43,7 +43,7 @@ namespace ExonymsAPI.Service.Gatherers
                 if (labels.TryGetValue(DefaultNameLanguageCode, out var defaultLabel))
                 {
                     location.DefaultName = (string)defaultLabel["value"];
-                    location.DefaultName = nameNormaliser.NormaliseName(DefaultNameLanguageCode, location.DefaultName);
+                    location.DefaultName = nameNormaliser.Normalise(DefaultNameLanguageCode, location.DefaultName);
                 }
 
                 foreach (var label in labels)
@@ -51,7 +51,7 @@ namespace ExonymsAPI.Service.Gatherers
                     string languageCode = label.Key;
                     string name = (string)label.Value["value"];
 
-                    name = nameNormaliser.NormaliseName(languageCode, name);
+                    name = nameNormaliser.Normalise(languageCode, name);
 
                     if (name.Equals(location.DefaultName) &&
                         languageCode != DefaultNameLanguageCode)
@@ -72,7 +72,7 @@ namespace ExonymsAPI.Service.Gatherers
                     }
 
                     string name = (string)sitelink.Value["title"];
-                    name = nameNormaliser.NormaliseName(languageCode, name);
+                    name = nameNormaliser.Normalise(languageCode, name);
 
                     if (name.Equals(location.DefaultName))
                     {

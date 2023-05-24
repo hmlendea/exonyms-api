@@ -8,7 +8,7 @@ namespace ExonymsAPI.Service
 {
     public class NameNormaliser : INameNormaliser
     {
-        public string NormaliseName(string languageCode, string name)
+        public string Normalise(string languageCode, string name)
         {
             string normalisedName = name;
 
@@ -21,10 +21,10 @@ namespace ExonymsAPI.Service
             normalisedName = Regex.Replace(normalisedName, "[…]", string.Empty);
             normalisedName = Regex.Replace(normalisedName, "Category:*", string.Empty);
 
-            normalisedName = ApplyCasingRules(languageCode, normalisedName);
-
             normalisedName = RemoveWords(normalisedName);
             normalisedName = RemoveLanguageSpecificWords(languageCode, normalisedName);
+
+            normalisedName = ApplyCasingRules(languageCode, normalisedName);
 
             return normalisedName.Trim();
         }
@@ -48,7 +48,7 @@ namespace ExonymsAPI.Service
             // Abbey
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[AaOo][bp][abd]([aet][z]*[iy][ae]*|ij|tstv[oí])|" +
+                @"[AaOo][bp][abd]([aet][z]*[iy][ae]*|ij|(c|ts)t[vw][oí])|" +
                 @"Benediktinerabtei",
                 string.Empty);
 
@@ -586,6 +586,11 @@ namespace ExonymsAPI.Service
             {
                 cleanedName = Regex.Replace(cleanedName, "enrice ", "e ");
                 cleanedName = Regex.Replace(cleanedName, "enrice$", "e");
+            }
+
+            if (languageCode.Equals("fi"))
+            {
+                cleanedName = Regex.Replace(cleanedName, "in luostari", string.Empty);
             }
 
             if (languageCode.Equals("kaa"))
