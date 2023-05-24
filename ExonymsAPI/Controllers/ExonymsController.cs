@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Mvc;
 
 using ExonymsAPI.Service;
+using ExonymsAPI.Service.Models;
 
 namespace ExonymsAPI.Controllers
 {
@@ -19,10 +21,12 @@ namespace ExonymsAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get(
+        public async Task<IActionResult> GetAsync(
             [FromQuery] string wikiDataId)
         {
-            return Ok();
+            Location location = await this.exonymsService.Gather(wikiDataId);
+
+            return Ok(location);
         }
     }
 }

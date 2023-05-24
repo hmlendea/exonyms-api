@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 
 using ExonymsAPI.Service.Gatherers;
+using ExonymsAPI.Service.Models;
 
 namespace ExonymsAPI.Service
 {
@@ -15,11 +16,14 @@ namespace ExonymsAPI.Service
             this.wikiDataGatherer = wikiDataGatherer;
         }
 
-        public async Task<string> Gather(string wikiDataId)
+        public async Task<Location> Gather(string wikiDataId)
         {
-            string name = wikiDataGatherer.Gather(wikiDataId);
+            Location location = new Location();
 
-            return name;
+            location.DefaultName = "TEST";
+            location.Names.Add("grc", "TEST in Ancient Greek");
+
+            return location;
         }
     }
 }
