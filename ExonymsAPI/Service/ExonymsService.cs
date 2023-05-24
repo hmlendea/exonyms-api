@@ -18,10 +18,7 @@ namespace ExonymsAPI.Service
 
         public async Task<Location> Gather(string wikiDataId)
         {
-            Location location = new Location();
-
-            location.DefaultName = "TEST";
-            location.Names.Add("grc", "TEST in Ancient Greek");
+            Location location = await this.wikiDataGatherer.Gather(wikiDataId);
 
             return location;
         }

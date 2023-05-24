@@ -1,7 +1,11 @@
+using System.Threading.Tasks;
+
+using ExonymsAPI.Service.Models;
+
 namespace ExonymsAPI.Service.Gatherers
 {
     public interface IWikiDataGatherer
     {
-        string Gather(string wikiDataId);
+        Task<Location> Gather(string wikiDataId);
     }
 }
