@@ -27,8 +27,8 @@ namespace ExonymsAPI.Service.Normalisers
             normalisedName = ApplyCasingRules(languageCode, normalisedName);
 
             normalisedName = Regex.Replace(normalisedName, @"\s\s*", " ");
-            normalisedName = Regex.Replace(normalisedName, @"^\s*", string.Empty);
-            normalisedName = Regex.Replace(normalisedName, @"\s*$", string.Empty);
+            normalisedName = Regex.Replace(normalisedName, @"^[\s\-]*", string.Empty);
+            normalisedName = Regex.Replace(normalisedName, @"[\s\-]*$", string.Empty);
             normalisedName = normalisedName.Trim();
 
             return normalisedName;
@@ -419,6 +419,7 @@ namespace ExonymsAPI.Service.Normalisers
             // Province
             cleanedName = Regex.Replace(
                 cleanedName,
+                @"[Cc]hangwat|" +
                 @"eanangoddi|" +
                 @"[Ee]par[ck]hía|" +
                 @"[Ll]alawigan|" +
@@ -426,7 +427,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"Mḥāfẓẗ|" +
                 @"Mkoa|" +
                 @"Mqāṭʿẗ|" +
-                @"[Pp][’]*r[aāou][bpvw][ëií][nñ][t]*[csz]*[eėiíjoy]*[aeėnsz]*|" +
+                @"[Pp][’]*r[aāou][bpvw][ëií][nñ]*[t]*[csśz]*[eėiíjoy]*[aeėnsz]*|" +
                 @"Pradēśa|" +
                 @"Pr[aā][a]*nt[y]*[a]*|" +
                 @"Rát|" +
@@ -443,6 +444,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Aa]ñcala|" +
                 @"[Bb]ölgesi|" +
                 @"[Ee]skualdea|" +
+                @"[Ff]aritanin[']*i|" +
                 @"Gobolka|" +
                 @"[Kk]alāpaya|" +
                 @"Khu vực|" +
@@ -587,29 +589,42 @@ namespace ExonymsAPI.Service.Normalisers
 
             if (languageCode.Equals("ang"))
             {
-                cleanedName = Regex.Replace(cleanedName, "enrice ", "e ");
-                cleanedName = Regex.Replace(cleanedName, "enrice$", "e");
+                cleanedName = Regex.Replace(cleanedName, @"enrice ", "e ");
+                cleanedName = Regex.Replace(cleanedName, @"enrice$", "e");
             }
 
             if (languageCode.Equals("fi"))
             {
-                cleanedName = Regex.Replace(cleanedName, "in luostari", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"in luostari", string.Empty);
+            }
+
+            if (languageCode.Equals("ja"))
+            {
+                cleanedName = Regex.Replace(cleanedName, @"Ken$", string.Empty);
             }
 
             if (languageCode.Equals("kaa"))
             {
-                cleanedName = Regex.Replace(cleanedName, "U'", "Ú");
+                cleanedName = Regex.Replace(cleanedName, @"U'", "Ú");
+            }
+
+            if (languageCode.Equals("ko"))
+            {
+                cleanedName = Regex.Replace(cleanedName, @"ju$", string.Empty);
             }
 
             if (languageCode.Equals("lt"))
             {
-                cleanedName = Regex.Replace(cleanedName, " Šv", " Šventasis");
-                cleanedName = Regex.Replace(cleanedName, "^Šv", "Šventasis");
+                cleanedName = Regex.Replace(cleanedName, @" Šv", " Šventasis");
+                cleanedName = Regex.Replace(cleanedName, @"^Šv", "Šventasis");
             }
 
-            if (languageCode.Equals("zh"))
+            if (languageCode.StartsWith("zh") ||
+                languageCode.Equals("cdo") ||
+                languageCode.Equals("nan"))
             {
-                cleanedName = Regex.Replace(cleanedName, "-", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"(fǔ|H[úū]|)$", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"-", string.Empty);
             }
 
             return cleanedName;

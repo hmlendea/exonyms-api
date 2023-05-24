@@ -38,6 +38,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Klášter Tintern", "Tintern")]
         [TestCase("Opactwo Tintern", "Tintern")]
         [TestCase("Opatija Tintern", "Tintern")]
+        [TestCase("Sarāburi Praviśya", "Sarāburi")]
         [TestCase("Tintern Abbey", "Tintern")]
         public void GivenAName_WhenNormalisingIt_ThenAllUnwantedWordsAreRemoved(
             string name,
@@ -45,10 +46,14 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
-        [TestCase("Tinternin luostari", "Tintern")]
-        public void GivenAFinnishName_WhenNormalisingIt_ThenAllUnwantedWordsAreRemoved(
+        [TestCase("fi", "Tinternin luostari", "Tintern")]
+        [TestCase("ja", "Saraburii Ken", "Saraburii")]
+        [TestCase("ko", "Saraburiju", "Saraburi")]
+        [TestCase("zh", "Běi-biāo-fǔ", "Běi-biāo")]
+        public void GivenALanguageSpecificName_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(
+            string languageCode,
             string name,
             string expectedNormalisedName)
-            => Assert.That(nameNormaliser.Normalise("fi", name), Is.EqualTo(expectedNormalisedName));
+            => Assert.That(nameNormaliser.Normalise(languageCode, name), Is.EqualTo(expectedNormalisedName));
     }
 }

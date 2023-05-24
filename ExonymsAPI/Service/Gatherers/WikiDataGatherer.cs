@@ -85,6 +85,8 @@ namespace ExonymsAPI.Service.Gatherers
                     }
 
                     string name = (string)sitelink.Value["title"];
+
+                    name = await nameTransliterator.Transliterate(languageCode, name);
                     name = nameNormaliser.Normalise(languageCode, name);
 
                     if (name.Equals(location.DefaultName))
