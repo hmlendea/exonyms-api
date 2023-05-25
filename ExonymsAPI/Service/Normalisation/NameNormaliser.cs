@@ -35,7 +35,7 @@ namespace ExonymsAPI.Service.Normalisers
             // Abbey
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[AaOo][bp][abd]([aet][z]*[iy][ae]*|ij|(c|ts)t[vw][oí])|" +
+                @"[AaOo][bp][abd]([aet][z]*[iy][ae]*|[ií][aj]|(c|ts)[t]*[vw][oí])|" +
                 @"Benediktinerabtei",
                 string.Empty);
 
@@ -311,7 +311,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[Kk]l[aáo][o]*[sš]t[eo]r(is)*|" +
-                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][ăo]n[aăe]st[eèḗiíy]r(e[a]*|i|io[a]*|o|y)*|" +
+                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*n[aăei]st[eèḗiíy]r(e[a]*|i|io[a]*|o|y)*|" +
                 @"[Mm]onaĥejo|" +
                 @"[Mm]osteiro|" +
                 @"[Ss]hu[u]*dōin",
