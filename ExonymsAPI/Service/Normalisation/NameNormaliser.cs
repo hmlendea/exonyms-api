@@ -605,7 +605,7 @@ namespace ExonymsAPI.Service.Normalisers
                 languageCode.Equals("cdo") ||
                 languageCode.Equals("nan"))
             {
-                cleanedName = Regex.Replace(cleanedName, @"(fǔ|H[úū]|)$", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"(fǔ|[Hh][úū]|)$", string.Empty);
                 cleanedName = Regex.Replace(cleanedName, @"-", string.Empty);
             }
 

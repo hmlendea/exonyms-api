@@ -24,7 +24,7 @@ namespace ExonymsAPI.UnitTests.Service
 
         [Test]
         [TestCase("Category:Bucharest", "Bucharest")]
-        [TestCase("Kategorie:freiburg", "Freiburg")]
+        [TestCase("Kategorie:freiburg", "freiburg")]
         public void GivenAName_WhenNormalisingIt_ThenOnlyTheNamePartIsReturned(
             string name,
             string expectedNormalisedName)
@@ -49,7 +49,8 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("fi", "Tinternin luostari", "Tintern")]
         [TestCase("ja", "Saraburii Ken", "Saraburii")]
         [TestCase("ko", "Saraburiju", "Saraburi")]
-        [TestCase("zh", "Běi-biāo-fǔ", "Běi-biāo")]
+        [TestCase("zh", "Ājīkèkùlèhú", "Ājīkèkùlè")]
+        [TestCase("zh", "Běi-biāo-fǔ", "Běibiāo")]
         public void GivenALanguageSpecificName_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(
             string languageCode,
             string name,
