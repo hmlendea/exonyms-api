@@ -302,7 +302,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Dd]ağları|" +
                 @"[GgHh][ao]ra|" +
                 @"Ǧibāl|" +
-                @"[Mm][ouū][u]*n[tț[[aei]*([gi]*[ln][es]|ii|s)*|" +
+                @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*|" +
                 @"[Pp]arvata[ṁ]*|" +
                 @"[Ss]hānmài",
                 string.Empty);
@@ -311,9 +311,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[Kk]l[aáo][o]*[sš]t[eo]r(is)*|" +
-                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*n[aăei]st[eèḗiíy]r(e[a]*|i|io[a]*|o|y)*|" +
-                @"[Mm]onaĥejo|" +
-                @"[Mm]osteiro|" +
+                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy][r]*(e[a]*|i|[ij]o[a]*|o|y)*|" +
                 @"[Ss]hu[u]*dōin",
                 string.Empty);
 

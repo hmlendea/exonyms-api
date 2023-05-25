@@ -36,8 +36,10 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("abbaye de Tintern", "Tintern")]
         [TestCase("abbazia di Tintern", "Tintern")]
         [TestCase("Klášter Tintern", "Tintern")]
+        [TestCase("Kykkos Monastery", "Kykkos")]
         [TestCase("Opactwo Tintern", "Tintern")]
         [TestCase("Opatija Tintern", "Tintern")]
+        [TestCase("Putna Monaĥejo", "Putna")]
         [TestCase("Sarāburi Praviśya", "Sarāburi")]
         [TestCase("Tintern Abbey", "Tintern")]
         public void GivenAName_WhenNormalisingIt_ThenAllUnwantedWordsAreRemoved(
