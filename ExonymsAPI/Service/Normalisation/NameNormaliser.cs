@@ -35,7 +35,7 @@ namespace ExonymsAPI.Service.Normalisers
             // Abbey
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[AaOo][bp][abd]([aet][z]*[iy][ae]*|ij|(c|ts)t[vw][oí])|" +
+                @"[AaOo][bp][abd]([aet][z]*[iy][ae]*|[ií][aj]|(c|ts)[t]*[vw][oí])|" +
                 @"Benediktinerabtei",
                 string.Empty);
 
@@ -302,7 +302,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Dd]ağları|" +
                 @"[GgHh][ao]ra|" +
                 @"Ǧibāl|" +
-                @"[Mm][ouū][u]*n[tț[[aei]*([gi]*[ln][es]|ii|s)*|" +
+                @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*|" +
                 @"[Pp]arvata[ṁ]*|" +
                 @"[Ss]hānmài",
                 string.Empty);
@@ -311,9 +311,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[Kk]l[aáo][o]*[sš]t[eo]r(is)*|" +
-                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][ăo]n[aăe]st[eèḗiíy]r(e[a]*|i|io[a]*|o|y)*|" +
-                @"[Mm]onaĥejo|" +
-                @"[Mm]osteiro|" +
+                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy][r]*(e[a]*|i|[ij]o[a]*|o|y)*|" +
                 @"[Ss]hu[u]*dōin",
                 string.Empty);
 
@@ -605,7 +603,7 @@ namespace ExonymsAPI.Service.Normalisers
                 languageCode.Equals("cdo") ||
                 languageCode.Equals("nan"))
             {
-                cleanedName = Regex.Replace(cleanedName, @"(fǔ|H[úū]|)$", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"(fǔ|[Hh][úū]|)$", string.Empty);
                 cleanedName = Regex.Replace(cleanedName, @"-", string.Empty);
             }
 
