@@ -14,6 +14,14 @@ namespace ExonymsAPI.UnitTests.Service
         }
 
         [Test]
+        [TestCase("Abydos")]
+        [TestCase("Horamabada")]
+        [TestCase("Không Đồng")]
+        public void GivenANameDoesNotHaveUnwantedWords_WhenNormalisingIt_ThenTheNameRemainsIntact(
+            string name)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(name));
+
+        [Test]
         [TestCase(" Constantinople", "Constantinople")]
         [TestCase("Kreisfreie  Aachen", "Kreisfreie Aachen")]
         [TestCase("Madrid ", "Madrid")]
@@ -35,14 +43,48 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Abaty Tyndyrn", "Tyndyrn")]
         [TestCase("abbaye de Tintern", "Tintern")]
         [TestCase("abbazia di Tintern", "Tintern")]
-        [TestCase("Klášter Tintern", "Tintern")]
-        [TestCase("Kykkos Monastery", "Kykkos")]
         [TestCase("Opactwo Tintern", "Tintern")]
         [TestCase("Opatija Tintern", "Tintern")]
-        [TestCase("Putna Monaĥejo", "Putna")]
-        [TestCase("Sarāburi Praviśya", "Sarāburi")]
         [TestCase("Tintern Abbey", "Tintern")]
-        public void GivenAName_WhenNormalisingIt_ThenAllUnwantedWordsAreRemoved(
+        public void GivenANameContainsTheWordAbbey_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Ardal Kongtong", "Kongtong")]
+        public void GivenANameContainsTheWordArea_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Pūrandar Chillā", "Pūrandar")]
+        [TestCase("Purandar Fortress", "Purandar")]
+        [TestCase("Pūrāndār Fūrt", "Pūrāndār")]
+        [TestCase("Purantar Kōṭṭai", "Purantar")]
+        public void GivenANameContainsTheWordFort_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Biara Kykkos", "Kykkos")]
+        [TestCase("Kikkos monastrı", "Kikkos")]
+        [TestCase("Klášter Tintern", "Tintern")]
+        [TestCase("Klasztor Kykkos", "Kykkos")]
+        [TestCase("Kykkos Monastery", "Kykkos")]
+        [TestCase("Putna Monaĥejo", "Putna")]
+        [TestCase("Samostan Kykkos", "Kykkos")]
+        [TestCase("Tintern Abbey", "Tintern")]
+        public void GivenANameContainsTheWordMoanstery_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Sarāburi Praviśya", "Sarāburi")]
+        public void GivenANameContainsTheWordProvince_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
@@ -50,9 +92,12 @@ namespace ExonymsAPI.UnitTests.Service
         [Test]
         [TestCase("fi", "Tinternin luostari", "Tintern")]
         [TestCase("ja", "Saraburii Ken", "Saraburii")]
+        [TestCase("ko", "Kungtunggu", "Kungtung")]
         [TestCase("ko", "Saraburiju", "Saraburi")]
+        [TestCase("nan", "Khongtôngkhu", "Khongtông")]
         [TestCase("zh", "Ājīkèkùlèhú", "Ājīkèkùlè")]
         [TestCase("zh", "Běi-biāo-fǔ", "Běibiāo")]
+        [TestCase("zh", "Kōngdòngōu", "Kōngdòng")]
         public void GivenALanguageSpecificName_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(
             string languageCode,
             string name,

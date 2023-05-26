@@ -53,6 +53,13 @@ namespace ExonymsAPI.Service.Normalisers
                 @"Ar[c]*ha[ií][ac]",
                 string.Empty);
 
+
+            // Area
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"[Aa]r[dei]a[l]*",
+                string.Empty);
+
             // Autonomous Government
             cleanedName = Regex.Replace(
                 cleanedName,
@@ -222,10 +229,10 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"([CcKk][aá]str[aou][lm]*|" +
+                @"Chillā|" +
                 @"Festung|" +
-                @"[Ff]ort(e(tsya)*|ul)*|" +
-                @"[Ff]ort(ale[sz]a|[e]*ress[e]*)|" +
-                @"[Ff]ort[r]*e[t]*s[s]*[y]*[ae]*|" +
+                @"[Ff][oū]rt(ale[sz]a|e|[e]*[r]*e[t]*s[s]*[y]*[ae]*|ul)*|" +
+                @"Kōṭṭai|" +
                 @"[Kk]repost|" +
                 @"[Tv]rdina|" +
                 @"[Yy]ōsai|" +
@@ -300,7 +307,7 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"([Gg]e)*[Bb]i[e]*rge[r]*|" +
                 @"[Dd]ağları|" +
-                @"[GgHh][ao]ra|" +
+                @"[GgHh][ao]ra\b|" +
                 @"Ǧibāl|" +
                 @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*|" +
                 @"[Pp]arvata[ṁ]*|" +
@@ -310,8 +317,10 @@ namespace ExonymsAPI.Service.Normalisers
             // Monastery
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[Kk]l[aáo][o]*[sš]t[eo]r(is)*|" +
-                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy][r]*(e[a]*|i|[ij]o[a]*|o|y)*|" +
+                @"[Bb]iara|" +
+                @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*|" +
+                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*|" +
+                @"[Ss]amostan|" +
                 @"[Ss]hu[u]*dōin",
                 string.Empty);
 
@@ -541,9 +550,9 @@ namespace ExonymsAPI.Service.Normalisers
             // of
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"(" +
+                @"\b(" +
                 @"[AaĀā]p[h]*[a]*|" +
-                @"[Dd][aeio][ls]*|" +
+                @"[Dd][aeio]*[ls]*|" +
                 @"gia|" +
                 @"ja|" +
                 @"[Oo]f|" +
@@ -569,8 +578,7 @@ namespace ExonymsAPI.Service.Normalisers
 
             if (languageCode.Equals("ang"))
             {
-                cleanedName = Regex.Replace(cleanedName, @"enrice ", "e ");
-                cleanedName = Regex.Replace(cleanedName, @"enrice$", "e");
+                cleanedName = Regex.Replace(cleanedName, @"enrice\b", "e");
             }
 
             if (languageCode.Equals("fi"))
@@ -580,7 +588,7 @@ namespace ExonymsAPI.Service.Normalisers
 
             if (languageCode.Equals("ja"))
             {
-                cleanedName = Regex.Replace(cleanedName, @"Ken$", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"Ken\b", string.Empty);
             }
 
             if (languageCode.Equals("kaa"))
@@ -590,21 +598,30 @@ namespace ExonymsAPI.Service.Normalisers
 
             if (languageCode.Equals("ko"))
             {
-                cleanedName = Regex.Replace(cleanedName, @"ju$", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"[gj]u\b", string.Empty);
             }
 
             if (languageCode.Equals("lt"))
             {
-                cleanedName = Regex.Replace(cleanedName, @" Šv", " Šventasis");
-                cleanedName = Regex.Replace(cleanedName, @"^Šv", "Šventasis");
+                cleanedName = Regex.Replace(cleanedName, @"\bŠv", "Šventasis");
             }
 
             if (languageCode.StartsWith("zh") ||
                 languageCode.Equals("cdo") ||
                 languageCode.Equals("nan"))
             {
-                cleanedName = Regex.Replace(cleanedName, @"(fǔ|[Hh][úū]|)$", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"(fǔ|[Hh][úū]|)\b", string.Empty);
                 cleanedName = Regex.Replace(cleanedName, @"-", string.Empty);
+
+                if (languageCode.Equals("nan"))
+                {
+                    cleanedName = Regex.Replace(cleanedName, @"khu\b", string.Empty);
+                }
+
+                if (languageCode.StartsWith("zh"))
+                {
+                    cleanedName = Regex.Replace(cleanedName, @"ōu\b", string.Empty);
+                }
             }
 
             return cleanedName;
