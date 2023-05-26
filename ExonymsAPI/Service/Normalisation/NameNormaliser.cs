@@ -222,10 +222,10 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"([CcKk][aá]str[aou][lm]*|" +
+                @"Chillā|" +
                 @"Festung|" +
-                @"[Ff]ort(e(tsya)*|ul)*|" +
-                @"[Ff]ort(ale[sz]a|[e]*ress[e]*)|" +
-                @"[Ff]ort[r]*e[t]*s[s]*[y]*[ae]*|" +
+                @"[Ff][oū]rt(ale[sz]a|e|[e]*[r]*e[t]*s[s]*[y]*[ae]*|ul)*|" +
+                @"Kōṭṭai|" +
                 @"[Kk]repost|" +
                 @"[Tv]rdina|" +
                 @"[Yy]ōsai|" +
@@ -300,7 +300,7 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"([Gg]e)*[Bb]i[e]*rge[r]*|" +
                 @"[Dd]ağları|" +
-                @"[GgHh][ao]ra|" +
+                @"[GgHh][ao]ra\b|" +
                 @"Ǧibāl|" +
                 @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*|" +
                 @"[Pp]arvata[ṁ]*|" +
@@ -310,8 +310,10 @@ namespace ExonymsAPI.Service.Normalisers
             // Monastery
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[Kk]l[aáo][o]*[sš]t[eo]r(is)*|" +
-                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy][r]*(e[a]*|i|[ij]o[a]*|o|y)*|" +
+                @"[Bb]iara|" +
+                @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*|" +
+                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*|" +
+                @"[Ss]amostan|" +
                 @"[Ss]hu[u]*dōin",
                 string.Empty);
 
