@@ -69,6 +69,13 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Království Damot", "Damot")]
+        public void GivenANameContainsTheWordKingdom_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
         [TestCase("Biara Kykkos", "Kykkos")]
         [TestCase("Kikkos monastrı", "Kikkos")]
         [TestCase("Klášter Tintern", "Tintern")]

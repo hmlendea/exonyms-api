@@ -277,7 +277,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Kk][eoö]ni[n]*[gk]r[e]*[iy][cej]*[hk]|" +
                 @"K[io]ng[e]*d[oø]m(met)*|" +
                 @"[Kk]irályság|" +
-                @"[Kk][o]*r[oa]l(ev)*stvo|" +
+                @"[Kk][o]*r[oaá]l[oe]*[v]*stv[ío]|" +
                 @"Ōkoku|" +
                 @"Rājy[a]*|" +
                 @"[Rr]egatul|" +
