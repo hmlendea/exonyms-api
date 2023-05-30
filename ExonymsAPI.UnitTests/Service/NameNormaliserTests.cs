@@ -59,10 +59,17 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Āiruìbùníchéngbǎo", "Āiruìbùní")]
+        [TestCase("Benteng Erebuni", "Erebuni")]
+        [TestCase("Erebunifästningen", "Erebuni")]
+        [TestCase("Fortăreața Erebuni", "Erebuni")]
+        [TestCase("Fortezza di Erebuni", "Erebuni")]
+        [TestCase("Fortikaĵo Erebuno", "Erebuno")]
         [TestCase("Pūrandar Chillā", "Pūrandar")]
         [TestCase("Purandar Fortress", "Purandar")]
         [TestCase("Pūrāndār Fūrt", "Pūrāndār")]
         [TestCase("Purantar Kōṭṭai", "Purantar")]
+        [TestCase("Trdnjava Erebuni", "Erebuni")]
         public void GivenANameContainsTheWordFort_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
@@ -90,6 +97,15 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Gemeente Enschede", "Enschede")]
+        [TestCase("Överkalix udalerria", "Överkalix")]
+        public void GivenANameContainsTheWordMunicipality_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Provintsiya Kurted", "Kurted")]
         [TestCase("Sarāburi Praviśya", "Sarāburi")]
         public void GivenANameContainsTheWordProvince_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
@@ -97,14 +113,25 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("State of New York", "New York")]
+        [TestCase("Statul California", "California")]
+        public void GivenANameContainsTheWordState_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
         [TestCase("fi", "Tinternin luostari", "Tintern")]
+        [TestCase("fi", "Ylikainuun kunta", "Ylikainuu")]
         [TestCase("ja", "Saraburii Ken", "Saraburii")]
         [TestCase("ko", "Kungtunggu", "Kungtung")]
         [TestCase("ko", "Saraburiju", "Saraburi")]
         [TestCase("nan", "Khongtôngkhu", "Khongtông")]
+        [TestCase("nan", "Överkalix chhī", "Överkalix")]
         [TestCase("zh", "Ājīkèkùlèhú", "Ājīkèkùlè")]
         [TestCase("zh", "Běi-biāo-fǔ", "Běibiāo")]
         [TestCase("zh", "Kōngdòngōu", "Kōngdòng")]
+        [TestCase("zh", "Shǎngkǎlìkèsīshìzhēn", "Shǎngkǎlìkèsī")]
         public void GivenALanguageSpecificName_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(
             string languageCode,
             string name,
