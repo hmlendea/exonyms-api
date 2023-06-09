@@ -222,27 +222,23 @@ namespace ExonymsAPI.Service.Normalisers
                 @"qiúcháng|" +
                 @"Saamiro|" +
                 @"Tiểu vương quốc|" +
-                @"T’ohuguk",
+                @"T[’']ohuguk",
                 string.Empty);
 
             // Fort
             cleanedName = Regex.Replace(
                 cleanedName,
+                @"Benteng|" +
                 @"([CcKk][aá]str[aou][lm]*|" +
+                @"[Cc]héngbǎo|" +
                 @"Chillā|" +
-                @"Festung|" +
-                @"[Ff][oū]rt(ale[sz]a|e|[e]*[r]*e[t]*s[s]*[y]*[ae]*|ul)*|" +
+                @"[Ff][aäe]st(ni|u)ng(en)*|" +
+                @"[Ff][oū]rt([aă][lr]e[a]*[szț]a|[e]*[r]*e[t]*s[s]*[y]*[ae]*|ez[z]*a|e|ikaĵo|ul)*|" +
                 @"Kōṭṭai|" +
                 @"[Kk]repost|" +
-                @"[Tv]rdina|" +
+                @"[Tt]rd[i]*n(jav)*a|" +
                 @"[Yy]ōsai|" +
                 @"[Zz]amogy)( (roman|royale))*",
-                string.Empty);
-
-            // Gmina
-            cleanedName = Regex.Replace(
-                cleanedName,
-                @"[Gg][e]*m[e]*[ij]n[d]*[ae]",
                 string.Empty);
 
             // Hundred
@@ -277,7 +273,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Kk][eoö]ni[n]*[gk]r[e]*[iy][cej]*[hk]|" +
                 @"K[io]ng[e]*d[oø]m(met)*|" +
                 @"[Kk]irályság|" +
-                @"[Kk][o]*r[oa]l(ev)*stvo|" +
+                @"[Kk][o]*r[oaá]l[oe]*[v]*stv[ío]|" +
                 @"Ōkoku|" +
                 @"Rājy[a]*|" +
                 @"[Rr]egatul|" +
@@ -335,6 +331,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Kk]otamadya|" +
                 @"[Mm]eūang|" +
                 @"[Mm][y]*un[i]*[t]*[cs]ip[’]*([aā]*l[i]*[dtṭ][’]*(a[ds]|é|et’i|[iī]|y)|i[ou][lm]*)|" +
+                @"[Mm]unicipi|" +
                 @"[Nn]agara [Ss]abhāva|" +
                 @"[Nn]a[gk][a]*r[aā](pālika|ṭci)|" +
                 @"[Pp]ašvaldība|" +
@@ -346,8 +343,12 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"Bwrdeistref|" +
+                @"Concello|" +
                 @"D[ḗií]mos|" +
-                @"O[bp]([cćčš]|s[hj])[t]*ina",
+                @"[Gg][e]*m[e]*[ij]*n[dt]*[ae]|" +
+                @"gielda|" +
+                @"O[bp]([cćčš]|s[hj])[t]*ina|" +
+                @"udalerria",
                 string.Empty);
 
             // National Park
@@ -493,7 +494,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"Bang|" +
-                @"[EeÉéIi]*[SsŜŝŜŝŠšŞş]*[h]*[tṭ][’]*[aeē][dtṭu][’]*[aeiıosu]*[l]*|" +
+                @"[EeÉéIi]*[SsŜŝŜŝŠšŞş][h]*[tṭ][’]*[aeē][dtṭ]([aeiıos]|ul)|" +
                 @"[Oo]sariik|" +
                 @"[Oo]st[’]*an[ıi]|" +
                 @"Ūlāīẗ|" +
@@ -584,6 +585,7 @@ namespace ExonymsAPI.Service.Normalisers
             if (languageCode.Equals("fi"))
             {
                 cleanedName = Regex.Replace(cleanedName, @"in luostari", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"un kunta", "u");
             }
 
             if (languageCode.Equals("ja"))
@@ -610,12 +612,12 @@ namespace ExonymsAPI.Service.Normalisers
                 languageCode.Equals("cdo") ||
                 languageCode.Equals("nan"))
             {
-                cleanedName = Regex.Replace(cleanedName, @"(fǔ|[Hh][úū]|)\b", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"(fǔ|[Hh][úū]|shìzhēn)\b", string.Empty);
                 cleanedName = Regex.Replace(cleanedName, @"-", string.Empty);
 
                 if (languageCode.Equals("nan"))
                 {
-                    cleanedName = Regex.Replace(cleanedName, @"khu\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"(chhī|khu)\b", string.Empty);
                 }
 
                 if (languageCode.StartsWith("zh"))
