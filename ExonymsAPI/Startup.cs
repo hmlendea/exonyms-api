@@ -22,6 +22,16 @@ namespace ExonymsAPI
 
             services.AddControllers();
             services.AddCustomServices();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExonymsAPI", Version = "v1" });
