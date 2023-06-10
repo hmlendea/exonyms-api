@@ -31,6 +31,7 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Catégorie:Szeged", "Szeged")]
         [TestCase("Category:Bucharest", "Bucharest")]
         [TestCase("Kategorie:freiburg", "freiburg")]
         public void GivenAName_WhenNormalisingIt_ThenOnlyTheNamePartIsReturned(
