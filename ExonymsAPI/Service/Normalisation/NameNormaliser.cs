@@ -8,14 +8,14 @@ namespace ExonymsAPI.Service.Normalisers
         {
             string normalisedName = name;
 
-            normalisedName = Regex.Replace(normalisedName, "^\"(.*)\"$", "$1");
             normalisedName = Regex.Replace(normalisedName, " - .*", string.Empty);
+            normalisedName = Regex.Replace(normalisedName, ",.*", string.Empty);
+            normalisedName = Regex.Replace(normalisedName, "[…]", string.Empty);
             normalisedName = Regex.Replace(normalisedName, "/.*", string.Empty);
             normalisedName = Regex.Replace(normalisedName, "\\(.*", string.Empty);
-            normalisedName = Regex.Replace(normalisedName, ",.*", string.Empty);
             normalisedName = Regex.Replace(normalisedName, "\\s*<alternateName .*$", string.Empty);
-            normalisedName = Regex.Replace(normalisedName, "[…]", string.Empty);
-            normalisedName = Regex.Replace(normalisedName, "^[A-Za-z]*:", string.Empty);
+            normalisedName = Regex.Replace(normalisedName, "^\"(.*)\"$", "$1");
+            normalisedName = Regex.Replace(normalisedName, @"^[^\s]*:", string.Empty);
 
             normalisedName = RemoveWords(normalisedName);
             normalisedName = RemoveLanguageSpecificWords(languageCode, normalisedName);
