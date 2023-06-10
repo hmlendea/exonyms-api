@@ -1,17 +1,22 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ExonymsAPI.Configuration;
 
 namespace ExonymsAPI.Service.Normalisers
 {
     public class NameTransliterator : INameTransliterator
     {
-        HttpClient client;
+        readonly TransliterationSettings transliterationSettings;
+        readonly HttpClient client;
+
         IList<string> languageCodesToTransliterate;
 
-        public NameTransliterator()
+        public NameTransliterator(TransliterationSettings transliterationSettings)
         {
+            this.transliterationSettings = transliterationSettings;
             client = new HttpClient();
+
             languageCodesToTransliterate = new List<string>
             {
                 "ab", // Abkhaz
@@ -67,7 +72,7 @@ namespace ExonymsAPI.Service.Normalisers
                 return name;
             }
 
-            HttpResponseMessage response = await client.GetAsync($"http://hmlendea-translit.duckdns.org:9584/Transliteration?text={name}&language={languageCode}");
+            HttpResponseMessage response = await client.GetAsync($"{transliterationSettings.TransliterationApiBaseUrl}/Transliteration?text={name}&language={languageCode}");
 
             if (!response.IsSuccessStatusCode)
             {

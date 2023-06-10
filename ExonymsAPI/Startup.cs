@@ -21,6 +21,7 @@ namespace ExonymsAPI
         {
 
             services.AddControllers();
+            services.AddConfigurations(Configuration);
             services.AddCustomServices();
             services.AddCors(options =>
             {
