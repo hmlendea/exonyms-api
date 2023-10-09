@@ -60,6 +60,17 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Contea Jigzhi", "Jigzhi")]
+        [TestCase("Jigzhi Xian", "Jigzhi")]
+        [TestCase("Jiǔzhìxiàn", "Jiǔzhì")]
+        [TestCase("Județul Hunedoara", "Hunedoara")]
+        [TestCase("Xian Jigzhi", "Jigzhi")]
+        public void GivenANameContainsTheWordCounty_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
         [TestCase("Āiruìbùníchéngbǎo", "Āiruìbùní")]
         [TestCase("Benteng Erebuni", "Erebuni")]
         [TestCase("Erebunifästningen", "Erebuni")]

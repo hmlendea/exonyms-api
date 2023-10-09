@@ -131,7 +131,10 @@ namespace ExonymsAPI.Service.Normalisers
             // Country
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[Nn]egeri",
+                @"[Cc]ontea|" +
+                @"[Jj]ude[tț]ul|" +
+                @"[Nn]egeri|" +
+                @"[Xx]i[aà]n",
                 string.Empty);
 
             // County
