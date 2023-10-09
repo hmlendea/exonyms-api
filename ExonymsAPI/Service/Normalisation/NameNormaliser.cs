@@ -298,7 +298,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[Bb][h]*[aā][a]*[sṣ][h]*[aā][a]*|" +
-                @"[Ll][l]*[aeií][mn][g]*[buv]*[ao](ge)*",
+                @"L[l]*[aeií][mn][g]*[buv]*[ao](ge)*",
                 string.Empty);
 
             // Mountain

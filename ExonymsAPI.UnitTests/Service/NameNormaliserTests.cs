@@ -15,6 +15,7 @@ namespace ExonymsAPI.UnitTests.Service
 
         [Test]
         [TestCase("Abydos")]
+        [TestCase("Bielina")]
         [TestCase("Horamabada")]
         [TestCase("Không Đồng")]
         public void GivenANameDoesNotHaveUnwantedWords_WhenNormalisingIt_ThenTheNameRemainsIntact(
