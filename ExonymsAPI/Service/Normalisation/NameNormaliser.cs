@@ -32,6 +32,26 @@ namespace ExonymsAPI.Service.Normalisers
         {
             string cleanedName = name;
 
+            // Peninsula (must be before Island)
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"[Bb][aá]n[ ]*[dđ][aả]o|" +
+                @"[Dd]uoninsulo|" +
+                @"[Hh]antō|" +
+                @"[Ll]edenez|" +
+                @"[Nn]iemimaa|" +
+                @"[Pp][ao][luŭ][ouv]ostr[ao][uŭv]|" +
+                @"[Pp][eé]n[iíì][n]*[t]*[csz][ou][lł][aāe]|" +
+                @"[Pp]enrhyn|" +
+                @"Poàn-tó|" +
+                @"[Ss]emenanjung|" +
+                @"Tīpakaṟpam|" +
+                @"Tübegi|" +
+                @"[Yy]arim [Oo]roli|" +
+                @"[Yy]arımadası|" +
+                @"[Žž]arym [Aa]raly",
+                string.Empty);
+
             // Abbey
             cleanedName = Regex.Replace(
                 cleanedName,
@@ -131,14 +151,29 @@ namespace ExonymsAPI.Service.Normalisers
             // Country
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[Nn]egeri",
+                @"[Cc]ontea|" +
+                @"[Jj]ude[tț]ul|" +
+                @"[Nn]egeri|" +
+                @"[Xx]i[aà]n",
                 string.Empty);
 
             // County
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[Cc]o[u]*[mn]t(a(do|t)|y)|" +
-                @"Landgra[a]*fs(cha(ft|p)|tvo)",
+                @"\b[CKck]o[ou]*[mn][dt](a(do|t)|eth|é|io|y)\b|" +
+                @"\b[Cc]omitatu[ls]\b|" +
+                @"\b[Dd]aerah\b|" +
+                @"eko konderria\b|" +
+                @"ga leatna\b|" +
+                @"\bili\b|" +
+                @"i[n]* lään[i]*\b|" +
+                @"\b[Kk][oō][aā]n\b|" +
+                @"\bLandgra[a]*fs(cha(ft|p)|tvo)\b|" +
+                @"\bLehn\b|" +
+                @"megye\b|" +
+                @"s [Ll]än\b|" +
+                @"s lēne\b|" +
+                @"Sir\b",
                 string.Empty);
 
             // Department
@@ -286,7 +321,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"Gölü|" +
-                @"[Ll]a(c|cul|go|ke)|" +
+                @"[Ll][l]*[ay](c|cul|go|ke|n)|" +
                 @"[Nn][uú][u]*r|" +
                 @"[Oo]zero",
                 string.Empty);
@@ -295,7 +330,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[Bb][h]*[aā][a]*[sṣ][h]*[aā][a]*|" +
-                @"[Ll][l]*[aeií][mn][g]*[buv]*[ao](ge)*",
+                @"L[l]*[aeií][mn][g]*[buv]*[ao](ge)*",
                 string.Empty);
 
             // Mountain
@@ -365,25 +400,6 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[aā]l-[Ww]āḥāt|" +
                 @"[OoÓóŌō][syẏ]*[aáāeē][sz][h]*[aiīeėē][ans]*[uŭ]*|" +
                 @"Oūh Aēy Sít",
-                string.Empty);
-
-            // Peninsula
-            cleanedName = Regex.Replace(
-                cleanedName,
-                @"[Bb][aá]n[ ]*[dđ][aả]o|" +
-                @"[Dd]uoninsulo|" +
-                @"[Hh]antō|" +
-                @"[Ll]edenez|" +
-                @"[Nn]iemimaa|" +
-                @"[Pp][ao][luŭ][ouv]ostr[ao][uŭv]|" +
-                @"[Pp][eé]n[iíì][n]*[t]*[csz][ou][lł][aāe]|" +
-                @"[Pp]enrhyn|" +
-                @"Poàn-tó|" +
-                @"[Ss]emenanjung|" +
-                @"Tīpakaṟpam|" +
-                @"[Yy]arim [Oo]roli|" +
-                @"[Yy]arımadası|" +
-                @"[Žž]arym [Aa]raly",
                 string.Empty);
 
             // Plateau
@@ -477,9 +493,10 @@ namespace ExonymsAPI.Service.Normalisers
                 @"Afon|" +
                 @"[Ff][il]u(me|viul)|" +
                 @"Gawa|" +
+                @"hé\b|" +
                 @"Nadī|" +
-                @"Nhr|" +
-                @"[Rr]âu[l]*|" +
+                @"Nh[a]*r|" +
+                @"[Rr][âí][ou][l]*|" +
                 @"[Rr]iver|" +
                 @"Sungai",
                 string.Empty);
@@ -555,6 +572,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[AaĀā]p[h]*[a]*|" +
                 @"[Dd][aeio]*[ls]*|" +
                 @"gia|" +
+                @"\bhan\b|" +
                 @"ja|" +
                 @"[Oo]f|" +
                 @"[Mm]ạc|" +
