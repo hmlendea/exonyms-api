@@ -6,7 +6,7 @@ namespace ExonymsAPI.Service.Models
     {
         public string DefaultName { get; set; }
 
-        public IDictionary<string, string> Names { get; set; }
+        public IDictionary<string, Name> Names { get; set; }
 
         public Location()
             : this(null)
@@ -16,7 +16,7 @@ namespace ExonymsAPI.Service.Models
         public Location(string defaultName)
         {
             DefaultName = defaultName;
-            Names = new Dictionary<string, string>();
+            Names = new Dictionary<string, Name>();
         }
     }
 }
