@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace ExonymsAPI.Service.Models
 {
     public class Name
@@ -23,6 +25,7 @@ namespace ExonymsAPI.Service.Models
             }
         }
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Comment { get; set; }
 
         public Name(string name)
