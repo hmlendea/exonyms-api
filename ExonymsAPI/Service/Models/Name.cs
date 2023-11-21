@@ -23,6 +23,8 @@ namespace ExonymsAPI.Service.Models
             }
         }
 
+        public string Comment { get; set; }
+
         public Name(string name)
         {
             OriginalValue = name;

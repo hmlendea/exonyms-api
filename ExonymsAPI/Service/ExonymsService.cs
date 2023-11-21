@@ -81,6 +81,7 @@ namespace ExonymsAPI.Service
 
                         name.Value = await nameTransliterator.Transliterate(languageToFallbackFrom, name.Value);
                         name.Value = nameNormaliser.Normalise(languageToFallbackFrom, name.Value);
+                        name.Comment = $"Based on language '{languageToFallbackTo}'";
 
                         location.Names.Add(languageToFallbackFrom, name);
                     }
