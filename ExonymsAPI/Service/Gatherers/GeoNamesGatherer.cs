@@ -71,10 +71,10 @@ namespace ExonymsAPI.Service.Gatherers
                             continue;
                         }
 
-                        name.NormalisedName = await nameTransliterator.Transliterate(languageCode, name.OriginalName);
-                        name.NormalisedName = nameNormaliser.Normalise(languageCode, name.NormalisedName);
+                        name.Value = await nameTransliterator.Transliterate(languageCode, name.Value);
+                        name.Value = nameNormaliser.Normalise(languageCode, name.Value);
 
-                        if (name.NormalisedName.Equals(location.DefaultName) &&
+                        if (name.Value.Equals(location.DefaultName) &&
                             languageCode != DefaultNameLanguageCode)
                         {
                             continue;
