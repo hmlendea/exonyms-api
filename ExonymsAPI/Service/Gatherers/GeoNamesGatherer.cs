@@ -63,18 +63,18 @@ namespace ExonymsAPI.Service.Gatherers
                             continue;
                         }
 
-                        string name = alternateNameElement.Value;
+                        Name name = new Name(alternateNameElement.Value);
 
                         if (string.IsNullOrWhiteSpace(languageCode) ||
-                            string.IsNullOrWhiteSpace(name))
+                            Name.IsNullOrWhiteSpace(name))
                         {
                             continue;
                         }
 
-                        name = await nameTransliterator.Transliterate(languageCode, name);
-                        name = nameNormaliser.Normalise(languageCode, name);
+                        name.NormalisedName = await nameTransliterator.Transliterate(languageCode, name.OriginalName);
+                        name.NormalisedName = nameNormaliser.Normalise(languageCode, name.NormalisedName);
 
-                        if (name.Equals(location.DefaultName) &&
+                        if (name.NormalisedName.Equals(location.DefaultName) &&
                             languageCode != DefaultNameLanguageCode)
                         {
                             continue;

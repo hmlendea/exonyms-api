@@ -55,16 +55,16 @@ namespace ExonymsAPI.Service.Gatherers
                 foreach (var label in labels)
                 {
                     string languageCode = label.Key;
-                    string name = (string)label.Value["value"];
+                    Name name = new Name((string)label.Value["value"]);
 
                     if (name.Equals(location.DefaultName) ||
-                        string.IsNullOrWhiteSpace(name))
+                        Name.IsNullOrWhiteSpace(name))
                     {
                         continue;
                     }
 
-                    name = await nameTransliterator.Transliterate(languageCode, name);
-                    name = nameNormaliser.Normalise(languageCode, name);
+                    name.NormalisedName = await nameTransliterator.Transliterate(languageCode, name.OriginalName);
+                    name.NormalisedName = nameNormaliser.Normalise(languageCode, name.NormalisedName);
 
                     if (name.Equals(location.DefaultName) &&
                         languageCode != DefaultNameLanguageCode)
@@ -84,10 +84,10 @@ namespace ExonymsAPI.Service.Gatherers
                         continue;
                     }
 
-                    string name = (string)sitelink.Value["title"];
+                    Name name = new Name((string)sitelink.Value["title"]);
 
-                    name = await nameTransliterator.Transliterate(languageCode, name);
-                    name = nameNormaliser.Normalise(languageCode, name);
+                    name.NormalisedName = await nameTransliterator.Transliterate(languageCode, name.OriginalName);
+                    name.NormalisedName = nameNormaliser.Normalise(languageCode, name.NormalisedName);
 
                     if (name.Equals(location.DefaultName))
                     {

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using ExonymsAPI.Service.Gatherers;
 using ExonymsAPI.Service.Models;
+using ExonymsAPI.Service.Normalisers;
 
 namespace ExonymsAPI.Service
 {
@@ -11,14 +12,30 @@ namespace ExonymsAPI.Service
     {
         IGeoNamesGatherer geoNamesGatherer;
         IWikiDataGatherer wikiDataGatherer;
+        INameTransliterator nameTransliterator;
+        INameNormaliser nameNormaliser;
 
         public ExonymsService(
             IGeoNamesGatherer geoNamesGatherer,
-            IWikiDataGatherer wikiDataGatherer)
+            IWikiDataGatherer wikiDataGatherer,
+            INameTransliterator nameTransliterator,
+            INameNormaliser nameNormaliser)
         {
             this.geoNamesGatherer = geoNamesGatherer;
             this.wikiDataGatherer = wikiDataGatherer;
+            this.nameTransliterator = nameTransliterator;
+            this.nameNormaliser = nameNormaliser;
         }
+
+        private IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
+        {
+            { "bg", new List<string> { "ru", "uk" } },
+            { "be", new List<string> { "ru", "uk", "bg" } },
+            { "grc", new List<string> { "el" } },
+            { "grc-dor", new List<string> { "grc" } },
+            { "ru", new List<string> { "uk", "bg" } },
+            { "uk", new List<string> { "ru", "bg" } }
+        };
 
         public async Task<Location> Gather(string geoNamesId, string wikiDataId)
         {
@@ -46,6 +63,27 @@ namespace ExonymsAPI.Service
                 foreach (var name in gatheredLocation.Names.Where(x => !location.Names.ContainsKey(x.Key)))
                 {
                     location.Names.TryAdd(name.Key, name.Value);
+                }
+            }
+
+            foreach (string languageToFallbackFrom in languageFallbacks.Keys)
+            {
+                foreach (string languageToFallbackTo in languageFallbacks[languageToFallbackFrom])
+                {
+                    if (location.Names.ContainsKey(languageToFallbackFrom))
+                    {
+                        break;
+                    }
+
+                    if (location.Names.ContainsKey(languageToFallbackTo))
+                    {
+                        Name name = new Name(location.Names[languageToFallbackTo].OriginalName);
+
+                        name.NormalisedName = await nameTransliterator.Transliterate(languageToFallbackFrom, name.OriginalName);
+                        name.NormalisedName = nameNormaliser.Normalise(languageToFallbackFrom, name.NormalisedName);
+
+                        location.Names.Add(languageToFallbackFrom, name);
+                    }
                 }
             }
 
