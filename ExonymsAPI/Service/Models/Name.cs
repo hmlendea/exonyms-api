@@ -2,30 +2,30 @@ namespace ExonymsAPI.Service.Models
 {
     public class Name
     {
-        private string normalisedName;
+        private string value;
 
-        public string OriginalName { get; set; }
+        public string OriginalValue { get; set; }
 
-        public string NormalisedName
+        public string Value
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(normalisedName))
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    return OriginalName;
+                    return OriginalValue;
                 }
 
-                return normalisedName;
+                return value;
             }
             set
             {
-                normalisedName = value;
+                this.value = value;
             }
         }
 
         public Name(string name)
         {
-            OriginalName = name;
+            OriginalValue = name;
         }
 
         public static bool IsNullOrWhiteSpace(Name name)
@@ -35,7 +35,7 @@ namespace ExonymsAPI.Service.Models
                 return true;
             }
 
-            if (string.IsNullOrWhiteSpace(name.OriginalName))
+            if (string.IsNullOrWhiteSpace(name.Value))
             {
                 return true;
             }

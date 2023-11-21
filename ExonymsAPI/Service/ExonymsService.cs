@@ -77,10 +77,10 @@ namespace ExonymsAPI.Service
 
                     if (location.Names.ContainsKey(languageToFallbackTo))
                     {
-                        Name name = new Name(location.Names[languageToFallbackTo].OriginalName);
+                        Name name = new Name(location.Names[languageToFallbackTo].OriginalValue);
 
-                        name.NormalisedName = await nameTransliterator.Transliterate(languageToFallbackFrom, name.OriginalName);
-                        name.NormalisedName = nameNormaliser.Normalise(languageToFallbackFrom, name.NormalisedName);
+                        name.Value = await nameTransliterator.Transliterate(languageToFallbackFrom, name.Value);
+                        name.Value = nameNormaliser.Normalise(languageToFallbackFrom, name.Value);
 
                         location.Names.Add(languageToFallbackFrom, name);
                     }

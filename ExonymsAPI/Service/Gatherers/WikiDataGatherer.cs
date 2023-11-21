@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -63,8 +62,8 @@ namespace ExonymsAPI.Service.Gatherers
                         continue;
                     }
 
-                    name.NormalisedName = await nameTransliterator.Transliterate(languageCode, name.OriginalName);
-                    name.NormalisedName = nameNormaliser.Normalise(languageCode, name.NormalisedName);
+                    name.Value = await nameTransliterator.Transliterate(languageCode, name.OriginalValue);
+                    name.Value = nameNormaliser.Normalise(languageCode, name.Value);
 
                     if (name.Equals(location.DefaultName) &&
                         languageCode != DefaultNameLanguageCode)
@@ -86,8 +85,8 @@ namespace ExonymsAPI.Service.Gatherers
 
                     Name name = new Name((string)sitelink.Value["title"]);
 
-                    name.NormalisedName = await nameTransliterator.Transliterate(languageCode, name.OriginalName);
-                    name.NormalisedName = nameNormaliser.Normalise(languageCode, name.NormalisedName);
+                    name.Value = await nameTransliterator.Transliterate(languageCode, name.OriginalValue);
+                    name.Value = nameNormaliser.Normalise(languageCode, name.Value);
 
                     if (name.Equals(location.DefaultName))
                     {
