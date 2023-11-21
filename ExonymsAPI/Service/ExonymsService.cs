@@ -29,7 +29,12 @@ namespace ExonymsAPI.Service
 
         private IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
         {
-            { "be", new List<string> { "ru" } }
+            { "bg", new List<string> { "ru", "uk" } },
+            { "be", new List<string> { "ru", "uk", "bg" } },
+            { "grc", new List<string> { "el" } },
+            { "grc-dor", new List<string> { "grc" } },
+            { "ru", new List<string> { "uk", "bg" } },
+            { "uk", new List<string> { "ru", "bg" } }
         };
 
         public async Task<Location> Gather(string geoNamesId, string wikiDataId)
