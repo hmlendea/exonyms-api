@@ -160,7 +160,7 @@ namespace ExonymsAPI.Service.Normalisers
             // County
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"\b[CKck]o[ou]*[mn][dt](a(do|t)|eth|é|io|y)\b|" +
+                @"\b[CKck]o[ou]*[mn][eēiī]*[dt](a(do|t)|eía|eth|é|io|y)\b|" +
                 @"\b[Cc]omitatu[ls]\b|" +
                 @"\b[Dd]aerah\b|" +
                 @"eko konderria\b|" +
@@ -232,6 +232,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"Koān|" +
                 @"Māvaṭṭam|" +
                 @"Mnṭqẗ|" +
+                @"n piiri|" +
                 @"[Pp]asuni|" +
                 @"[Pp]iirikunta|" +
                 @"[Pp]irrâdâh|" +

@@ -77,18 +77,27 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Gävleborgga leatna", "Gävleborg")]
         [TestCase("Gävleborgi lään", "Gävleborg")]
         [TestCase("Gävleborgin lääni", "Gävleborg")]
-        [TestCase("Gävleborgs Län", "Gävleborg")]
         [TestCase("Gävleborgs län", "Gävleborg")]
+        [TestCase("Gävleborgs Län", "Gävleborg")]
         [TestCase("Jēvleborjas lēne", "Jēvleborja")]
         [TestCase("Jigzhi Xian", "Jigzhi")]
         [TestCase("Jiǔzhìxiàn", "Jiǔzhì")]
         [TestCase("Județul Hunedoara", "Hunedoara")]
+        [TestCase("Komēteía Phouchái", "Phouchái")]
+        [TestCase("Komīteía Fouchái", "Fouchái")]
         [TestCase("Komtio Gävleborg", "Gävleborg")]
         [TestCase("Konteth Gävleborg", "Gävleborg")]
         [TestCase("Lehn Gävleborg", "Gävleborg")]
         [TestCase("Sir Gävleborg", "Gävleborg")]
         [TestCase("Xian Jigzhi", "Jigzhi")]
         public void GivenANameContainsTheWordCounty_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Bygdeån piiri", "Bygdeå")]
+        public void GivenANameContainsTheWordDistrict_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
