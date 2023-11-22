@@ -16,8 +16,10 @@ namespace ExonymsAPI.UnitTests.Service
         [Test]
         [TestCase("Abydos")]
         [TestCase("Bielina")]
+        [TestCase("Bonchurch")]
         [TestCase("Horamabada")]
         [TestCase("Không Đồng")]
+        [TestCase("Klosterneuburg")]
         [TestCase("Solenoye")]
         public void GivenANameDoesNotHaveUnwantedWords_WhenNormalisingIt_ThenTheNameRemainsIntact(
             string name)

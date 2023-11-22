@@ -115,7 +115,7 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"[Bb]iserica|" +
                 @"[Cc]hiesa|" +
-                @"[Cc]hurch|" +
+                @"\b[Cc]hurch|" +
                 @"[Éé]glise|" +
                 @"[Ii]greja|" +
                 @"[Kk]yōkai",
@@ -358,7 +358,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[Bb]iara|" +
-                @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*|" +
+                @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*\b|" +
                 @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*|" +
                 @"[Ss]amostan|" +
                 @"[Ss]hu[u]*dōin",
