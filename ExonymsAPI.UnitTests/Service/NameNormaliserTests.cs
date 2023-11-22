@@ -128,6 +128,22 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Bōduōnítèsàhóu", "Bōduōnítèsà")]
+        [TestCase("Marchesato Bodonitsa", "Bodonitsa")]
+        [TestCase("Marchezà Bodonitsa", "Bodonitsa")]
+        [TestCase("Markgrafschaft Boudonitza", "Boudonitza")]
+        [TestCase("Markgrafstvo Bodonitsa", "Bodonitsa")]
+        [TestCase("Markgrevskapet Bodonitsa", "Bodonitsa")]
+        [TestCase("Marquesado Bodonitsa", "Bodonitsa")]
+        [TestCase("Marquesat Bodonitza", "Bodonitza")]
+        [TestCase("Marquisat Bodonitza", "Bodonitza")]
+        [TestCase("Marquisate Bodonitsa", "Bodonitsa")]
+        public void GivenANameContainsTheWordMarquisate_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
         [TestCase("Biara Kykkos", "Kykkos")]
         [TestCase("Kikkos monastrı", "Kikkos")]
         [TestCase("Klášter Tintern", "Tintern")]

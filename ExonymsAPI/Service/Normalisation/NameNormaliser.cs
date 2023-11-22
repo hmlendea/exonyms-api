@@ -333,6 +333,14 @@ namespace ExonymsAPI.Service.Normalisers
                 @"L[l]*[aeií][mn][g]*[buv]*[ao](ge)*",
                 string.Empty);
 
+            // Marquisate
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"Markgr[ae][fv]s((k|ch)a[fp][e]*t|tvo)|" +
+                @"Mar[ckq][hu]*[ei][sz][aáà][dt]*[eo]*|" +
+                @"hóu\b",
+                string.Empty);
+
             // Mountain
             cleanedName = Regex.Replace(
                 cleanedName,
@@ -579,7 +587,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"ng|" +
                 @"[Tt]a|" +
                 @"[Tt]hổ|" +
-                @"t[ēi]s|" +
+                @"[Tt][ēiī]s|" +
                 @"[Tt]o[uy]|" +
                 @"van|" +
                 @"w|" +
