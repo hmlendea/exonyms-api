@@ -115,7 +115,7 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"[Bb]iserica|" +
                 @"[Cc]hiesa|" +
-                @"[Cc]hurch|" +
+                @"\b[Cc]hurch|" +
                 @"[Éé]glise|" +
                 @"[Ii]greja|" +
                 @"[Kk]yōkai",
@@ -126,10 +126,14 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"[Cc]iud[aá][dt]*|" +
                 @"[Cc]ivitas|" +
-                @"[CcSs](ee|i)[tṭ]\+[aàeiy]|" +
-                @"Nagara|" +
+                @"[CcSs](ee|i)[tṭ][tṭ]*[aàeiy]|" +
+                @"\b[Kk]hot\b|" +
+                @"Na[gk]ara[mṁ]*|" +
                 @"Oraș(ul)*|" +
+                @"a Śahar|" +
                 @"Śahara|" +
+                @"\bShi\b|" +
+                @"\Bsh[iì]\b|" +
                 @"Sich’i|" +
                 @"[Ss]tadt",
                 string.Empty);
@@ -160,7 +164,7 @@ namespace ExonymsAPI.Service.Normalisers
             // County
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"\b[CKck]o[ou]*[mn][dt](a(do|t)|eth|é|io|y)\b|" +
+                @"\b[CKck]o[ou]*[mn][eēiī]*[dt](a(do|t)|eía|eth|é|io|y)\b|" +
                 @"\b[Cc]omitatu[ls]\b|" +
                 @"\b[Dd]aerah\b|" +
                 @"eko konderria\b|" +
@@ -232,6 +236,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"Koān|" +
                 @"Māvaṭṭam|" +
                 @"Mnṭqẗ|" +
+                @"n piiri|" +
                 @"[Pp]asuni|" +
                 @"[Pp]iirikunta|" +
                 @"[Pp]irrâdâh|" +
@@ -333,12 +338,20 @@ namespace ExonymsAPI.Service.Normalisers
                 @"L[l]*[aeií][mn][g]*[buv]*[ao](ge)*",
                 string.Empty);
 
+            // Marquisate
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"Markgr[ae][fv]s((k|ch)a[fp][e]*t|tvo)|" +
+                @"Mar[ckq][hu]*[ei][sz][aáà][dt]*[eo]*|" +
+                @"hóu\b",
+                string.Empty);
+
             // Mountain
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"([Gg]e)*[Bb]i[e]*rge[r]*|" +
                 @"[Dd]ağları|" +
-                @"[GgHh][ao]ra\b|" +
+                @"\b[GgHh][ao]ra\b|" +
                 @"Ǧibāl|" +
                 @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*|" +
                 @"[Pp]arvata[ṁ]*|" +
@@ -349,7 +362,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[Bb]iara|" +
-                @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*|" +
+                @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*\b|" +
                 @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*|" +
                 @"[Ss]amostan|" +
                 @"[Ss]hu[u]*dōin",
@@ -367,7 +380,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Mm]eūang|" +
                 @"[Mm][y]*un[i]*[t]*[cs]ip[’]*([aā]*l[i]*[dtṭ][’]*(a[ds]|é|et’i|[iī]|y)|i[ou][lm]*)|" +
                 @"[Mm]unicipi|" +
-                @"[Nn]agara [Ss]abhāva|" +
+                @"\b[Nn]agara [Ss]abhāva|" +
                 @"[Nn]a[gk][a]*r[aā](pālika|ṭci)|" +
                 @"[Pp]ašvaldība|" +
                 @"[Pp][a]*urasabh[āe]|" +
@@ -546,7 +559,8 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[CcKk]anton[ae]*(mendua)*|" +
-                @"[Tt]ownship",
+                @"[Tt]ownship|" +
+                @"\Bxiāng\b",
                 string.Empty);
 
             // University
@@ -557,6 +571,13 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Oo]llscoil|" +
                 @"[Uu]niversit(ate[a]a*|y)|" +
                 @"[Vv]idyaapith",
+                string.Empty);
+
+            // Municipality
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"Paḷḷattākku|" +
+                @"Valley",
                 string.Empty);
 
             // Voivodeship
@@ -579,7 +600,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"ng|" +
                 @"[Tt]a|" +
                 @"[Tt]hổ|" +
-                @"t[ēi]s|" +
+                @"[Tt][ēiī]s|" +
                 @"[Tt]o[uy]|" +
                 @"van|" +
                 @"w|" +
