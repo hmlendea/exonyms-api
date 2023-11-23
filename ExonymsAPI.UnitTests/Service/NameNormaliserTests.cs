@@ -20,6 +20,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Horamabada")]
         [TestCase("Không Đồng")]
         [TestCase("Klosterneuburg")]
+        [TestCase("Qūlja")]
         [TestCase("Solenoye")]
         public void GivenANameDoesNotHaveUnwantedWords_WhenNormalisingIt_ThenTheNameRemainsIntact(
             string name)
@@ -59,6 +60,22 @@ namespace ExonymsAPI.UnitTests.Service
         [Test]
         [TestCase("Ardal Kongtong", "Kongtong")]
         public void GivenANameContainsTheWordArea_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Gurujiyashi", "Gurujiya")]
+        [TestCase("Khulj khot", "Khulj")]
+        [TestCase("Yainiṅg Nagaraṁ", "Yainiṅg")]
+        [TestCase("Yeniṅga Śahar", "Yeniṅg")]
+        [TestCase("Yiṉiṅ Nakaram", "Yiṉiṅ")]
+        [TestCase("Yining City", "Yining")]
+        [TestCase("Yining Shi", "Yining")]
+        [TestCase("Yining Siti", "Yining")]
+        [TestCase("Yining Siṭi", "Yining")]
+        [TestCase("Yīníngshì", "Yīníng")]
+        public void GivenANameContainsTheWordCity_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));

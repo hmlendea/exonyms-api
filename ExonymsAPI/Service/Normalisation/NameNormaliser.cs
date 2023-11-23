@@ -126,10 +126,14 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"[Cc]iud[aá][dt]*|" +
                 @"[Cc]ivitas|" +
-                @"[CcSs](ee|i)[tṭ]\+[aàeiy]|" +
-                @"Nagara|" +
+                @"[CcSs](ee|i)[tṭ][tṭ]*[aàeiy]|" +
+                @"\b[Kk]hot\b|" +
+                @"Na[gk]ara[mṁ]*|" +
                 @"Oraș(ul)*|" +
+                @"a Śahar|" +
                 @"Śahara|" +
+                @"\bShi\b|" +
+                @"\Bsh[iì]\b|" +
                 @"Sich’i|" +
                 @"[Ss]tadt",
                 string.Empty);
