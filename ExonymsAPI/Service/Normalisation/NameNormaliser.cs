@@ -351,7 +351,7 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"([Gg]e)*[Bb]i[e]*rge[r]*|" +
                 @"[Dd]ağları|" +
-                @"[GgHh][ao]ra\b|" +
+                @"\b[GgHh][ao]ra\b|" +
                 @"Ǧibāl|" +
                 @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*|" +
                 @"[Pp]arvata[ṁ]*|" +
@@ -380,7 +380,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Mm]eūang|" +
                 @"[Mm][y]*un[i]*[t]*[cs]ip[’]*([aā]*l[i]*[dtṭ][’]*(a[ds]|é|et’i|[iī]|y)|i[ou][lm]*)|" +
                 @"[Mm]unicipi|" +
-                @"[Nn]agara [Ss]abhāva|" +
+                @"\b[Nn]agara [Ss]abhāva|" +
                 @"[Nn]a[gk][a]*r[aā](pālika|ṭci)|" +
                 @"[Pp]ašvaldība|" +
                 @"[Pp][a]*urasabh[āe]|" +
@@ -559,7 +559,8 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[CcKk]anton[ae]*(mendua)*|" +
-                @"[Tt]ownship",
+                @"[Tt]ownship|" +
+                @"\Bxiāng\b",
                 string.Empty);
 
             // University
@@ -570,6 +571,13 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Oo]llscoil|" +
                 @"[Uu]niversit(ate[a]a*|y)|" +
                 @"[Vv]idyaapith",
+                string.Empty);
+
+            // Municipality
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"Paḷḷattākku|" +
+                @"Valley",
                 string.Empty);
 
             // Voivodeship
