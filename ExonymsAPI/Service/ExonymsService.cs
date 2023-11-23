@@ -29,11 +29,15 @@ namespace ExonymsAPI.Service
 
         private IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
         {
-            { "bg", new List<string> { "ru", "uk" } },
             { "be", new List<string> { "ru", "uk", "bg" } },
-            { "grc", new List<string> { "el" } },
+            { "bg", new List<string> { "ru", "uk" } },
+            { "cv", new List<string> { "ru", "uk" } },
             { "grc-dor", new List<string> { "grc" } },
+            { "grc", new List<string> { "el" } },
+            { "kk", new List<string> { "ru", "bg", "uk" } },
+            { "mk", new List<string> { "bg", "ru", "uk" } },
             { "ru", new List<string> { "uk", "bg" } },
+            { "sh", new List<string> { "bg", "mk", "ru", "uk" } },
             { "uk", new List<string> { "ru", "bg" } }
         };
 
