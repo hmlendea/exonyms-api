@@ -92,6 +92,20 @@ namespace ExonymsAPI.Service
                 .OrderBy(x => x.Key)
                 .ToDictionary(x => x.Key, x => x.Value);
 
+            foreach (string language in location.Names.Keys)
+            {
+                if (string.IsNullOrWhiteSpace(location.Names[language].Value))
+                {
+                    continue;
+                }
+
+                if (!language.Equals(WikiDataGatherer.DefaultNameLanguageCode) &&
+                    location.Names[language].Value.Equals(location.DefaultName))
+                {
+                    location.Names.Remove(language);
+                }
+            }
+
             return location;
         }
     }

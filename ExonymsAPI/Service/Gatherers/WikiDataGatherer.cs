@@ -56,20 +56,13 @@ namespace ExonymsAPI.Service.Gatherers
                     string languageCode = label.Key;
                     Name name = new Name((string)label.Value["value"]);
 
-                    if (name.Equals(location.DefaultName) ||
-                        Name.IsNullOrWhiteSpace(name))
+                    if (Name.IsNullOrWhiteSpace(name))
                     {
                         continue;
                     }
 
                     name.Value = await nameTransliterator.Transliterate(languageCode, name.OriginalValue);
                     name.Value = nameNormaliser.Normalise(languageCode, name.Value);
-
-                    if (name.Equals(location.DefaultName) &&
-                        languageCode != DefaultNameLanguageCode)
-                    {
-                        continue;
-                    }
 
                     location.Names.Add(languageCode, name);
                 }

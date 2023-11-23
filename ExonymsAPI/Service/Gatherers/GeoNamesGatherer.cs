@@ -74,12 +74,6 @@ namespace ExonymsAPI.Service.Gatherers
                         name.Value = await nameTransliterator.Transliterate(languageCode, name.Value);
                         name.Value = nameNormaliser.Normalise(languageCode, name.Value);
 
-                        if (name.Value.Equals(location.DefaultName) &&
-                            languageCode != DefaultNameLanguageCode)
-                        {
-                            continue;
-                        }
-
                         location.Names.Add(languageCode, name);
                     }
                 }
