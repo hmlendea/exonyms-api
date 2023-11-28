@@ -31,13 +31,14 @@ namespace ExonymsAPI.Service
         {
             { "be", new List<string> { "ru", "uk", "bg" } },
             { "bg", new List<string> { "ru", "uk" } },
+            { "cu", new List<string> { "sr-ec", "bg", "mk", "ru", "uk" } },
             { "cv", new List<string> { "ru", "uk" } },
-            { "grc-dor", new List<string> { "grc", "el" } },
-            { "grc", new List<string> { "grc-dor", "el" } },
+            { "grc-dor", new List<string> { "grc", "el", "pnt" } },
+            { "grc", new List<string> { "grc-dor", "el", "pnt" } },
             { "kk", new List<string> { "ru", "bg", "uk" } },
-            { "mk", new List<string> { "bg", "ru", "uk" } },
+            { "mk", new List<string> { "sr-ec", "bg", "ru", "uk" } },
             { "ru", new List<string> { "uk", "bg" } },
-            { "sh", new List<string> { "bg", "mk", "ru", "uk" } },
+            { "sr-ec", new List<string> { "bg", "mk", "ru", "uk" } },
             { "uk", new List<string> { "ru", "bg" } }
         };
 
