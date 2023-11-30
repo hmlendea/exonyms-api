@@ -32,6 +32,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Solenoye")]
         [TestCase("Stolac")]
         [TestCase("Suðurland")]
+        [TestCase("Toumanian")]
         [TestCase("Virāṭanagara")]
         public void GivenANameDoesNotHaveUnwantedWords_WhenNormalisingIt_ThenTheNameRemainsIntact(
             string name)

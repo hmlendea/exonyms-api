@@ -588,7 +588,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"\bKota\b|" +
                 @"Paṭṭaṇaṁ|" +
                 @"\b[Ss]tad|" +
-                @"[TṬtṭ][aāo][v]*[uūw][mn][a]*|" +
+                @"[TṬtṭ][aāo][v]*[uūw][mn][a]*\b|" +
                 @"\Bxiāng\b",
                 string.Empty);
 
