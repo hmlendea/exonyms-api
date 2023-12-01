@@ -38,7 +38,7 @@ namespace ExonymsAPI.Service
             { "kk", new List<string> { "ru", "bg", "uk" } },
             { "mk", new List<string> { "sr-ec", "bg", "ru", "uk" } },
             { "ru", new List<string> { "uk", "bg" } },
-            { "sh", new List<string> { "sr-ec", "mk", "bg", "ru", "uk" } },
+            { "sh", new List<string> { "sr-ec", "sr", "mk", "bg", "ru", "uk" } },
             { "sr-ec", new List<string> { "bg", "mk", "ru", "uk" } },
             { "uk", new List<string> { "ru", "bg" } }
         };
