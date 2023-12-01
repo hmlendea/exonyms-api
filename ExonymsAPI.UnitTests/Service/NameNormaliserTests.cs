@@ -20,6 +20,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Birāṭanagara")]
         [TestCase("Biratnagara")]
         [TestCase("Bonchurch")]
+        [TestCase("Bulgario")]
         [TestCase("Clariae")]
         [TestCase("Daesitiates")]
         [TestCase("Escitia Menor")]
@@ -32,6 +33,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Solenoye")]
         [TestCase("Stolac")]
         [TestCase("Suðurland")]
+        [TestCase("Toumanian")]
         [TestCase("Virāṭanagara")]
         public void GivenANameDoesNotHaveUnwantedWords_WhenNormalisingIt_ThenTheNameRemainsIntact(
             string name)
