@@ -86,16 +86,22 @@ namespace ExonymsAPI.Service
                         continue;
                     }
 
-                    string nameValue = location.Names[languageToFallbackTo].OriginalValue;
-                    nameValue = await nameTransliterator.Transliterate(languageToFallbackTo, nameValue);
-                    nameValue = nameNormaliser.Normalise(languageToFallbackTo, nameValue);
-
-                    Name name = new Name(nameValue)
+                    Name name = new Name(location.Names[languageToFallbackTo].OriginalValue)
                     {
                         Comment = $"Based on language '{languageToFallbackTo}'"
                     };
 
+                    name.Value = await nameTransliterator.Transliterate(languageToFallbackFrom, name.OriginalValue);
+
+                    if (name.Value.Equals(name.OriginalValue))
+                    {
+                        name.Value = await nameTransliterator.Transliterate(languageToFallbackTo, name.OriginalValue);
+                    }
+
+                    name.Value = nameNormaliser.Normalise(languageToFallbackTo, name.Value);
+
                     location.Names.Add(languageToFallbackFrom, name);
+                    break;
                 }
             }
 
