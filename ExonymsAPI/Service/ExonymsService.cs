@@ -74,23 +74,28 @@ namespace ExonymsAPI.Service
 
             foreach (string languageToFallbackFrom in languageFallbacks.Keys)
             {
+                if (location.Names.ContainsKey(languageToFallbackFrom))
+                {
+                    break;
+                }
+
                 foreach (string languageToFallbackTo in languageFallbacks[languageToFallbackFrom])
                 {
-                    if (location.Names.ContainsKey(languageToFallbackFrom))
+                    if (!location.Names.ContainsKey(languageToFallbackTo))
                     {
-                        break;
+                        continue;
                     }
 
-                    if (location.Names.ContainsKey(languageToFallbackTo))
+                    string nameValue = location.Names[languageToFallbackTo].OriginalValue;
+                    nameValue = await nameTransliterator.Transliterate(languageToFallbackTo, nameValue);
+                    nameValue = nameNormaliser.Normalise(languageToFallbackTo, nameValue);
+
+                    Name name = new Name(nameValue)
                     {
-                        Name name = new Name(location.Names[languageToFallbackTo].OriginalValue);
+                        Comment = $"Based on language '{languageToFallbackTo}'"
+                    };
 
-                        name.Value = await nameTransliterator.Transliterate(languageToFallbackFrom, name.Value);
-                        name.Value = nameNormaliser.Normalise(languageToFallbackFrom, name.Value);
-                        name.Comment = $"Based on language '{languageToFallbackTo}'";
-
-                        location.Names.Add(languageToFallbackFrom, name);
-                    }
+                    location.Names.Add(languageToFallbackFrom, name);
                 }
             }
 
