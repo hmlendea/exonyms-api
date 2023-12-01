@@ -118,7 +118,7 @@ namespace ExonymsAPI.Service.Normalisers
             // Castle
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[CcGgKk]a[i]*[sz][lt][ei]*[aál][il]*[eoulmn]*[a]*|" +
+                @"\n[CcGgKk]a[i]*[sz][lt][ei]*[aál][il]*[eoulmn]*[a]*|" +
                 @"[Cc]h[aâ]teau|" +
                 @"Dvorac|" +
                 @"[KkQq]al[ae]s[iı]|" +

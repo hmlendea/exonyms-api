@@ -25,6 +25,8 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Daesitiates")]
         [TestCase("Escitia Menor")]
         [TestCase("Horamabada")]
+        [TestCase("Kastamonī́")]
+        [TestCase("Kastamōnu")]
         [TestCase("Không Đồng")]
         [TestCase("Klosterneuburg")]
         [TestCase("Morava de Vest")]
