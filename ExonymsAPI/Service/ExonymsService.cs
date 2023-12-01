@@ -29,18 +29,18 @@ namespace ExonymsAPI.Service
 
         private IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
         {
-            { "be", new List<string> { "ru", "uk", "bg" } },
-            { "bg", new List<string> { "ru", "uk" } },
-            { "cu", new List<string> { "sr-ec", "bg", "mk", "ru", "uk" } },
-            { "cv", new List<string> { "ru", "uk" } },
+            { "be", new List<string> { "ru", "uk", "bg", "cv" } },
+            { "bg", new List<string> { "ru", "uk", "be", "cv" } },
+            { "cu", new List<string> { "sr-ec", "bg", "mk", "ru", "uk", "be", "cv" } },
+            { "cv", new List<string> { "ru", "uk", "be", "bg" } },
             { "grc-dor", new List<string> { "grc", "el", "pnt" } },
             { "grc", new List<string> { "grc-dor", "el", "pnt" } },
-            { "kk", new List<string> { "ru", "bg", "uk" } },
-            { "mk", new List<string> { "sr-ec", "bg", "ru", "uk" } },
-            { "ru", new List<string> { "uk", "bg" } },
-            { "sh", new List<string> { "sr-ec", "sr", "mk", "bg", "ru", "uk" } },
-            { "sr-ec", new List<string> { "bg", "mk", "ru", "uk" } },
-            { "uk", new List<string> { "ru", "bg" } }
+            { "kk", new List<string> { "cv", "ru", "bg", "uk", "be" } },
+            { "mk", new List<string> { "sr-ec", "bg", "ru", "uk", "be", "cv" } },
+            { "ru", new List<string> { "uk", "bg", "be", "cv" } },
+            { "sh", new List<string> { "sr-ec", "sr", "mk", "bg", "ru", "uk", "be", "cv" } },
+            { "sr-ec", new List<string> { "sr", "bg", "mk", "ru", "uk", "be", "cv" } },
+            { "uk", new List<string> { "ru", "bg", "be", "cv" } }
         };
 
         public async Task<Location> Gather(string geoNamesId, string wikiDataId)
