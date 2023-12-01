@@ -534,7 +534,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"Nadī\b|" +
                 @"N[e]*h[a]*r[i]*\b|" +
                 @"Raka\b|" +
-                @"[Rr][âií][ou][l]*\b|" +
+                @"\b[Rr][âií][ou][l]*\b|" +
                 @"[Rr]iver\b|" +
                 @"Sungai\b",
                 string.Empty);

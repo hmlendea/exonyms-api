@@ -20,6 +20,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Birāṭanagara")]
         [TestCase("Biratnagara")]
         [TestCase("Bonchurch")]
+        [TestCase("Bulgario")]
         [TestCase("Clariae")]
         [TestCase("Daesitiates")]
         [TestCase("Escitia Menor")]
