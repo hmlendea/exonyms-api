@@ -118,7 +118,7 @@ namespace ExonymsAPI.Service.Normalisers
             // Castle
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[CcGgKk]a[i]*[sz][lt][ei]*[aál][il]*[eoulmn]*[a]*|" +
+                @"\n[CcGgKk]a[i]*[sz][lt][ei]*[aál][il]*[eoulmn]*[a]*|" +
                 @"[Cc]h[aâ]teau|" +
                 @"Dvorac|" +
                 @"[KkQq]al[ae]s[iı]|" +
@@ -270,9 +270,11 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"bǎijué|" +
-                @"[Dd][uü][ck]([aá][dt]*[otu][l]*|h[éy]|lüğü)|" +
-                @"Hertogdom|" +
-                @"Kadipaten",
+                @"\bCông quốc\b|" +
+                @"\b[Dd][o]*[uüū][cgkq][iy]*[aá]*([dt]*[otu][l]*|eth|h[éy]*|l[ıü]ğ[ıü])\b|" +
+                @"\bH[i]*er[t]*[sz]*[iou][o]*(ch|g)[s]*[dt][oöøuv][o]*[m]*(et)*\b|" +
+                @"\bKadipaten|" +
+                @"\bkunigaikštystė\b",
                 string.Empty);
 
             // Emirate
@@ -384,7 +386,7 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"[Bb]iara|" +
                 @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*\b|" +
-                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*|" +
+                @"\b((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*\b|" +
                 @"[Ss]amostan|" +
                 @"[Ss]hu[u]*dōin",
                 string.Empty);
@@ -453,7 +455,8 @@ namespace ExonymsAPI.Service.Normalisers
             // Prefecture
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[Pp]r[aäeé][e]*fe[ckt]t[uúū]r[ae]*",
+                @"[Pp]r[aäeé][e]*fe[ckt]t[uúū]r[ae]*|" +
+                @"[Tt]od[oō]fuken\b",
                 string.Empty);
 
             // Province
@@ -620,7 +623,7 @@ namespace ExonymsAPI.Service.Normalisers
             // Voivodeship
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"V[éo][i]*[e]*vod[ae]*(s(hip|tv[ií])|t(e|ul))",
+                @"V[éo][ij]*[e]*vod[ae]*(s(hip|tv[iío])|t(e|ul))",
                 string.Empty);
 
             cleanedName = Regex.Replace(cleanedName, "^\\s*" + of_pattern, string.Empty);
@@ -636,6 +639,11 @@ namespace ExonymsAPI.Service.Normalisers
             if (languageCode.Equals("ang"))
             {
                 cleanedName = Regex.Replace(cleanedName, @"enrice\b", "e");
+            }
+
+            if (languageCode.Equals("cz"))
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bské [Vv]évodství\b", "sko");
             }
 
             if (languageCode.Equals("fi"))
@@ -684,6 +692,7 @@ namespace ExonymsAPI.Service.Normalisers
 
                 if (languageCode.StartsWith("zh"))
                 {
+                    cleanedName = Regex.Replace(cleanedName, @"gōng\b", string.Empty);
                     cleanedName = Regex.Replace(cleanedName, @"ōu\b", string.Empty);
                 }
             }
