@@ -137,6 +137,23 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Công quốc Holesten", "Holesten")]
+        [TestCase("Doukáto tou Chόlstaïn", "Chόlstaïn")]
+        [TestCase("Dugiaeth Holstein", "Holstein")]
+        [TestCase("Dūqiyyah Hūlštāīn", "Hūlštāīn")]
+        [TestCase("Hertigdömet Holstein", "Holstein")]
+        [TestCase("Hertoochdoom Holstian", "Holstian")]
+        [TestCase("Hertsogstvo Holshtayn", "Holshtayn")]
+        [TestCase("Hertugdømmet Holsten", "Holsten")]
+        [TestCase("Herzogtum Holstein", "Holstein")]
+        [TestCase("Holšteino kunigaikštystė", "Holšteino")]
+        [TestCase("Vojvodstvo Holštajn", "Holštajn")]
+        public void GivenANameContainsTheWordDuchy_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
         [TestCase("Āiruìbùníchéngbǎo", "Āiruìbùní")]
         [TestCase("Benteng Erebuni", "Erebuni")]
         [TestCase("Erebunifästningen", "Erebuni")]

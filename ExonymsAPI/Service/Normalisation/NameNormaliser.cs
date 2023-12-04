@@ -270,9 +270,11 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"bǎijué|" +
-                @"[Dd][uü][ck]([aá][dt]*[otu][l]*|h[éy]|lüğü)|" +
-                @"Hertogdom|" +
-                @"Kadipaten",
+                @"\bCông quốc\b|" +
+                @"\b[Dd][o]*[uüū][cgkq][iy]*[aá]*([dt]*[otu][l]*|eth|h[éy]*|l[ıü]ğ[ıü])\b|" +
+                @"\bH[i]*er[t]*[sz]*[iou][o]*(ch|g)[s]*[dt][oöøuv][o]*[m]*(et)*\b|" +
+                @"\bKadipaten|" +
+                @"\bkunigaikštystė\b",
                 string.Empty);
 
             // Emirate
@@ -620,7 +622,7 @@ namespace ExonymsAPI.Service.Normalisers
             // Voivodeship
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"V[éo][i]*[e]*vod[ae]*(s(hip|tv[ií])|t(e|ul))",
+                @"V[éo][ij]*[e]*vod[ae]*(s(hip|tv[iío])|t(e|ul))",
                 string.Empty);
 
             cleanedName = Regex.Replace(cleanedName, "^\\s*" + of_pattern, string.Empty);
