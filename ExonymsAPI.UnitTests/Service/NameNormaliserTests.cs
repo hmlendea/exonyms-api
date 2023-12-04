@@ -29,6 +29,9 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Kastamōnu")]
         [TestCase("Không Đồng")]
         [TestCase("Klosterneuburg")]
+        [TestCase("Manastïr")]
+        [TestCase("Manastır")]
+        [TestCase("Monasterium")]
         [TestCase("Morava de Vest")]
         [TestCase("Qūlja")]
         [TestCase("Sakaria")]
@@ -234,6 +237,13 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Obabaieruntodōfuken", "Obabaierun")]
+        public void GivenANameContainsTheWordPrefecture_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
         [TestCase("Ríu Chichikleya", "Chichikleya")]
         public void GivenANameContainsTheWordProvince_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
@@ -297,6 +307,7 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("cz", "Holštýnské vévodství", "Holštýnsko")]
         [TestCase("fi", "Tinternin luostari", "Tintern")]
         [TestCase("fi", "Ylikainuun kunta", "Ylikainuu")]
         [TestCase("ja", "Saraburii Ken", "Saraburii")]
@@ -307,6 +318,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("nan", "Överkalix chhī", "Överkalix")]
         [TestCase("zh", "Ājīkèkùlèhú", "Ājīkèkùlè")]
         [TestCase("zh", "Běi-biāo-fǔ", "Běibiāo")]
+        [TestCase("zh", "Héěrsītàiyīngōng", "Héěrsītàiyīn")]
         [TestCase("zh", "Kōngdòngōu", "Kōngdòng")]
         [TestCase("zh", "Shǎngkǎlìkèsīshìzhēn", "Shǎngkǎlìkèsī")]
         public void GivenALanguageSpecificName_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(

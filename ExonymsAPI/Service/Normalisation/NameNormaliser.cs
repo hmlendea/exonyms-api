@@ -386,7 +386,7 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName,
                 @"[Bb]iara|" +
                 @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*\b|" +
-                @"((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*|" +
+                @"\b((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*\b|" +
                 @"[Ss]amostan|" +
                 @"[Ss]hu[u]*dōin",
                 string.Empty);
@@ -455,7 +455,8 @@ namespace ExonymsAPI.Service.Normalisers
             // Prefecture
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[Pp]r[aäeé][e]*fe[ckt]t[uúū]r[ae]*",
+                @"[Pp]r[aäeé][e]*fe[ckt]t[uúū]r[ae]*|" +
+                @"[Tt]od[oō]fuken\b",
                 string.Empty);
 
             // Province
@@ -640,6 +641,11 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName = Regex.Replace(cleanedName, @"enrice\b", "e");
             }
 
+            if (languageCode.Equals("cz"))
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bské [Vv]évodství\b", "sko");
+            }
+
             if (languageCode.Equals("fi"))
             {
                 cleanedName = Regex.Replace(cleanedName, @"in luostari", string.Empty);
@@ -686,6 +692,7 @@ namespace ExonymsAPI.Service.Normalisers
 
                 if (languageCode.StartsWith("zh"))
                 {
+                    cleanedName = Regex.Replace(cleanedName, @"gōng\b", string.Empty);
                     cleanedName = Regex.Replace(cleanedName, @"ōu\b", string.Empty);
                 }
             }
