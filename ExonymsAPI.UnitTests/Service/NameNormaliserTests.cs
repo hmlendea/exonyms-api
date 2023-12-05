@@ -29,6 +29,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Kastamōnu")]
         [TestCase("Không Đồng")]
         [TestCase("Klosterneuburg")]
+        [TestCase("Llanbadarn Fawr")]
         [TestCase("Manastïr")]
         [TestCase("Manastır")]
         [TestCase("Monasterium")]

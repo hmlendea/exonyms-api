@@ -358,7 +358,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"\b[Bb][h]*[aā][a]*[sṣ][h]*[aā][a]*\b|" +
-                @"L[l]*[aeií][mn][g]*[buv]*[ao](ge)*",
+                @"\bL[l]*[aeií][mn][g]*[buv]*[ao](ge)*\b",
                 string.Empty);
 
             // Marquisate
