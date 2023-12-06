@@ -86,6 +86,12 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Aa]gen[cț][ijy][a]*",
                 string.Empty);
 
+            // Airport
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"\b[Aa][ei]r[o]*port\b",
+                string.Empty);
+
             // Ancient
             cleanedName = Regex.Replace(
                 cleanedName,
@@ -93,7 +99,6 @@ namespace ExonymsAPI.Service.Normalisers
                 @"Antiikin [Aa]nti[i]*[ck](a|in)*|" +
                 @"Ar[c]*ha[ií][ac]",
                 string.Empty);
-
 
             // Area
             cleanedName = Regex.Replace(
@@ -118,8 +123,8 @@ namespace ExonymsAPI.Service.Normalisers
             // Castle
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"\n[CcGgKk]a[i]*[sz][lt][ei]*[aál][il]*[eoulmn]*[a]*|" +
-                @"[Cc]h[aâ]teau|" +
+                @"\b[CcGgKk]a[i]*[sz][lt][ei]*[aál][il]*[eoulmn]*[a]*\b|" +
+                @"\b[Cc]h[aâ]teau|" +
                 @"Dvorac|" +
                 @"[KkQq]al[ae]s[iı]|" +
                 @"Z[aá]m[aeo][gk][y]*",
@@ -159,6 +164,12 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Ss]tadt",
                 string.Empty);
 
+            // Cliff
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"\b[Cc]liff[s]*\b",
+                string.Empty);
+
             // Commune
             cleanedName = Regex.Replace(
                 cleanedName,
@@ -179,7 +190,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Cc]ontea|" +
                 @"[Jj]ude[tț]ul|" +
                 @"[Nn]egeri|" +
-                @"[Xx]i[aà]n",
+                @"\bXian\b",
                 string.Empty);
 
             // County
@@ -255,6 +266,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Jj]ēlā|" +
                 @"Jil[lh]*[aāeo][a]*|" +
                 @"Koān|" +
+                @"[Mm]a[nṇ][dḍ]ala[m]*\b|" +
                 @"Māvaṭṭam|" +
                 @"Mnṭqẗ|" +
                 @"n piiri|" +
@@ -264,6 +276,16 @@ namespace ExonymsAPI.Service.Normalisers
                 @"Qu(ận)*|" +
                 @"[Rr]a[iy]on[iu]|" +
                 @"sum",
+                string.Empty);
+
+            // Division
+            cleanedName = Regex.Replace(
+                cleanedName,
+                @"\b[Bb][ai][b]*h[aā]g[i]*a[n]*\b|" +
+                @"\b[Dd]ivisi[oó][n]*[e]*\b|" +
+                @"\b[K]ōṭṭam\b|" +
+                @"\bMandal\b|" +
+                @"vibhāgaḥ\b",
                 string.Empty);
 
             // Duchy
@@ -292,7 +314,8 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"Benteng|" +
-                @"([CcKk][aá]str[aou][lm]*|" +
+                @"(" +
+                @"\b[CcKk][aá]str[aou][lm]*\b|" +
                 @"[Cc]héngbǎo|" +
                 @"Chillā|" +
                 @"[Ff][aäe]st(ni|u)ng(en)*|" +
@@ -301,15 +324,16 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Kk]repost|" +
                 @"[Tt]rd[i]*n(jav)*a|" +
                 @"[Yy]ōsai|" +
-                @"[Zz]amogy)( (roman|royale))*",
+                @"[Zz]amogy" +
+                @")( (roman|royale))*",
                 string.Empty);
 
             // Hundred
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"[Hh][äe]r[r]*[ae]d|" +
-                @"[Hh]undred|" +
-                @"[Kk]ihlakunta",
+                @"\b[Hh]erred\b|" +
+                @"\b[Hh]undred\b|" +
+                @"\b[Kk]ihlakunta\b",
                 string.Empty);
 
             // Island
@@ -334,7 +358,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"guó|" +
                 @"Irācciyam|" +
                 @"[Kk][eoö]ni[n]*[gk]r[e]*[iy][cej]*[hk]|" +
-                @"K[io]ng[e]*d[oø]m(met)*|" +
+                @"K[iou]ng[ae]*d[oöø]m([m]*et)*[s]*|" +
                 @"[Kk]irályság|" +
                 @"[Kk][o]*r[oaá]l[oe]*[v]*stv[ío]|" +
                 @"Ōkoku|" +
@@ -358,7 +382,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"\b[Bb][h]*[aā][a]*[sṣ][h]*[aā][a]*\b|" +
-                @"L[l]*[aeií][mn][g]*[buv]*[ao](ge)*",
+                @"\bL[l]*[aeií][mn][g]*[buv]*[ao](ge)*\b",
                 string.Empty);
 
             // Marquisate
@@ -434,7 +458,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"[aā]l-[Ww]āḥāt|" +
-                @"[OoÓóŌō][syẏ]*[aáāeē][sz][h]*[aiīeėē][ans]*[uŭ]*|" +
+                @"\b[OoÓóŌō][syẏ]*[aáāeē][sz][h]*[aiīeėē][ans]*[uŭ]*\b|" +
                 @"Oūh Aēy Sít",
                 string.Empty);
 
@@ -534,12 +558,16 @@ namespace ExonymsAPI.Service.Normalisers
                 @"\B[GKgk]awa\b|" +
                 @"\Bhé\b|" +
                 @"jõgi\b|" +
+                @"\b[Kk]ogin\b|" +
+                @"\b[Mm]to\b|" +
                 @"Nadī\b|" +
                 @"N[e]*h[a]*r[i]*\b|" +
                 @"Raka\b|" +
                 @"\b[Rr][âií][ou][l]*\b|" +
-                @"[Rr]iver\b|" +
-                @"Sungai\b",
+                @"\b[Rr]iver\b|" +
+                @"\b[Ss]het\'|" +
+                @"\bSungai\b|" +
+                @"\bWenz\b",
                 string.Empty);
 
             // Ruin
@@ -636,24 +664,34 @@ namespace ExonymsAPI.Service.Normalisers
         {
             string cleanedName = name;
 
-            if (languageCode.Equals("ang"))
+            if (languageCode.Equals("ang")) // English (Old)
             {
-                cleanedName = Regex.Replace(cleanedName, @"enrice\b", "e");
+                cleanedName = Regex.Replace(cleanedName, @"\Benrice\b", "e");
             }
 
-            if (languageCode.Equals("cz"))
+            if (languageCode.Equals("cz")) // Czech
             {
                 cleanedName = Regex.Replace(cleanedName, @"\Bské [Vv]évodství\b", "sko");
             }
 
-            if (languageCode.Equals("fi"))
+            if (languageCode.Equals("en")) // English
             {
-                cleanedName = Regex.Replace(cleanedName, @"in luostari", string.Empty);
-                cleanedName = Regex.Replace(cleanedName, @"un kunta", "u");
+                cleanedName = Regex.Replace(cleanedName, @"National Natural Reserve", "");
             }
 
-            if (languageCode.Equals("ja"))
+            if (languageCode.Equals("fi")) // Finnish
             {
+                cleanedName = Regex.Replace(cleanedName, @"\Bin luostari\b", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"\Bikunta\b", "");
+                cleanedName = Regex.Replace(cleanedName, @"\Bun kunta\b", "u");
+
+                cleanedName = Regex.Replace(cleanedName, @"kunta\b", "");
+            }
+
+            if (languageCode.Equals("ja")) // Japanese
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bbaraki\b", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"\Bgun\b", string.Empty); // District
                 cleanedName = Regex.Replace(cleanedName, @"Ken\b", string.Empty);
             }
 
@@ -662,27 +700,48 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName = Regex.Replace(cleanedName, @"U'", "Ú");
             }
 
-            if (languageCode.Equals("ko"))
+            if (languageCode.Equals("ko")) // Korean
             {
-                cleanedName = Regex.Replace(cleanedName, @"[gj]u\b", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @" Gun\b", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"\B[gj]u\b", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"\Bhyeon\b", string.Empty); // County
             }
 
-            if (languageCode.Equals("lt"))
+            if (languageCode.Equals("lt")) // Slithuanian
             {
                 cleanedName = Regex.Replace(cleanedName, @"\bŠv", "Šventasis");
             }
 
             if (languageCode.Equals("ml"))
             {
-                // Town
-                cleanedName = Regex.Replace(cleanedName, @"\bBandar\b", "");
+                cleanedName = Regex.Replace(cleanedName, @"\bBandar\b", string.Empty); // Town
             }
 
+            if (languageCode.Equals("ms"))
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\b[Ll]apangan [Tt]erbang\b", string.Empty); // Airport
+            }
+
+            if (languageCode.Equals("pl"))
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\b[Pp]ort [Ll]otniczy\b", string.Empty); // Airport
+            }
+
+            if (languageCode.Equals("sv")) // Swedish
+            {
+                cleanedName = Regex.Replace(cleanedName, @"s [Hh]ärad\b", string.Empty); // Hundred
+            }
+
+            if (languageCode.Equals("vi")) // Vietnamese
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\bHuyện", string.Empty);
+            }
+
+            // Chinese
             if (languageCode.StartsWith("zh") ||
                 languageCode.Equals("cdo") ||
                 languageCode.Equals("nan"))
             {
-                cleanedName = Regex.Replace(cleanedName, @"(fǔ|[Hh][úū]|shìzhēn)\b", string.Empty);
                 cleanedName = Regex.Replace(cleanedName, @"-", string.Empty);
 
                 if (languageCode.Equals("nan"))
@@ -692,8 +751,21 @@ namespace ExonymsAPI.Service.Normalisers
 
                 if (languageCode.StartsWith("zh"))
                 {
-                    cleanedName = Regex.Replace(cleanedName, @"gōng\b", string.Empty);
-                    cleanedName = Regex.Replace(cleanedName, @"ōu\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bcūn\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bfǔ\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bgōng\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bgūjízìránbǎohù\b", string.Empty); // National Natural Reserve
+                    cleanedName = Regex.Replace(cleanedName, @"\Bhé\b", string.Empty); // River
+                    cleanedName = Regex.Replace(cleanedName, @"\Bhú\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bhúxiàn\b", string.Empty); // Lake
+                    cleanedName = Regex.Replace(cleanedName, @"\Bōu\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bshì\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bshìzhēn\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bsì\b", string.Empty); // Monastery
+                    cleanedName = Regex.Replace(cleanedName, @"\Bxiàn\b", string.Empty); // Country
+                    cleanedName = Regex.Replace(cleanedName, @"\Bxiāng\b", string.Empty); // Township
+                    cleanedName = Regex.Replace(cleanedName, @"\Bzhēn\b", string.Empty);
+                    cleanedName = Regex.Replace(cleanedName, @"\Bzhuān\b", string.Empty);
                 }
             }
 
