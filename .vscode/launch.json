@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/ExonymsAPI/bin/Debug/net7.0/ExonymsAPI.dll",
+            "program": "${workspaceFolder}/ExonymsAPI/bin/Debug/net8.0/ExonymsAPI.dll",
             "args": [],
             "cwd": "${workspaceFolder}/ExonymsAPI",
             "stopAtEntry": false,
