@@ -38,8 +38,7 @@ namespace ExonymsAPI.Service
             { "kk", new List<string> { "cv", "ru", "bg", "uk", "be" } },
             { "mk", new List<string> { "sr-ec", "bg", "ru", "uk", "be", "cv" } },
             { "ru", new List<string> { "uk", "bg", "be", "cv" } },
-            { "sh", new List<string> { "sr-ec", "sr", "mk", "bg", "ru", "uk", "be", "cv" } },
-            { "sr-ec", new List<string> { "sr", "bg", "mk", "ru", "uk", "be", "cv" } },
+            { "sh", new List<string> { "sr", "sr-ec", "mk", "bg", "ru", "uk", "be", "cv" } },
             { "uk", new List<string> { "ru", "bg", "be", "cv" } }
         };
 
@@ -72,11 +71,24 @@ namespace ExonymsAPI.Service
                 }
             }
 
+            location = RemoveRedundantExonyms(location);
+            location = await ApplyFallbacks(location);
+            location = RemoveRedundantExonyms(location);
+
+            location.Names = location.Names
+                .OrderBy(x => x.Key)
+                .ToDictionary(x => x.Key, x => x.Value);
+
+            return location;
+        }
+
+        private async Task<Location> ApplyFallbacks(Location location)
+        {
             foreach (string languageToFallbackFrom in languageFallbacks.Keys)
             {
                 if (location.Names.ContainsKey(languageToFallbackFrom))
                 {
-                    break;
+                    continue;
                 }
 
                 foreach (string languageToFallbackTo in languageFallbacks[languageToFallbackFrom])
@@ -105,10 +117,11 @@ namespace ExonymsAPI.Service
                 }
             }
 
-            location.Names = location.Names
-                .OrderBy(x => x.Key)
-                .ToDictionary(x => x.Key, x => x.Value);
+            return location;
+        }
 
+        private Location RemoveRedundantExonyms(Location location)
+        {
             foreach (string language in location.Names.Keys)
             {
                 if (string.IsNullOrWhiteSpace(location.Names[language].Value))

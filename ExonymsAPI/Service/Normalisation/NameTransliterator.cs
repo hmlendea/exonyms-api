@@ -53,8 +53,10 @@ namespace ExonymsAPI.Service.Normalisers
                 "os", // Ossetic
                 "ru", // Russian
                 "sa", // Sanskrit
+                "sh", // SerboCroatian
                 "si", // Sinhala
                 "sr", // Serbian
+                "sr-ec", // Serbian Cyrillic
                 "ta", // Tamil
                 "te", // Telugu
                 "th", // Thai
