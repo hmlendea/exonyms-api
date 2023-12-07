@@ -177,5 +177,61 @@ namespace ExonymsAPI.UnitTests.Service.Constructors
             string germanName,
             string middleHighGermanName)
             => Assert.That(constructor.Construct(germanName, "gmh"), Is.EqualTo(middleHighGermanName));
+
+        [TestCase("Archenfield", "Ircingafeld")]
+        [TestCase("Aylesbury", "Ægelesburh")]
+        [TestCase("Bakewell", "Badecawella")]
+        [TestCase("Berwick", "Berewik")]
+        [TestCase("Birmingham", "Beormingaham")]
+        [TestCase("Buckfast", "Bukfasten")]
+        [TestCase("Chesterfield", "Kesterfeld")]
+        [TestCase("Clydesdale", "Klidesdal")]
+        [TestCase("Cornwall", "Cornweal")]
+        public void GivenAnEnglishName_WhenConstructingTheOldLowGermanName_ThenTheCorrectNameIsReturned(
+            string englishName,
+            string oldLowGermanName)
+            => Assert.That(constructor.Construct(englishName, "osx"), Is.EqualTo(oldLowGermanName));
+
+        //[TestCase("Aargau", "Aarga")]
+        //[TestCase("Aschersleben", "Ascherslebbe")]
+        [TestCase("Aschaffenburg", "Askeppanburg")]
+        [TestCase("Aschaffenburg", "Askeppanburg")]
+        [TestCase("Arnstein", "Arnesten")]
+        [TestCase("Arnheim", "Arnhem")]
+        [TestCase("Aachen", "Aken")]
+        [TestCase("Aalburg", "Alburg")]
+        [TestCase("Aarschot", "Arnskot")]
+        [TestCase("Aardenburg", "Erthanburg")]
+        [TestCase("Österreich", "Ostriki")]
+        [TestCase("Abingdon", "Abbandune")]
+        [TestCase("Ahlden", "Ahldan")]
+        [TestCase("Ahrensberg", "Aharanberg")]
+        [TestCase("Ackerhaus", "Akkarhus")]
+        [TestCase("Weißenburg", "Hwitunburg")]
+        [TestCase("Alnwick", "Alnwik")]
+        [TestCase("Althofen", "Aldhofum")]
+        [TestCase("Altstätten", "Aldstedios")]
+        [TestCase("Antwerpen", "Endhwervan")]
+        [TestCase("Siebenbürgen", "Sivunburgium")]
+        [TestCase("Bergschlägen", "Bergslegin")]
+        [TestCase("Böhmen", "Bohemen")]
+        //[TestCase("Braunsberg", "Brunasberg")]
+        [TestCase("Brunsbüttel", "Brunbudil")]
+        [TestCase("Braunschweig", "Bronswiek")]
+        [TestCase("Cloppenburg", "Kloppanburg")]
+        [TestCase("Kopenhagen", "Kopanhoaven")]
+        [TestCase("Darmstadt", "Darmstedi")]
+        public void GivenAGermanName_WhenConstructingTheOldLowGermanName_ThenTheCorrectNameIsReturned(
+            string germanName,
+            string oldLowGermanName)
+            => Assert.That(constructor.Construct(germanName, "osx"), Is.EqualTo(oldLowGermanName));
+
+        [TestCase("Älvsborg", "Alfburg")]
+        [TestCase("Askersund", "Askasund")]
+        [TestCase("Ångermanland", "Engirmanland")]
+        public void GivenASwedishName_WhenConstructingTheOldLowGermanName_ThenTheCorrectNameIsReturned(
+            string swedishName,
+            string oldLowGermanName)
+            => Assert.That(constructor.Construct(swedishName, "osx"), Is.EqualTo(oldLowGermanName));
     }
 }

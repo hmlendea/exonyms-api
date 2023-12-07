@@ -6,6 +6,7 @@ namespace ExonymsAPI.Service.Processors
     public class NameConstructor : INameConstructor
     {
         Dictionary<string, string> germanMiddleHighTransformations;
+        Dictionary<string, string> germanOldLowTransformations;
 
         public NameConstructor()
         {
@@ -87,6 +88,85 @@ namespace ExonymsAPI.Service.Processors
                 { @"lsbërc", "lebërc" },
                 { @"([Bb])roun", "$1raun" },
             };
+
+            germanOldLowTransformations = new Dictionary<string, string>
+            {
+                { @"[AÄÅ]n", "En" },
+                { @"\bAard", "Erd" },
+                { @"\bAbi", "Abba" },
+                { @"\bArc", "Irc" },
+                { @"\bAyle", "Ægele" },
+                { @"\bCl", "Kl" },
+                { @"Ä", "A" },
+
+                { @"([^l])den", "$1than" },
+                { @"([Aa])a", "$1" },
+                { @"([Aa])lt", "$1ld" },
+                { @"([Aa])lv", "$1lf" },
+                { @"([Bb])[ouü]rgen", "$1urgium" },
+                { @"([Bb])ake", "$1adec" },
+                { @"([Bb])ir", "$1eor" },
+                { @"([Bb])org", "$1urg" },
+                { @"([Bb])raun", "$1ron" },
+                { @"([Bb])ury", "$1urh" },
+                { @"([dr])en", "$1an" },
+                { @"([Ff])ield", "$1eld" },
+                { @"([Hh])agen\b", "$1oaven" },
+                { @"([Hh])aus", "$1us" },
+                { @"([Hh])eim", "$1em" },
+                { @"([Hh])m", "$1em" },
+                { @"([Hh])ofen", "$1ofum" },
+                { @"([r])chen", "$1cinga" },
+                { @"([Rr])eich", "$1iki" },
+                { @"([Ss])tätten", "$1tedios" },
+                { @"([ßt])en", "$1un" },
+                { @"([Ww])erpen", "$1ervan" },
+                { @"\Bgau\b", "ga" },
+                { @"\Bwell\b", "wella" },
+                { @"aff", "epp" },
+                { @"aun", "una" },
+                { @"Che", "Ke" },
+                { @"cw", "caw" },
+                { @"dale\b", "dal" },
+                { @"don\b", "dune" },
+                { @"fast\b", "fasten" },
+                { @"fsb", "fb" },
+                { @"ger", "gir" },
+                { @"gham", "gaham" },
+                { @"hr", "har" },
+                { @"ieben", "ivun" },
+                { @"kers", "kas" },
+                { @"lägen", "legin" },
+                { @"ngd", "nd" },
+                { @"nsb", "nb" },
+                { @"nst", "nest" },
+                { @"nt", "ndh" },
+                { @"Öster", "Ost" },
+                { @"pen", "pan" },
+                { @"rs", "rns" },
+                { @"rw", "rew" },
+                { @"ß", "t" },
+                { @"stadt\b", "stedi" },
+                { @"tte", "di" },
+                { @"uck", "uk" },
+                { @"wall\b", "weal" },
+                { @"weig", "wiek" },
+                { @"wick", "wik" },
+
+                { @"([Ss])tein", "$1ten" },
+                { @"ker", "kar" },
+                { @"schl", "sl" },
+                { @"wei", "hwi" },
+                { @"Wei", "Hwi" },
+
+                { @"ch", "k" },
+                { @"ck", "kk" },
+                { @"skw", "sw" },
+
+                { @"ö", "o" },
+                { @"ü", "u" },
+                { @"y", "i" },
+            };
         }
 
         public string Construct(string baseName, string language)
@@ -98,6 +178,10 @@ namespace ExonymsAPI.Service.Processors
             if (language == "gmh")
             {
                 transformations = germanMiddleHighTransformations;
+            }
+            else if (language == "osx")
+            {
+                transformations = germanOldLowTransformations;
             }
             else
             {

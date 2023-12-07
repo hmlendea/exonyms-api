@@ -47,7 +47,8 @@ namespace ExonymsAPI.Service
 
         private IDictionary<string, IEnumerable<string>> languagesToConstruct = new Dictionary<string, IEnumerable<string>>
         {
-            { "gmh", new List<string> { "de" } }
+            { "gmh", new List<string> { "de" } },
+            { "osx", new List<string> { "de" } }
         };
 
         public async Task<Location> Gather(string geoNamesId, string wikiDataId)
