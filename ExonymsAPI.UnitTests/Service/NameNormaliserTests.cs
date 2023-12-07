@@ -41,6 +41,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Qūlja")]
         [TestCase("Rājyamahaḷ")]
         [TestCase("Sakaria")]
+        [TestCase("Sitaun")]
         [TestCase("Solenoye")]
         [TestCase("Stolac")]
         [TestCase("Suðurland")]
@@ -201,6 +202,13 @@ namespace ExonymsAPI.UnitTests.Service
             string name,
             string expectedNormalisedName)
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+        [Test]
+        [TestCase("Emirlando Naĵrano", "Naĵrano")]
+        public void GivenANameContainsTheWordEmirate_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
 
         [Test]
         [TestCase("Āiruìbùníchéngbǎo", "Āiruìbùní")]
@@ -292,6 +300,10 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("Manṭqah Naǧrān", "Naǧrān")]
+        [TestCase("Manṭqah Naǧrān", "Naǧrān")]
+        [TestCase("Minţaqat Najrān", "Najrān")]
+        [TestCase("Najran Prāntaṁ", "Najran")]
         [TestCase("Ríu Chichikleya", "Chichikleya")]
         public void GivenANameContainsTheWordProvince_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
@@ -308,6 +320,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Provintsiya Kurted", "Kurted")]
         [TestCase("Rio Sakarya", "Sakarya")]
         [TestCase("Ríu Inhul", "Inhul")]
+        [TestCase("Rivero Sittaung", "Sittaung")]
         [TestCase("Sakarya Nehri", "Sakarya")]
         [TestCase("Sarāburi Praviśya", "Sarāburi")]
         [TestCase("Semani jõgi", "Semani")]
@@ -353,6 +366,9 @@ namespace ExonymsAPI.UnitTests.Service
         [Test]
         [TestCase("Golaghmuli Valley", "Golaghmuli")]
         [TestCase("Kōlākumuli Paḷḷattākku", "Kōlākumuli")]
+        [TestCase("Wād Malwayah", "Malwayah")]
+        [TestCase("Wādi Malwayah", "Malwayah")]
+        [TestCase("Wādī Malwayah", "Malwayah")]
         public void GivenANameContainsTheWordValley_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
@@ -365,20 +381,28 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("fi", "Panchtharikunta", "Panchthar")]
         [TestCase("fi", "Tinternin luostari", "Tintern")]
         [TestCase("fi", "Ylikainuun kunta", "Ylikainuu")]
+        [TestCase("hi", "Sitāng Nadi", "Sitāng")]
+        [TestCase("hu", "Nadzsrán tartomány", "Nadzsrán")]
         [TestCase("ja", "Chiyatoribaraki", "Chiyatori")]
+        [TestCase("ja", "Najiyuranshū", "Najiyuran")]
         [TestCase("ja", "Panchitarugun", "Panchitaru")]
         [TestCase("ja", "Saraburii Ken", "Saraburii")]
         [TestCase("ko", "Goreka Gun", "Goreka")]
         [TestCase("ko", "Julunghyeon", "Julung")]
         [TestCase("ko", "Kungtunggu", "Kungtung")]
+        [TestCase("ko", "Najeuran Ju", "Najeuran")]
         [TestCase("ko", "Saraburiju", "Saraburi")]
+        [TestCase("lv", "Nedžrānas mintaka", "Nedžrāna")]
         [TestCase("ml", "Bandar Nyêmo", "Nyêmo")]
+        [TestCase("mr", "Najren Pardeś", "Najren")]
         [TestCase("ms", "Lapangan Terbang Yangadzha", "Yangadzha")]
         [TestCase("nan", "Khongtôngkhu", "Khongtông")]
         [TestCase("nan", "Överkalix chhī", "Överkalix")]
         [TestCase("pl", "Port lotniczy Jangadża", "Jangadża")]
+        [TestCase("pl", "Sittaung Myit", "Sittaung")]
         [TestCase("sv", "Gillbergs härad", "Gillberg")]
         [TestCase("vi", "Huyện Gorkha", "Gorkha")]
+        [TestCase("vi", "Sông Sittaung", "Sittaung")]
         [TestCase("zh", "Ājīkèkùlèhú", "Ājīkèkùlè")]
         [TestCase("zh", "Bābāngxiāng", "Bābāng")]
         [TestCase("zh", "Běi-biāo-fǔ", "Běibiāo")]

@@ -303,7 +303,7 @@ namespace ExonymsAPI.Service.Normalisers
             cleanedName = Regex.Replace(
                 cleanedName,
                 @"Aēy Mí Raēy Dtà|" +
-                @"[ĀāEeÉéƏəIiYy]m[aāi]r[l]*[aàāẗhi][dğty]*([aeiou][l]*)*|" +
+                @"\b[ĀāEeÉéƏəIiYy]m[aāi]r[l]*[aàāẗhi][n]*[dğty]*([aeiou][l]*)*|" +
                 @"qiúcháng|" +
                 @"Saamiro|" +
                 @"Tiểu vương quốc|" +
@@ -493,16 +493,16 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Mm]ākāṇam|" +
                 @"Mḥāfẓẗ|" +
                 @"Mkoa|" +
-                @"Mqāṭʿẗ|" +
+                @"\bM([ai]n[tṭţ])*[a]*q[aā][tṭ]*(ʿẗ|h)*\b|" +
                 @"[Pp][’]*r[aāou][bpvw][ëií][nñ]*[t]*[csśz]*[eėiíjoy]*[aeėnsz]*|" +
-                @"Pradēśa|" +
-                @"Pr[aā][a]*nt[y]*[a]*|" +
-                @"Rát|" +
+                @"\bPradēśa\b|" +
+                @"\bPr[aā][a]*nt[y]*[a]*[ṁ]*\b|" +
+                @"\bRát\b|" +
                 @"[Ss][h]*[éě]ng|" +
-                @"Shuu|" +
-                @"suyu|" +
-                @"[Tt]alaith|" +
-                @"[VvWw]il[ao][jy][ae][ht][i]*",
+                @"\bShuu\b|" +
+                @"\bsuyu\b|" +
+                @"\b[Tt]alaith\b|" +
+                @"\b[VvWw]il[ao][jy][ae][ht][i]*\b",
                 string.Empty);
 
             // Region
@@ -564,7 +564,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"N[e]*h[a]*r[i]*\b|" +
                 @"Raka\b|" +
                 @"\b[Rr][âií][ou][l]*\b|" +
-                @"\b[Rr]iver\b|" +
+                @"\b[Rr]iver[o]*\b|" +
                 @"\b[Ss]het\'|" +
                 @"\bSungai\b|" +
                 @"\bWenz\b",
@@ -619,7 +619,7 @@ namespace ExonymsAPI.Service.Normalisers
                 @"\bKota\b|" +
                 @"Paṭṭaṇaṁ|" +
                 @"\b[Ss]tad|" +
-                @"[TṬtṭ][aāo][v]*[uūw][mn][a]*\b|" +
+                @"\b[TṬtṭ][aāo][v]*[uūw][mn][a]*\b|" +
                 @"\Bxiāng\b",
                 string.Empty);
 
@@ -641,11 +641,12 @@ namespace ExonymsAPI.Service.Normalisers
                 @"[Vv]idyaapith",
                 string.Empty);
 
-            // Municipality
+            // Valley
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"Paḷḷattākku|" +
-                @"Valley",
+                @"\bPaḷḷattākku\b|" +
+                @"\bValley\b|" +
+                @"\bW[aā]d[iī]*\b",
                 string.Empty);
 
             // Voivodeship
@@ -676,22 +677,33 @@ namespace ExonymsAPI.Service.Normalisers
 
             if (languageCode.Equals("en")) // English
             {
-                cleanedName = Regex.Replace(cleanedName, @"National Natural Reserve", "");
+                cleanedName = Regex.Replace(cleanedName, @"National Natural Reserve", string.Empty);
+            }
+
+            if (languageCode.Equals("hi")) // Hindi
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\b[Nn]adi\b", string.Empty);
+            }
+
+            if (languageCode.Equals("hu")) // Hungarian
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\b[Tt]artomány\b", string.Empty); // Province. Or Emirate?
             }
 
             if (languageCode.Equals("fi")) // Finnish
             {
                 cleanedName = Regex.Replace(cleanedName, @"\Bin luostari\b", string.Empty);
-                cleanedName = Regex.Replace(cleanedName, @"\Bikunta\b", "");
+                cleanedName = Regex.Replace(cleanedName, @"\Bikunta\b", string.Empty);
                 cleanedName = Regex.Replace(cleanedName, @"\Bun kunta\b", "u");
 
-                cleanedName = Regex.Replace(cleanedName, @"kunta\b", "");
+                cleanedName = Regex.Replace(cleanedName, @"kunta\b", string.Empty);
             }
 
             if (languageCode.Equals("ja")) // Japanese
             {
                 cleanedName = Regex.Replace(cleanedName, @"\Bbaraki\b", string.Empty);
                 cleanedName = Regex.Replace(cleanedName, @"\Bgun\b", string.Empty); // District
+                cleanedName = Regex.Replace(cleanedName, @"\Bshū\b", string.Empty); // Province. Or Emirate?
                 cleanedName = Regex.Replace(cleanedName, @"Ken\b", string.Empty);
             }
 
@@ -703,18 +715,30 @@ namespace ExonymsAPI.Service.Normalisers
             if (languageCode.Equals("ko")) // Korean
             {
                 cleanedName = Regex.Replace(cleanedName, @" Gun\b", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @" Ju\b", string.Empty); // Province. Or Emirate?
                 cleanedName = Regex.Replace(cleanedName, @"\B[gj]u\b", string.Empty);
                 cleanedName = Regex.Replace(cleanedName, @"\Bhyeon\b", string.Empty); // County
             }
 
-            if (languageCode.Equals("lt")) // Slithuanian
+            if (languageCode.Equals("lt")) // Lithuanian
             {
                 cleanedName = Regex.Replace(cleanedName, @"\bŠv", "Šventasis");
+            }
+
+
+            if (languageCode.Equals("lv")) // Latvian
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bas mintaka", "a"); // Province. Or Emirate?
             }
 
             if (languageCode.Equals("ml"))
             {
                 cleanedName = Regex.Replace(cleanedName, @"\bBandar\b", string.Empty); // Town
+            }
+
+            if (languageCode.Equals("mr"))
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\bPardeś\b", string.Empty); // Province
             }
 
             if (languageCode.Equals("ms"))
@@ -725,6 +749,7 @@ namespace ExonymsAPI.Service.Normalisers
             if (languageCode.Equals("pl"))
             {
                 cleanedName = Regex.Replace(cleanedName, @"\b[Pp]ort [Ll]otniczy\b", string.Empty); // Airport
+                cleanedName = Regex.Replace(cleanedName, @"\b[Mm]yit\b", string.Empty); // River
             }
 
             if (languageCode.Equals("sv")) // Swedish
@@ -734,6 +759,7 @@ namespace ExonymsAPI.Service.Normalisers
 
             if (languageCode.Equals("vi")) // Vietnamese
             {
+                cleanedName = Regex.Replace(cleanedName, @"\bSông\b", string.Empty); // River
                 cleanedName = Regex.Replace(cleanedName, @"\bHuyện", string.Empty);
             }
 
