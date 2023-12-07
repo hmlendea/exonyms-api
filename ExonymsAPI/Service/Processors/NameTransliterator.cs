@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ExonymsAPI.Configuration;
 
-namespace ExonymsAPI.Service.Normalisers
+namespace ExonymsAPI.Service.Processors
 {
     public class NameTransliterator : INameTransliterator
     {

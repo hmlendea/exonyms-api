@@ -1,16 +1,15 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace ExonymsAPI.Service.Constructors
+namespace ExonymsAPI.Service.Processors
 {
-    public class GermanMiddleHighConstructor : IConstructor
+    public class NameConstructor : INameConstructor
     {
-        Dictionary<string, string> transformations;
+        Dictionary<string, string> germanMiddleHighTransformations;
 
-        public GermanMiddleHighConstructor()
+        public NameConstructor()
         {
-            // ISO 843
-            transformations = new Dictionary<string, string>
+            germanMiddleHighTransformations = new Dictionary<string, string>
             {
                 { @"sch", "s" },
                 { @"Sch", "S" },
@@ -90,16 +89,27 @@ namespace ExonymsAPI.Service.Constructors
             };
         }
 
-        public string Construct(string germanName)
+        public string Construct(string baseName, string language)
         {
-            string middleHighGermanName = germanName;
+            string constructedName = baseName;
+
+            IDictionary<string, string> transformations;
+
+            if (language == "gmh")
+            {
+                transformations = germanMiddleHighTransformations;
+            }
+            else
+            {
+                transformations = new Dictionary<string, string>();
+            }
 
             foreach (string pattern in transformations.Keys)
             {
-                middleHighGermanName = Regex.Replace(middleHighGermanName, pattern, transformations[pattern]);
+                constructedName = Regex.Replace(constructedName, pattern, transformations[pattern]);
             }
 
-            return middleHighGermanName;
+            return constructedName;
         }
     }
 }

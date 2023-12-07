@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using ExonymsAPI.Service.Models;
-using ExonymsAPI.Service.Normalisers;
+using ExonymsAPI.Service.Processors;
 
 namespace ExonymsAPI.Service.Gatherers
 {

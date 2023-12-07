@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using ExonymsAPI.Service;
 using ExonymsAPI.Service.Gatherers;
-using ExonymsAPI.Service.Normalisers;
+using ExonymsAPI.Service.Processors;
 using ExonymsAPI.Configuration;
 
 namespace ExonymsAPI
@@ -29,6 +29,7 @@ namespace ExonymsAPI
                 .AddSingleton<IExonymsService, ExonymsService>()
                 .AddSingleton<INameNormaliser, NameNormaliser>()
                 .AddSingleton<INameTransliterator, NameTransliterator>()
+                .AddSingleton<INameConstructor, NameConstructor>()
                 .AddSingleton<IGeoNamesGatherer, GeoNamesGatherer>()
                 .AddSingleton<IWikiDataGatherer, WikiDataGatherer>();
         }

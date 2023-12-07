@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using ExonymsAPI.Service.Normalisers;
+using ExonymsAPI.Service.Processors;
 
 namespace ExonymsAPI.UnitTests.Service
 {

@@ -1,17 +1,17 @@
 using NUnit.Framework;
 
-using ExonymsAPI.Service.Constructors;
+using ExonymsAPI.Service.Processors;
 
 namespace ExonymsAPI.UnitTests.Service.Constructors
 {
     public class GermanMiddleHighConstructorTests
     {
-        private IConstructor constructor;
+        private INameConstructor constructor;
 
         [SetUp]
         public void SetUp()
         {
-            this.constructor = new GermanMiddleHighConstructor();
+            this.constructor = new NameConstructor();
         }
 
         [Test]
@@ -176,6 +176,6 @@ namespace ExonymsAPI.UnitTests.Service.Constructors
         public void GivenAGermanName_WhenConstructingTheMiddleHighGermanName_ThenTheCorrectNameIsReturned(
             string germanName,
             string middleHighGermanName)
-            => Assert.That(constructor.Construct(germanName), Is.EqualTo(middleHighGermanName));
+            => Assert.That(constructor.Construct(germanName, "gmh"), Is.EqualTo(middleHighGermanName));
     }
 }

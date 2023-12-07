@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using ExonymsAPI.Service.Gatherers;
 using ExonymsAPI.Service.Models;
-using ExonymsAPI.Service.Normalisers;
+using ExonymsAPI.Service.Processors;
 
 namespace ExonymsAPI.Service
 {
@@ -12,17 +12,20 @@ namespace ExonymsAPI.Service
     {
         IGeoNamesGatherer geoNamesGatherer;
         IWikiDataGatherer wikiDataGatherer;
+        INameConstructor nameConstructor;
         INameTransliterator nameTransliterator;
         INameNormaliser nameNormaliser;
 
         public ExonymsService(
             IGeoNamesGatherer geoNamesGatherer,
             IWikiDataGatherer wikiDataGatherer,
+            INameConstructor nameConstructor,
             INameTransliterator nameTransliterator,
             INameNormaliser nameNormaliser)
         {
             this.geoNamesGatherer = geoNamesGatherer;
             this.wikiDataGatherer = wikiDataGatherer;
+            this.nameConstructor = nameConstructor;
             this.nameTransliterator = nameTransliterator;
             this.nameNormaliser = nameNormaliser;
         }
@@ -40,6 +43,11 @@ namespace ExonymsAPI.Service
             { "ru", new List<string> { "uk", "bg", "be", "cv" } },
             { "sh", new List<string> { "sr", "sr-ec", "mk", "bg", "ru", "uk", "be", "cv" } },
             { "uk", new List<string> { "ru", "bg", "be", "cv" } }
+        };
+
+        private IDictionary<string, IEnumerable<string>> languagesToConstruct = new Dictionary<string, IEnumerable<string>>
+        {
+            { "gmh", new List<string> { "de" } }
         };
 
         public async Task<Location> Gather(string geoNamesId, string wikiDataId)
@@ -71,6 +79,7 @@ namespace ExonymsAPI.Service
                 }
             }
 
+            location = ConstructNames(location);
             location = RemoveRedundantExonyms(location);
             location = await ApplyFallbacks(location);
             location = RemoveRedundantExonyms(location);
@@ -133,6 +142,36 @@ namespace ExonymsAPI.Service
                     location.Names[language].Value.Equals(location.DefaultName))
                 {
                     location.Names.Remove(language);
+                }
+            }
+
+            return location;
+        }
+
+        private Location ConstructNames(Location location)
+        {
+            foreach (string language in languagesToConstruct.Keys)
+            {
+                if (location.Names.ContainsKey(language))
+                {
+                    continue;
+                }
+
+                foreach (string baseLanguage in languagesToConstruct[language])
+                {
+                    if (!location.Names.ContainsKey(baseLanguage))
+                    {
+                        continue;
+                    }
+
+                    Name name = new Name(location.Names[baseLanguage].OriginalValue)
+                    {
+                        Comment = $"Constructed. Based on language '{baseLanguage}'",
+                        Value = nameConstructor.Construct(location.Names[baseLanguage].Value, language)
+                    };
+
+                    location.Names.Add(language, name);
+                    break;
                 }
             }
 
