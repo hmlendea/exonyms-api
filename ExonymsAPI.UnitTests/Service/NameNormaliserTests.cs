@@ -39,6 +39,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Morava de Vest")]
         [TestCase("Oeseukemen")]
         [TestCase("Qūlja")]
+        [TestCase("Rājyamahaḷ")]
         [TestCase("Sakaria")]
         [TestCase("Solenoye")]
         [TestCase("Stolac")]

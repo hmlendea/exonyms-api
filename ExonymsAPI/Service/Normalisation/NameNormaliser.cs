@@ -355,18 +355,18 @@ namespace ExonymsAPI.Service.Normalisers
             // Kingdom
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"guó|" +
-                @"Irācciyam|" +
-                @"[Kk][eoö]ni[n]*[gk]r[e]*[iy][cej]*[hk]|" +
-                @"K[iou]ng[ae]*d[oöø]m([m]*et)*[s]*|" +
-                @"[Kk]irályság|" +
-                @"[Kk][o]*r[oaá]l[oe]*[v]*stv[ío]|" +
-                @"Ōkoku|" +
-                @"Rājy[a]*|" +
-                @"[Rr]egatul|" +
-                @"[Rr][eo][giy][an][eolu][m]*[e]*|" +
-                @"[Rr]īce|" +
-                @"[Tt]eyrnas",
+                @"\Bguó\b|" +
+                @"\bIrācciyam\b|" +
+                @"\b[Kk][eoö]ni[n]*[gk]r[e]*[iy][cej]*[hk]\b|" +
+                @"\bK[iou]ng[ae]*d[oöø]m([m]*et)*[s]*\b|" +
+                @"\b[Kk]irályság\b|" +
+                @"\b[Kk][o]*r[oaá]l[oe]*[v]*stv[ío]\b|" +
+                @"\bŌkoku\b|" +
+                @"\bRājy[a]*\b|" +
+                @"\b[Rr]egatul\b|" +
+                @"\b[Rr][eo][giy][an][eolu][m]*[e]*\b|" +
+                @"\b[Rr]īce\b|" +
+                @"\b[Tt]eyrnas\b",
                 string.Empty);
 
             // Lake
