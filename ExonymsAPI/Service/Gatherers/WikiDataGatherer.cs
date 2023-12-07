@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using ExonymsAPI.Service.Models;
-using ExonymsAPI.Service.Normalisers;
+using ExonymsAPI.Service.Processors;
 using Newtonsoft.Json.Linq;
 
 namespace ExonymsAPI.Service.Gatherers

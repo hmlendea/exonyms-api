@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace ExonymsAPI.Service.Normalisers
+namespace ExonymsAPI.Service.Processors
 {
     public class NameNormaliser : INameNormaliser
     {
