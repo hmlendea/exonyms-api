@@ -372,10 +372,11 @@ namespace ExonymsAPI.Service.Normalisers
             // Lake
             cleanedName = Regex.Replace(
                 cleanedName,
-                @"Gölü\b|" +
+                @"\b([Jj]e|[Oo])zero\b|" +
                 @"\b[Ll][l]*[ay](c|cul|go|ke|n)\b|" +
                 @"\b[Nn][uú][u]*r\b|" +
-                @"\b[Oo]zero\b",
+                @"\bGölü\b|" +
+                @"\bHu\b",
                 string.Empty);
 
             // Language
@@ -665,9 +666,29 @@ namespace ExonymsAPI.Service.Normalisers
         {
             string cleanedName = name;
 
-            if (languageCode.Equals("ang")) // English (Old)
+            if (languageCode.Equals("ang")) // Old English
             {
                 cleanedName = Regex.Replace(cleanedName, @"\Benrice\b", "e");
+            }
+
+            if (languageCode.Equals("be")) // Belarussian
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bski raion\b", string.Empty); // District
+            }
+
+            if (languageCode.Equals("bg")) // Bulgarian
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bski rayon\b", string.Empty); // District
+            }
+
+            if (languageCode.Equals("cu")) // Church Slavonic
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bski rajon\b", string.Empty); // District
+            }
+
+            if (languageCode.Equals("cv")) // Chuvash
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bskij rajon\b", string.Empty); // District
             }
 
             if (languageCode.Equals("cz")) // Czech
@@ -678,6 +699,7 @@ namespace ExonymsAPI.Service.Normalisers
             if (languageCode.Equals("en")) // English
             {
                 cleanedName = Regex.Replace(cleanedName, @"National Natural Reserve", string.Empty);
+                cleanedName = Regex.Replace(cleanedName, @"Tower\b", string.Empty);
             }
 
             if (languageCode.Equals("hi")) // Hindi
@@ -688,6 +710,11 @@ namespace ExonymsAPI.Service.Normalisers
             if (languageCode.Equals("hu")) // Hungarian
             {
                 cleanedName = Regex.Replace(cleanedName, @"\b[Tt]artomány\b", string.Empty); // Province. Or Emirate?
+            }
+
+            if (languageCode.Equals("it")) // Italian
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\b[Tt]orre\b", string.Empty); // Tower
             }
 
             if (languageCode.Equals("fi")) // Finnish
@@ -710,6 +737,11 @@ namespace ExonymsAPI.Service.Normalisers
             if (languageCode.Equals("kaa"))
             {
                 cleanedName = Regex.Replace(cleanedName, @"U'", "Ú");
+            }
+
+            if (languageCode.Equals("kk")) // Kazakh
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\bawdanı\b", string.Empty); // District
             }
 
             if (languageCode.Equals("ko")) // Korean
@@ -752,9 +784,19 @@ namespace ExonymsAPI.Service.Normalisers
                 cleanedName = Regex.Replace(cleanedName, @"\b[Mm]yit\b", string.Empty); // River
             }
 
+            if (languageCode.Equals("ru"))
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bskiy rayon\b", string.Empty); // District
+            }
+
             if (languageCode.Equals("sv")) // Swedish
             {
                 cleanedName = Regex.Replace(cleanedName, @"s [Hh]ärad\b", string.Empty); // Hundred
+            }
+
+            if (languageCode.Equals("uk")) // Ukrainian
+            {
+                cleanedName = Regex.Replace(cleanedName, @"\Bskyi raion\b", string.Empty); // District
             }
 
             if (languageCode.Equals("vi")) // Vietnamese

@@ -238,9 +238,11 @@ namespace ExonymsAPI.UnitTests.Service
 
         [Test]
         [TestCase("Jasıbay Gölü", "Jasıbay")]
+        [TestCase("jezero Ngoring", "Ngoring")]
         [TestCase("lac Jasybay", "Jasybay")]
         [TestCase("Llac Jassibai", "Jassibai")]
         [TestCase("Ozero Zhasymbay", "Zhasymbay")]
+        [TestCase("Ngoring Hu", "Ngoring")]
         public void GivenANameContainsTheWordLake_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
@@ -375,7 +377,12 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("be", "Urdžarski raion", "Urdžar")]
+        [TestCase("bg", "Urdzharski rayon", "Urdzhar")]
+        [TestCase("cu", "Urdžarski rajon", "Urdžar")]
+        [TestCase("cv", "Urdžarskij rajon", "Urdžar")]
         [TestCase("cz", "Holštýnské vévodství", "Holštýnsko")]
+        [TestCase("en", "Valgorrera Tower", "Valgorrera")]
         [TestCase("en", "Yanchiwan National Natural Reserve", "Yanchiwan")]
         [TestCase("fi", "Gorkhakunta", "Gorkha")]
         [TestCase("fi", "Panchtharikunta", "Panchthar")]
@@ -383,10 +390,12 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("fi", "Ylikainuun kunta", "Ylikainuu")]
         [TestCase("hi", "Sitāng Nadi", "Sitāng")]
         [TestCase("hu", "Nadzsrán tartomány", "Nadzsrán")]
+        [TestCase("it", "Torre Valgorrera", "Valgorrera")]
         [TestCase("ja", "Chiyatoribaraki", "Chiyatori")]
         [TestCase("ja", "Najiyuranshū", "Najiyuran")]
         [TestCase("ja", "Panchitarugun", "Panchitaru")]
         [TestCase("ja", "Saraburii Ken", "Saraburii")]
+        [TestCase("kk", "Ürjar awdanı", "Ürjar")]
         [TestCase("ko", "Goreka Gun", "Goreka")]
         [TestCase("ko", "Julunghyeon", "Julung")]
         [TestCase("ko", "Kungtunggu", "Kungtung")]
@@ -400,7 +409,9 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("nan", "Överkalix chhī", "Överkalix")]
         [TestCase("pl", "Port lotniczy Jangadża", "Jangadża")]
         [TestCase("pl", "Sittaung Myit", "Sittaung")]
+        [TestCase("ru", "Urdzharskiy rayon", "Urdzhar")]
         [TestCase("sv", "Gillbergs härad", "Gillberg")]
+        [TestCase("uk", "Urdzharskyi raion", "Urdzhar")]
         [TestCase("vi", "Huyện Gorkha", "Gorkha")]
         [TestCase("vi", "Sông Sittaung", "Sittaung")]
         [TestCase("zh", "Ājīkèkùlèhú", "Ājīkèkùlè")]
