@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace ExonymsAPI.Service.Normalisers
+namespace ExonymsAPI.Service.Processors
 {
     public interface INameTransliterator
     {
