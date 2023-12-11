@@ -608,6 +608,11 @@ namespace ExonymsAPI.Service.Processors
                 cleanName = RemoveTextPattern(cleanName, @"\b[Tt]artomány\b"); // Province. Or Emirate?
             }
 
+            if (languageCode.Equals("id")) // Indonesian
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Kk]abupaten\b"); // County
+            }
+
             if (languageCode.Equals("it")) // Italian
             {
                 cleanName = RemoveTextPattern(cleanName, @"\b[Tt]orre\b"); // Tower
@@ -664,13 +669,15 @@ namespace ExonymsAPI.Service.Processors
                 cleanName = RemoveTextPattern(cleanName, @"\bBandar\b"); // Town
             }
 
-            if (languageCode.Equals("mr"))
+            if (languageCode.Equals("mr")) // Marathi
             {
+                cleanName = RemoveTextPattern(cleanName, @"\bṄgar\b"); // Town
                 cleanName = RemoveTextPattern(cleanName, @"\bPardeś\b"); // Province
             }
 
-            if (languageCode.Equals("ms"))
+            if (languageCode.Equals("ms")) // Malay
             {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Bb]andar\b"); // Town
                 cleanName = RemoveTextPattern(cleanName, @"\b[Ll]apangan [Tt]erbang\b"); // Airport
             }
 
@@ -698,7 +705,8 @@ namespace ExonymsAPI.Service.Processors
             if (languageCode.Equals("vi")) // Vietnamese
             {
                 cleanName = RemoveTextPattern(cleanName, @"\bSông\b"); // River
-                cleanName = RemoveTextPattern(cleanName, @"\bHuyện");
+                cleanName = RemoveTextPattern(cleanName, @"\bHuyện\b");
+                cleanName = RemoveTextPattern(cleanName, @"\bTrấn\b"); // Town
             }
 
             // Chinese

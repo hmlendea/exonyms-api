@@ -25,9 +25,11 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Clariae")]
         [TestCase("Daesitiates")]
         [TestCase("Escitia Menor")]
+        [TestCase("Himara")]
         [TestCase("Horamabada")]
         [TestCase("Kastamonī́")]
         [TestCase("Kastamōnu")]
+        [TestCase("Khimara")]
         [TestCase("Không Đồng")]
         [TestCase("Klosterneuburg")]
         [TestCase("Llanbadarn Fawr")]
@@ -322,7 +324,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Provintsiya Kurted", "Kurted")]
         [TestCase("Rio Sakarya", "Sakarya")]
         [TestCase("Ríu Inhul", "Inhul")]
-        [TestCase("Rivero Sittaung", "Sittaung")]
+        [TestCase("Rivero Kantegir", "Kantegir")]
         [TestCase("Sakarya Nehri", "Sakarya")]
         [TestCase("Sarāburi Praviśya", "Sarāburi")]
         [TestCase("Semani jõgi", "Semani")]
@@ -384,36 +386,34 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("cz", "Holštýnské vévodství", "Holštýnsko")]
         [TestCase("en", "Valgorrera Tower", "Valgorrera")]
         [TestCase("en", "Yanchiwan National Natural Reserve", "Yanchiwan")]
-        [TestCase("fi", "Gorkhakunta", "Gorkha")]
-        [TestCase("fi", "Panchtharikunta", "Panchthar")]
-        [TestCase("fi", "Tinternin luostari", "Tintern")]
-        [TestCase("fi", "Ylikainuun kunta", "Ylikainuu")]
         [TestCase("hi", "Sitāng Nadi", "Sitāng")]
         [TestCase("hu", "Nadzsrán tartomány", "Nadzsrán")]
+        [TestCase("id", "Kabupaten Kangmar", "Kangmar")]
         [TestCase("it", "Torre Valgorrera", "Valgorrera")]
-        [TestCase("ja", "Chiyatoribaraki", "Chiyatori")]
-        [TestCase("ja", "Najiyuranshū", "Najiyuran")]
-        [TestCase("ja", "Panchitarugun", "Panchitaru")]
-        [TestCase("ja", "Saraburii Ken", "Saraburii")]
         [TestCase("kk", "Ürjar awdanı", "Ürjar")]
-        [TestCase("ko", "Goreka Gun", "Goreka")]
-        [TestCase("ko", "Julunghyeon", "Julung")]
-        [TestCase("ko", "Kungtunggu", "Kungtung")]
-        [TestCase("ko", "Najeuran Ju", "Najeuran")]
-        [TestCase("ko", "Saraburiju", "Saraburi")]
         [TestCase("lv", "Nedžrānas mintaka", "Nedžrāna")]
         [TestCase("ml", "Bandar Nyêmo", "Nyêmo")]
+        [TestCase("mr", "Kāṅgamār Ṅgar", "Kāṅgamār")]
         [TestCase("mr", "Najren Pardeś", "Najren")]
+        [TestCase("ms", "Bandar Kangmar", "Kangmar")]
         [TestCase("ms", "Lapangan Terbang Yangadzha", "Yangadzha")]
-        [TestCase("nan", "Khongtôngkhu", "Khongtông")]
-        [TestCase("nan", "Överkalix chhī", "Överkalix")]
         [TestCase("pl", "Port lotniczy Jangadża", "Jangadża")]
         [TestCase("pl", "Sittaung Myit", "Sittaung")]
         [TestCase("ru", "Urdzharskiy rayon", "Urdzhar")]
         [TestCase("sv", "Gillbergs härad", "Gillberg")]
         [TestCase("uk", "Urdzharskyi raion", "Urdzhar")]
         [TestCase("vi", "Huyện Gorkha", "Gorkha")]
+        [TestCase("vi", "Khang Mã Trấn", "Khang Mã")]
         [TestCase("vi", "Sông Sittaung", "Sittaung")]
+        public void GivenALanguageSpecificName_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(
+            string languageCode,
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(languageCode, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("nan", "Khongtôngkhu", "Khongtông")]
+        [TestCase("nan", "Överkalix chhī", "Överkalix")]
         [TestCase("zh", "Ājīkèkùlèhú", "Ājīkèkùlè")]
         [TestCase("zh", "Bābāngxiāng", "Bābāng")]
         [TestCase("zh", "Běi-biāo-fǔ", "Běibiāo")]
@@ -429,10 +429,40 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("zh", "Yángbājǐngsì", "Yángbājǐng")]
         [TestCase("zh", "Yángkāngcūn", "Yángkāng")]
         [TestCase("zh", "Yuèpǔhúxiàn", "Yuèpǔ")]
-        public void GivenALanguageSpecificName_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(
+        public void GivenANameInTheChineseLanguage_WhenNormalisingIt_ThenAllUnwantedWordsAreRemoved(
             string languageCode,
             string name,
             string expectedNormalisedName)
             => Assert.That(nameNormaliser.Normalise(languageCode, name), Is.EqualTo(expectedNormalisedName));
+        [Test]
+        [TestCase("Gorkhakunta", "Gorkha")]
+        [TestCase("Panchtharikunta", "Panchthar")]
+        [TestCase("Tinternin luostari", "Tintern")]
+        [TestCase("Ylikainuun kunta", "Ylikainuu")]
+        public void GivenANameInTheFinnishLanguage_WhenNormalisingIt_ThenAllUnwantedWordsAreRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise("fi", name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Chiyatoribaraki", "Chiyatori")]
+        [TestCase("Najiyuranshū", "Najiyuran")]
+        [TestCase("Panchitarugun", "Panchitaru")]
+        [TestCase("Saraburii Ken", "Saraburii")]
+        public void GivenANameInTheJapaneseLanguage_WhenNormalisingIt_ThenAllUnwantedWordsAreRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise("ja", name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Goreka Gun", "Goreka")]
+        [TestCase("Julunghyeon", "Julung")]
+        [TestCase("Kungtunggu", "Kungtung")]
+        [TestCase("Najeuran Ju", "Najeuran")]
+        [TestCase("Saraburiju", "Saraburi")]
+        public void GivenANameInTheKoreanLanguage_WhenNormalisingIt_ThenAllUnwantedWordsAreRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise("ko", name), Is.EqualTo(expectedNormalisedName));
     }
 }
