@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using ExonymsAPI.Service.Processors;
 
-namespace ExonymsAPI.UnitTests.Service
+namespace ExonymsAPI.UnitTests.Service.Processors
 {
     public class NameNormaliserTests
     {

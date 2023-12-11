@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 using ExonymsAPI.Service.Processors;
 
-namespace ExonymsAPI.UnitTests.Service.Constructors
+namespace ExonymsAPI.UnitTests.Service.Processors
 {
     public class NameConstructorTests
     {
@@ -76,6 +76,7 @@ namespace ExonymsAPI.UnitTests.Service.Constructors
         [TestCase("Egerberg", "Ecerbërc")]
         [TestCase("Eidsborg", "Eidesbërc")]
         [TestCase("Eilenburg", "Eilernbërc")]
+        [TestCase("Eisenburg", "Eisernbërc")]
         [TestCase("Elburg", "Elbërc")]
         [TestCase("Ellenbogen", "Ellernbocen")]
         [TestCase("Enschede", "Aniseide")]
