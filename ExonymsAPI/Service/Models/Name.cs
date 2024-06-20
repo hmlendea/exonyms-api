@@ -2,11 +2,11 @@ using System.Text.Json.Serialization;
 
 namespace ExonymsAPI.Service.Models
 {
-    public class Name
+    public class Name(string name)
     {
         private string value;
 
-        public string OriginalValue { get; set; }
+        public string OriginalValue { get; set; } = name;
 
         public string Value
         {
@@ -19,19 +19,11 @@ namespace ExonymsAPI.Service.Models
 
                 return value;
             }
-            set
-            {
-                this.value = value;
-            }
+            set => this.@value = value;
         }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string Comment { get; set; }
-
-        public Name(string name)
-        {
-            OriginalValue = name;
-        }
 
         public static bool IsNullOrWhiteSpace(Name name)
         {

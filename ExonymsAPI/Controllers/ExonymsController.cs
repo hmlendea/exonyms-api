@@ -9,21 +9,14 @@ namespace ExonymsAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ExonymsController : ControllerBase
+    public class ExonymsController(IExonymsService exonymsService) : ControllerBase
     {
-        IExonymsService exonymsService;
-
-        public ExonymsController(IExonymsService exonymsService)
-        {
-            this.exonymsService = exonymsService;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAsync(
             [FromQuery] string geoNamesId,
             [FromQuery] string wikiDataId)
         {
-            Location location = await this.exonymsService.Gather(geoNamesId, wikiDataId);
+            Location location = await exonymsService.Gather(geoNamesId, wikiDataId);
 
             return Ok(location);
         }

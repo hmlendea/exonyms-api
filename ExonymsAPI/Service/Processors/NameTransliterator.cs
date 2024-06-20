@@ -5,20 +5,12 @@ using ExonymsAPI.Configuration;
 
 namespace ExonymsAPI.Service.Processors
 {
-    public class NameTransliterator : INameTransliterator
+    public class NameTransliterator(TransliterationSettings transliterationSettings) : INameTransliterator
     {
-        readonly TransliterationSettings transliterationSettings;
-        readonly HttpClient client;
+        readonly HttpClient client = new();
 
-        IList<string> languageCodesToTransliterate;
-
-        public NameTransliterator(TransliterationSettings transliterationSettings)
-        {
-            this.transliterationSettings = transliterationSettings;
-            client = new HttpClient();
-
-            languageCodesToTransliterate = new List<string>
-            {
+        readonly IList<string> languageCodesToTransliterate =
+            [
                 "ab", // Abkhaz
                 "ady", // Adyghe
                 "ar", // Arabic
@@ -64,8 +56,7 @@ namespace ExonymsAPI.Service.Processors
                 "uk", // Ukrainian
                 "zh", // Chinese
                 "zh-hans", // Simplified Chinese
-            };
-        }
+            ];
 
         public async Task<string> Transliterate(string languageCode, string name)
         {
