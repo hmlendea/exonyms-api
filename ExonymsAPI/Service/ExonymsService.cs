@@ -78,20 +78,10 @@ namespace ExonymsAPI.Service
 
         private async Task<Location> ApplyFallbacks(Location location)
         {
-            foreach (string languageToFallbackFrom in languageFallbacks.Keys)
+            foreach (string languageToFallbackFrom in languageFallbacks.Keys.Where(l => !location.Names.ContainsKey(l)))
             {
-                if (location.Names.ContainsKey(languageToFallbackFrom))
+                foreach (string languageToFallbackTo in languageFallbacks[languageToFallbackFrom].Where(location.Names.ContainsKey))
                 {
-                    continue;
-                }
-
-                foreach (string languageToFallbackTo in languageFallbacks[languageToFallbackFrom])
-                {
-                    if (!location.Names.ContainsKey(languageToFallbackTo))
-                    {
-                        continue;
-                    }
-
                     Name name = new(location.Names[languageToFallbackTo].OriginalValue)
                     {
                         Comment = $"Based on language '{languageToFallbackTo}'"
@@ -116,13 +106,8 @@ namespace ExonymsAPI.Service
 
         private Location RemoveRedundantExonyms(Location location)
         {
-            foreach (string language in location.Names.Keys)
+            foreach (string language in location.Names.Keys.Where(l => !string.IsNullOrWhiteSpace(location.Names[l].Value)))
             {
-                if (string.IsNullOrWhiteSpace(location.Names[language].Value))
-                {
-                    continue;
-                }
-
                 if (!language.Equals(WikiDataGatherer.DefaultNameLanguageCode) &&
                     location.Names[language].Value.Equals(location.DefaultName))
                 {

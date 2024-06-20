@@ -96,7 +96,7 @@ namespace ExonymsAPI.Service.Processors
 
             IDictionary<string, string> transformations;
 
-            if (language == "gmh")
+            if (language.Equals("gmh"))
             {
                 transformations = germanMiddleHighTransformations;
             }
@@ -105,12 +105,19 @@ namespace ExonymsAPI.Service.Processors
                 transformations = new Dictionary<string, string>();
             }
 
+            return ApplyTransformations(baseName, transformations);
+        }
+
+        public string ApplyTransformations(string name, IDictionary<string, string> transformations)
+        {
+            string transformedName = name;
+
             foreach (string pattern in transformations.Keys)
             {
-                constructedName = Regex.Replace(constructedName, pattern, transformations[pattern]);
+                transformedName = Regex.Replace(transformedName, pattern, transformations[pattern]);
             }
 
-            return constructedName;
+            return transformedName;
         }
     }
 }

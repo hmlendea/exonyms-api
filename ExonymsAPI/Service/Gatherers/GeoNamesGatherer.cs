@@ -13,6 +13,7 @@ namespace ExonymsAPI.Service.Gatherers
         INameNormaliser nameNormaliser,
         INameTransliterator nameTransliterator) : IGeoNamesGatherer
     {
+        private static string GeoNamesRequestUrlFormat => "http://api.geonames.org/get?geonameId={0}&username=geonamesfreeaccountt";
         private static string DefaultNameLanguageCode => "en";
         private static string[] IgnoredLanguageCodes => ["link", "unlc", "wkdt"];
 
@@ -22,7 +23,7 @@ namespace ExonymsAPI.Service.Gatherers
 
             using (HttpClient client = new())
             {
-                HttpResponseMessage response = await client.GetAsync($"http://api.geonames.org/get?geonameId={geoNamesId}&username=geonamesfreeaccountt");
+                HttpResponseMessage response = await client.GetAsync(string.Format(GeoNamesRequestUrlFormat, geoNamesId));
 
                 if (!response.IsSuccessStatusCode)
                 {

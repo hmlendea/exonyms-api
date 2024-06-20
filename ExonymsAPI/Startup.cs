@@ -14,7 +14,6 @@ namespace ExonymsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddConfigurations(Configuration);
             services.AddCustomServices();
@@ -28,6 +27,7 @@ namespace ExonymsAPI
                         .AllowAnyMethod();
                 });
             });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExonymsAPI", Version = "v1" });
@@ -45,13 +45,9 @@ namespace ExonymsAPI
             }
 
             app.UseCors();
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
