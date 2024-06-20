@@ -16,7 +16,8 @@ namespace ExonymsAPI.Service.Processors
                 { @"hl", "hel" },
 
                 { @"([Aa])a", "$1" },
-                { @"([Bb])[eouü]rg", "$1ërc" },
+                { @"([Bb])erg", "$1ërc" },
+                { @"([Bb])[uü]rg", "$1urc" },
                 { @"([Bb])rok", "$1ruch" },
                 { @"([Bb])rück", "$1ruk" },
                 { @"([Bb])run", "$1raun" },
