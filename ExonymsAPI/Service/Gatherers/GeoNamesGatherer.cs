@@ -9,27 +9,18 @@ using ExonymsAPI.Service.Processors;
 
 namespace ExonymsAPI.Service.Gatherers
 {
-    public class GeoNamesGatherer : IGeoNamesGatherer
+    public class GeoNamesGatherer(
+        INameNormaliser nameNormaliser,
+        INameTransliterator nameTransliterator) : IGeoNamesGatherer
     {
         private static string DefaultNameLanguageCode => "en";
-        private static string[] IgnoredLanguageCodes => new string[] { "link", "unlc", "wkdt" };
-
-        INameNormaliser nameNormaliser;
-        INameTransliterator nameTransliterator;
-
-        public GeoNamesGatherer(
-            INameNormaliser nameNormaliser,
-            INameTransliterator nameTransliterator)
-        {
-            this.nameNormaliser = nameNormaliser;
-            this.nameTransliterator = nameTransliterator;
-        }
+        private static string[] IgnoredLanguageCodes => ["link", "unlc", "wkdt"];
 
         public async Task<Location> Gather(string geoNamesId)
         {
-            Location location = new Location();
+            Location location = new();
 
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = new())
             {
                 HttpResponseMessage response = await client.GetAsync($"http://api.geonames.org/get?geonameId={geoNamesId}&username=geonamesfreeaccountt");
 
@@ -63,7 +54,7 @@ namespace ExonymsAPI.Service.Gatherers
                             continue;
                         }
 
-                        Name name = new Name(alternateNameElement.Value);
+                        Name name = new(alternateNameElement.Value);
 
                         if (string.IsNullOrWhiteSpace(languageCode) ||
                             Name.IsNullOrWhiteSpace(name))

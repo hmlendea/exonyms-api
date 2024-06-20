@@ -9,26 +9,17 @@ using Newtonsoft.Json.Linq;
 
 namespace ExonymsAPI.Service.Gatherers
 {
-    public class WikiDataGatherer : IWikiDataGatherer
+    public class WikiDataGatherer(
+        INameNormaliser nameNormaliser,
+        INameTransliterator nameTransliterator) : IWikiDataGatherer
     {
         public const string DefaultNameLanguageCode = "en";
 
-        INameNormaliser nameNormaliser;
-        INameTransliterator nameTransliterator;
-
-        public WikiDataGatherer(
-            INameNormaliser nameNormaliser,
-            INameTransliterator nameTransliterator)
-        {
-            this.nameNormaliser = nameNormaliser;
-            this.nameTransliterator = nameTransliterator;
-        }
-
         public async Task<Location> Gather(string wikiDataId)
         {
-            Location location = new Location();
+            Location location = new();
 
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = new())
             {
                 HttpResponseMessage response = await client.GetAsync($"https://wikidata.org/wiki/Special:EntityData/{wikiDataId}.json");
 
@@ -54,7 +45,7 @@ namespace ExonymsAPI.Service.Gatherers
                 foreach (var label in labels)
                 {
                     string languageCode = label.Key;
-                    Name name = new Name((string)label.Value["value"]);
+                    Name name = new((string)label.Value["value"]);
 
                     if (Name.IsNullOrWhiteSpace(name))
                     {
@@ -76,7 +67,7 @@ namespace ExonymsAPI.Service.Gatherers
                         continue;
                     }
 
-                    Name name = new Name((string)sitelink.Value["title"]);
+                    Name name = new((string)sitelink.Value["title"]);
 
                     name.Value = await nameTransliterator.Transliterate(languageCode, name.OriginalValue);
                     name.Value = nameNormaliser.Normalise(languageCode, name.Value);

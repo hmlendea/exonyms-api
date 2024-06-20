@@ -5,7 +5,7 @@ namespace ExonymsAPI.Service.Processors
 {
     public class NameConstructor : INameConstructor
     {
-        Dictionary<string, string> germanMiddleHighTransformations;
+        readonly Dictionary<string, string> germanMiddleHighTransformations;
 
         public NameConstructor()
         {

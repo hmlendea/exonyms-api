@@ -8,29 +8,14 @@ using ExonymsAPI.Service.Processors;
 
 namespace ExonymsAPI.Service
 {
-    public class ExonymsService : IExonymsService
+    public class ExonymsService(
+        IGeoNamesGatherer geoNamesGatherer,
+        IWikiDataGatherer wikiDataGatherer,
+        INameConstructor nameConstructor,
+        INameTransliterator nameTransliterator,
+        INameNormaliser nameNormaliser) : IExonymsService
     {
-        IGeoNamesGatherer geoNamesGatherer;
-        IWikiDataGatherer wikiDataGatherer;
-        INameConstructor nameConstructor;
-        INameTransliterator nameTransliterator;
-        INameNormaliser nameNormaliser;
-
-        public ExonymsService(
-            IGeoNamesGatherer geoNamesGatherer,
-            IWikiDataGatherer wikiDataGatherer,
-            INameConstructor nameConstructor,
-            INameTransliterator nameTransliterator,
-            INameNormaliser nameNormaliser)
-        {
-            this.geoNamesGatherer = geoNamesGatherer;
-            this.wikiDataGatherer = wikiDataGatherer;
-            this.nameConstructor = nameConstructor;
-            this.nameTransliterator = nameTransliterator;
-            this.nameNormaliser = nameNormaliser;
-        }
-
-        private IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
+        private readonly IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
         {
             { "be", new List<string> { "ru", "uk", "bg", "cv" } },
             { "bg", new List<string> { "ru", "uk", "be", "cv" } },
@@ -45,14 +30,14 @@ namespace ExonymsAPI.Service
             { "uk", new List<string> { "ru", "bg", "be", "cv" } }
         };
 
-        private IDictionary<string, IEnumerable<string>> languagesToConstruct = new Dictionary<string, IEnumerable<string>>
+        private readonly IDictionary<string, IEnumerable<string>> languagesToConstruct = new Dictionary<string, IEnumerable<string>>
         {
             { "gmh", new List<string> { "de" } }
         };
 
         public async Task<Location> Gather(string geoNamesId, string wikiDataId)
         {
-            IList<Location> gatheredLocations = new List<Location>();
+            IList<Location> gatheredLocations = [];
 
             if (!string.IsNullOrWhiteSpace(wikiDataId))
             {
@@ -64,7 +49,7 @@ namespace ExonymsAPI.Service
                 gatheredLocations.Add(await geoNamesGatherer.Gather(geoNamesId));
             }
 
-            Location location = new Location();
+            Location location = new();
 
             foreach (Location gatheredLocation in gatheredLocations)
             {
@@ -107,7 +92,7 @@ namespace ExonymsAPI.Service
                         continue;
                     }
 
-                    Name name = new Name(location.Names[languageToFallbackTo].OriginalValue)
+                    Name name = new(location.Names[languageToFallbackTo].OriginalValue)
                     {
                         Comment = $"Based on language '{languageToFallbackTo}'"
                     };
@@ -150,21 +135,11 @@ namespace ExonymsAPI.Service
 
         private Location ConstructNames(Location location)
         {
-            foreach (string language in languagesToConstruct.Keys)
+            foreach (string language in languagesToConstruct.Keys.Where(location.Names.ContainsKey))
             {
-                if (location.Names.ContainsKey(language))
+                foreach (string baseLanguage in languagesToConstruct[language].Where(location.Names.ContainsKey))
                 {
-                    continue;
-                }
-
-                foreach (string baseLanguage in languagesToConstruct[language])
-                {
-                    if (!location.Names.ContainsKey(baseLanguage))
-                    {
-                        continue;
-                    }
-
-                    Name name = new Name(location.Names[baseLanguage].OriginalValue)
+                    Name name = new(location.Names[baseLanguage].OriginalValue)
                     {
                         Comment = $"Constructed. Based on language '{baseLanguage}'",
                         Value = nameConstructor.Construct(location.Names[baseLanguage].Value, language)
