@@ -120,7 +120,7 @@ namespace ExonymsAPI.Service
 
         private Location ConstructNames(Location location)
         {
-            foreach (string language in languagesToConstruct.Keys.Where(location.Names.ContainsKey))
+            foreach (string language in languagesToConstruct.Keys.Where(l => !location.Names.ContainsKey(l)))
             {
                 foreach (string baseLanguage in languagesToConstruct[language].Where(location.Names.ContainsKey))
                 {
