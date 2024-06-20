@@ -286,17 +286,16 @@ namespace ExonymsAPI.Service.Processors
 
             // Island
             cleanName = RemoveTextPattern(cleanName,
-                @"[Aa]raly|" +
-                @"Đảo|" +
-                @"[Ǧǧ]zīrẗ|" +
-                @"[Ii]l[hl]a|" +
-                @"[Ii]nsula|" +
-                @"[Ii]sl[ae]|" +
-                @"[Ii]sland|" +
-                @"[Îî]le|" +
-                @"[Nn][eḗ]sos|" +
-                @"Ostr[io]v|" +
-                @"Sŏm");
+                @"\b[Aa]raly|" +
+                @"\bĐảo|" +
+                @"\b[Ǧǧ]zīrẗ|" +
+                @"\b[Ii]l[hl]a|" +
+                @"\b[Ii]nsula|" +
+                @"\b[IÎiî]sl[ae][s]*|" +
+                @"\b[Ii]sland|" +
+                @"\b[Nn][eḗ]sos|" +
+                @"\bOstr[io]v|" +
+                @"\bSŏm");
 
             // Kingdom
             cleanName = RemoveTextPattern(cleanName,
