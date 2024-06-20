@@ -46,6 +46,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Montfort")]
         [TestCase("Morava de Vest")]
         [TestCase("Oeseukemen")]
+        [TestCase("Oshi-le-Eden")]
         [TestCase("Qūlja")]
         [TestCase("Rājyamahaḷ")]
         [TestCase("Sakaria")]

@@ -136,7 +136,8 @@ namespace ExonymsAPI.Service.Processors
                 @"a Śahar|" +
                 @"Śahara|" +
                 @"\bShi\b|" +
-                @"\Bsh[iì]\b|" +
+                @"\bsh[iì]\b|" +
+                @"\Bsh[iì]$|" +
                 @"Sich’i|" +
                 @"[Ss]tadt");
 
