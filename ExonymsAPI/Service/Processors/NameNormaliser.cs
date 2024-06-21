@@ -136,7 +136,8 @@ namespace ExonymsAPI.Service.Processors
                 @"a Śahar|" +
                 @"Śahara|" +
                 @"\bShi\b|" +
-                @"\Bsh[iì]\b|" +
+                @"\bsh[iì]\b|" +
+                @"\Bsh[iì]$|" +
                 @"Sich’i|" +
                 @"[Ss]tadt");
 
@@ -264,18 +265,18 @@ namespace ExonymsAPI.Service.Processors
 
             // Fort
             cleanName = RemoveTextPattern(cleanName,
-                @"Benteng|" +
+                @"\bBenteng|" +
                 @"(" +
                 @"\b[CcKk][aá]str[aou][lm]*\b|" +
-                @"[Cc]héngbǎo|" +
-                @"Chillā|" +
-                @"[Ff][aäe]st(ni|u)ng(en)*|" +
-                @"[Ff][oū]rt([aă][lr]e[a]*[szț]a|[e]*[r]*e[t]*s[s]*[y]*[ae]*|ez[z]*a|e|ikaĵo|ul)*|" +
-                @"Kōṭṭai|" +
-                @"[Kk]repost|" +
-                @"[Tt]rd[i]*n(jav)*a|" +
-                @"[Yy]ōsai|" +
-                @"[Zz]amogy" +
+                @"[Cc]héngbǎo\b|" +
+                @"\bChillā\b|" +
+                @"[Ff][aäe]st(ni|u)ng(en)*\b|" +
+                @"\b[Ff][oū]rt([aă][lr]e[a]*[szț]a|[e]*[r]*e[t]*s[s]*[y]*[ae]*|ez[z]*a|e|ikaĵo|ul)*\b|" +
+                @"\bKōṭṭai\b|" +
+                @"\b[Kk]repost\b|" +
+                @"\b[Tt]rd[i]*n(jav)*a\b|" +
+                @"\b[Yy]ōsai\b|" +
+                @"\b[Zz]amogy\b" +
                 @")( (roman|royale))*");
 
             // Hundred
@@ -337,7 +338,7 @@ namespace ExonymsAPI.Service.Processors
                 @"[Dd]ağları|" +
                 @"\b[GgHh][ao]ra\b|" +
                 @"Ǧibāl|" +
-                @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*|" +
+                @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*\b|" +
                 @"[Pp]arvata[ṁ]*|" +
                 @"[Ss]hānmài");
 
@@ -553,8 +554,14 @@ namespace ExonymsAPI.Service.Processors
 
             cleanName = RemoveTextPattern(cleanName, "^\\s*" + of_pattern);
             cleanName = RemoveTextPattern(cleanName, of_pattern + "\\s*$");
+            cleanName = cleanName.Trim();
 
-            return cleanName.Trim();
+            if (string.IsNullOrWhiteSpace(cleanName))
+            {
+                return name;
+            }
+
+            return cleanName;
         }
 
         private string RemoveLanguageSpecificWords(string languageCode, string name)
