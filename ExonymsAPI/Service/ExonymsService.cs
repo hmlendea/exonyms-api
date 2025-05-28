@@ -65,7 +65,6 @@ namespace ExonymsAPI.Service
             }
 
             location = ConstructNames(location);
-            location = RemoveRedundantExonyms(location);
             location = await ApplyFallbacks(location);
             location = RemoveRedundantExonyms(location);
 
