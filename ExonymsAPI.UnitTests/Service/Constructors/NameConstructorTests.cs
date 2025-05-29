@@ -151,6 +151,7 @@ namespace ExonymsAPI.UnitTests.Service.Constructors
         [TestCase("Langenau", "Lancenöu")]
         [TestCase("Lauenburg", "Louernburc")]
         [TestCase("Lauenstein", "Louwenestein")]
+        [TestCase("Leuchtenberg", "Liuchternbërc")]
         [TestCase("Lundenburg", "Lundunburc")]
         [TestCase("Lüneburg", "Lüneburc")]
         [TestCase("Mecklenburg", "Meklernburc")]

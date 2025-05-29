@@ -44,6 +44,7 @@ namespace ExonymsAPI.Service.Processors
                 { @"err", "ehr" },
                 { @"ers", "eres" },
                 { @"ert", "irs" },
+                { @"euch", "iuch" },
                 { @"feld", "felt" },
                 { @"ff", "f" },
                 { @"ford", "furt" },
