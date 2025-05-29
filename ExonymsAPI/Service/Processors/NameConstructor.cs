@@ -11,6 +11,8 @@ namespace ExonymsAPI.Service.Processors
         {
             germanMiddleHighTransformations = new Dictionary<string, string>
             {
+                { @"irsch", "ires" },
+
                 { @"sch", "s" },
                 { @"Sch", "S" },
                 { @"hl", "hel" },
@@ -44,6 +46,7 @@ namespace ExonymsAPI.Service.Processors
                 { @"err", "ehr" },
                 { @"ers", "eres" },
                 { @"ert", "irs" },
+                { @"euch", "iuch" },
                 { @"feld", "felt" },
                 { @"ff", "f" },
                 { @"ford", "furt" },
