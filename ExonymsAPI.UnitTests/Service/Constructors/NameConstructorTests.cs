@@ -131,6 +131,7 @@ namespace ExonymsAPI.UnitTests.Service.Constructors
         [TestCase("Herrevad", "Hehrewat")]
         [TestCase("Hersfeld", "Heresfelt")]
         [TestCase("Hertford", "Hirsfurt")]
+        [TestCase("Hirschberg", "Hiresbërc")]
         [TestCase("Hohenburg", "Hohernburc")]
         [TestCase("Hückeswagen", "Hükeswacen")]
         [TestCase("Hussburg", "Huzburc")]
