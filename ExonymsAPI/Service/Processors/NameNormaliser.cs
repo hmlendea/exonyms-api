@@ -215,27 +215,26 @@ namespace ExonymsAPI.Service.Processors
 
             // District
             cleanName = RemoveTextPattern(cleanName,
-                @"[Aa]maṇḍalam|" +
-                @"[Aa]pygarda|" +
-                @"[Bb]arrutia|" +
-                @"[Bb]ucağı|" +
-                @"Ḍāḥīẗ|" +
-                @"[Dd][h]*[iy]str[eiy][ckt]*[akt][eouy]*[als]*|" +
-                @"[Iiİi̇]l[cç]esi|" +
-                @"járás|" +
-                @"[Jj]ēlā|" +
-                @"Jil[lh]*[aāeo][a]*|" +
-                @"Koān|" +
+                @"\b[Aa]maṇḍalam|" +
+                @"\b[Aa]pygarda|" +
+                @"\b[Bb]arrutia|" +
+                @"\b[Bb]ucağı|" +
+                @"\bḌāḥīẗ|" +
+                @"\b[Dd][h]*[eiy]str[eiy][ckt]*[akt][eouy]*[als]*|" +
+                @"\b[Iiİi̇]l[cç]esi|" +
+                @"\bjárás|" +
+                @"\b[Jj]ēlā|" +
+                @"\bJil[lh]*[aāeo][a]*|" +
+                @"\bKoān|" +
                 @"[Mm]a[nṇ][dḍ]ala[m]*\b|" +
-                @"Māvaṭṭam|" +
-                @"Mnṭqẗ|" +
+                @"\bMāvaṭṭam|" +
+                @"\bMnṭqẗ|" +
                 @"n piiri|" +
-                @"[Pp]asuni|" +
-                @"[Pp]iirikunta|" +
-                @"[Pp]irrâdâh|" +
-                @"Qu(ận)*|" +
-                @"[Rr]a[iy]on[iu]|" +
-                @"sum");
+                @"\b[Pp]asuni|" +
+                @"\b[Pp]iirikunta|" +
+                @"\b[Pp]irrâdâh|" +
+                @"\bQu(ận)*|" +
+                @"\b[Rr]a[iy]on[iu]");
 
             // Division
             cleanName = RemoveTextPattern(cleanName,
@@ -287,15 +286,18 @@ namespace ExonymsAPI.Service.Processors
 
             // Island
             cleanName = RemoveTextPattern(cleanName,
-                @"\b[Aa]raly|" +
-                @"\bĐảo|" +
-                @"\b[Ǧǧ]zīrẗ|" +
+                @"\b[Aa]dası\b|" +
+                @"\b[Ǧǧ][a]*zīr(a|ah|ẗ)\b|" +
                 @"\b[Ii]l[hl]a|" +
                 @"\b[Ii]nsula|" +
-                @"\b[IÎiî]sl[ae][s]*|" +
+                @"\bĐảo|" +
+                @"\b[I]sland[s]*\b|" +
+                @"\b[IÎiî]sl[l]*[ae][s]*|" +
                 @"\b[Ii]sland|" +
                 @"\b[Nn][eḗ]sos|" +
                 @"\bOstr[io]v|" +
+                @"\bOtok\b|" +
+                @"\b[Uu]hartea\b|" +
                 @"\bSŏm");
 
             // Kingdom

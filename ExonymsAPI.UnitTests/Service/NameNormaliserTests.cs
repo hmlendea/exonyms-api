@@ -177,6 +177,7 @@ namespace ExonymsAPI.UnitTests.Service
         [Test]
         [TestCase("Bygdeån piiri", "Bygdeå")]
         [TestCase("Gorakhāmaṇḍalam", "Gorakhā")]
+        [TestCase("Kolsky Destrict", "Kolsky")]
         public void GivenANameContainsTheWordDistrict_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
@@ -221,7 +222,6 @@ namespace ExonymsAPI.UnitTests.Service
             string expectedNormalisedName)
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
-
         [Test]
         [TestCase("Āiruìbùníchéngbǎo", "Āiruìbùní")]
         [TestCase("Benteng Erebuni", "Erebuni")]
@@ -235,6 +235,19 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Purantar Kōṭṭai", "Purantar")]
         [TestCase("Trdnjava Erebuni", "Erebuni")]
         public void GivenANameContainsTheWordFort_WhenNormalisingIt_ThenOnlyTheNameRemains(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Otok Koločep", "Koločep")]
+        [TestCase("Faroe Islands", "Faroe")]
+        [TestCase("Ǧzīra Kūlġwayīf", "Kūlġwayīf")]
+        [TestCase("Islla Kolgúyev", "Kolgúyev")]
+        [TestCase("Kolgujev uhartea", "Kolgujev")]
+        [TestCase("Kolguyev Adası", "Kolguyev")]
+        [TestCase("Vancouver Island", "Vancouver")]
+        public void GivenANameContainsTheWordIsland_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
