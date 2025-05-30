@@ -19,6 +19,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Bielina")]
         [TestCase("Birāṭanagara")]
         [TestCase("Biratnagara")]
+        [TestCase("Blanquefort")]
         [TestCase("Bonchurch")]
         [TestCase("Bougainville")]
         [TestCase("Bulgario")]
@@ -83,6 +84,7 @@ namespace ExonymsAPI.UnitTests.Service
         [Test]
         [TestCase("Abati Tyndyrn", "Tyndyrn")]
         [TestCase("Abaty Tyndyrn", "Tyndyrn")]
+        [TestCase("Abbatia Brewnouiensis", "Brewnouiensis")]
         [TestCase("abbaye de Tintern", "Tintern")]
         [TestCase("abbazia di Tintern", "Tintern")]
         [TestCase("Opactwo Tintern", "Tintern")]
@@ -276,13 +278,14 @@ namespace ExonymsAPI.UnitTests.Service
 
         [Test]
         [TestCase("Biara Kykkos", "Kykkos")]
+        [TestCase("Břevnov Manastırı", "Břevnov")]
         [TestCase("Kikkos monastrı", "Kikkos")]
         [TestCase("Klášter Tintern", "Tintern")]
         [TestCase("Klasztor Kykkos", "Kykkos")]
         [TestCase("Kykkos Monastery", "Kykkos")]
         [TestCase("Putna Monaĥejo", "Putna")]
         [TestCase("Samostan Kykkos", "Kykkos")]
-        [TestCase("Tintern Abbey", "Tintern")]
+        [TestCase("Stift Břevnov", "Břevnov")]
         public void GivenANameContainsTheWordMoanstery_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)

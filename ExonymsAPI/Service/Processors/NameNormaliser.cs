@@ -73,7 +73,7 @@ namespace ExonymsAPI.Service.Processors
 
             // Abbey
             cleanName = RemoveTextPattern(cleanName,
-                @"[AaOo][bp][abd]([aet][z]*[iy][ae]*|[ií][aj]|(c|ts)[t]*[vw][oí])|" +
+                @"[AaOo][bp][b]*[abd]([aet][z]*[iy][ae]*|[ií][aj]|(c|ts)[t]*[vw][oí])|" +
                 @"Benediktinerabtei");
 
             // Agency
@@ -346,9 +346,10 @@ namespace ExonymsAPI.Service.Processors
             cleanName = RemoveTextPattern(cleanName,
                 @"[Bb]iara|" +
                 @"[Kk]l[aáo][o]*[sš][z]*t[eo]r(is)*\b|" +
-                @"\b((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*\b|" +
+                @"\b((R[eo][y]*al|[BV]asilikó) )*[Mm][aăo][i]*[n]*[aăei]*(ĥ|st)[eèḗiíıy]*[r]*(e[a]*|[iı]|[ij]o[a]*|o|y)*\b|" +
                 @"[Ss]amostan|" +
-                @"[Ss]hu[u]*dōin");
+                @"[Ss]hu[u]*dōin|" +
+                @"\b[Ss]tift\b");
 
             // Municipium
             cleanName = RemoveTextPattern(cleanName,
