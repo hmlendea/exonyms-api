@@ -47,11 +47,15 @@ namespace ExonymsAPI.Service.Processors
                 "sa", // Sanskrit
                 "sh", // SerboCroatian
                 "si", // Sinhala
-                "sr", // Serbian
                 "sr-ec", // Serbian Cyrillic
+                "sr", // Serbian
                 "ta", // Tamil
                 "te", // Telugu
+                "tg-cyrl", // Tajik Cyrillic
+                "tg", // Tajik
                 "th", // Thai
+                "tt-cyrl", // Tatar Cyrillic
+                "tt", // Tatar
                 "udm", // Udmurt
                 "uk", // Ukrainian
                 "zh", // Chinese
