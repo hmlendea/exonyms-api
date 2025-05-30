@@ -17,17 +17,20 @@ namespace ExonymsAPI.Service
     {
         private readonly IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
         {
-            { "be", new List<string> { "ru", "uk", "bg", "cv" } },
-            { "bg", new List<string> { "ru", "uk", "be", "cv" } },
-            { "cu", new List<string> { "sr-ec", "bg", "mk", "ru", "uk", "be", "cv" } },
-            { "cv", new List<string> { "ru", "uk", "be", "bg" } },
+            { "ab", new List<string> { "ru", "uk", "be", "tg", "kk", "tt", "cv", "bg", "mk", "sr-ec", "cu" } },
+            { "be", new List<string> { "ru", "uk", "cu", "bg", "mk", "sr-ec", "tt", "kk", "cv", "tg", "ab" } },
+            { "bg", new List<string> { "ru", "mk", "sr-ec", "cu", "uk", "be", "tt", "cv", "kk", "tg", "ab" } },
+            { "cu", new List<string> { "ru", "bg", "uk", "be", "mk", "sr-ec", "tt", "kk", "cv", "tg", "ab" } },
+            { "cv", new List<string> { "ru", "tt", "kk", "uk", "be", "bg", "tg", "mk", "sr-ec", "cu", "ab" } },
             { "grc-dor", new List<string> { "grc", "el", "pnt" } },
             { "grc", new List<string> { "grc-dor", "el", "pnt" } },
-            { "kk", new List<string> { "cv", "ru", "bg", "uk", "be" } },
-            { "mk", new List<string> { "sr-ec", "bg", "ru", "uk", "be", "cv" } },
-            { "ru", new List<string> { "uk", "bg", "be", "cv" } },
-            { "sh", new List<string> { "sr", "sr-ec", "mk", "bg", "ru", "uk", "be", "cv" } },
-            { "uk", new List<string> { "ru", "bg", "be", "cv" } }
+            { "kk", new List<string> { "ru", "tt", "cv", "uk", "be", "tg", "bg", "mk", "sr-ec", "cu", "ab" } },
+            { "mk", new List<string> { "bg", "ru", "sr-ec", "cu", "uk", "be", "tt", "cv", "kk", "tg", "ab" } },
+            { "ru", new List<string> { "uk", "be", "cu", "bg", "mk", "sr-ec", "tt", "kk", "cv", "tg", "ab" } },
+            { "sh", new List<string> { "sr", "sr-ec", "ru", "bg", "mk", "cu", "uk", "be", "tt", "cv", "kk", "tg", "ab" } },
+            { "tg", new List<string> { "ru", "kk", "tt", "cv", "uk", "be", "bg", "mk", "sr-ec", "cu", "ab" } },
+            { "tt", new List<string> { "ru", "kk", "cv", "uk", "be", "bg", "tg", "mk", "sr-ec", "cu", "ab" } },
+            { "uk", new List<string> { "ru", "be", "cu", "bg", "mk", "sr-ec", "tt", "kk", "cv", "tg", "ab" } }
         };
 
         private readonly IDictionary<string, IEnumerable<string>> languagesToConstruct = new Dictionary<string, IEnumerable<string>>
