@@ -137,7 +137,6 @@ namespace ExonymsAPI.Service.Processors
                 @"Śahara|" +
                 @"\bShi\b|" +
                 @"\bsh[iì]\b|" +
-                @"\Bsh[iì]$|" +
                 @"Sich’i|" +
                 @"[Ss]tadt");
 
@@ -233,7 +232,6 @@ namespace ExonymsAPI.Service.Processors
                 @"\b[Pp]asuni|" +
                 @"\b[Pp]iirikunta|" +
                 @"\b[Pp]irrâdâh|" +
-                @"\bQu(ận)*|" +
                 @"\b[Rr]a[iy]on[iu]");
 
             // Division
@@ -427,7 +425,8 @@ namespace ExonymsAPI.Service.Processors
                 @"\bShuu\b|" +
                 @"\bsuyu\b|" +
                 @"\b[Tt]alaith\b|" +
-                @"\b[VvWw]il[ao][jy][ae][ht][i]*\b");
+                @"\b[Ūū]lāiyyah\b|" +
+                @"\b[VvWw][ái]l[ao][jy][ae][ht][iı]*\b");
 
             // Region
             cleanName = RemoveTextPattern(cleanName,
@@ -509,7 +508,7 @@ namespace ExonymsAPI.Service.Processors
                 @"[Mm][a]*ndir[a]*|" +
                 @"Ná Tiān|" +
                 @"[Pp]agoda|" +
-                @"[Tt]emp[e]*l[eou]*[l]*");
+                @"\b[Tt]emp[e]*l[eou]*[l]*");
 
             // Territory
             cleanName = RemoveTextPattern(cleanName,
@@ -571,34 +570,54 @@ namespace ExonymsAPI.Service.Processors
         {
             string cleanName = name;
 
+            if (languageCode.Equals("ab")) // Abkhaz
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Hh]ram\b ([^ ]*)a\b", "$1"); // Temple
+            }
+
             if (languageCode.Equals("ang")) // Old English
             {
-                cleanName = RemoveTextPattern(cleanName, @"\Benrice\b", "e");
+                cleanName = RemoveTextPattern(cleanName, @"\Benrice\b", "e"); // Kingdom
+            }
+
+            if (languageCode.Equals("az")) // Azeri
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Mm]əbədi\b", ""); // Temple
             }
 
             if (languageCode.Equals("be")) // Belarussian
             {
                 cleanName = RemoveTextPattern(cleanName, @"\Bski raion\b"); // District
+                cleanName = RemoveTextPattern(cleanName, @"\b[Cc]hram\b ([^ ]*)a\b", "$1"); // Temple
             }
 
             if (languageCode.Equals("bg")) // Bulgarian
             {
                 cleanName = RemoveTextPattern(cleanName, @"\Bski rayon\b"); // District
+                cleanName = RemoveTextPattern(cleanName, @"\b[Hh]ram\b ([^ ]*)a\b", "$1"); // Temple
             }
 
             if (languageCode.Equals("cu")) // Church Slavonic
             {
                 cleanName = RemoveTextPattern(cleanName, @"\Bski rajon\b"); // District
+                cleanName = RemoveTextPattern(cleanName, @"\b[Xx]ram\b ([^ ]*)a\b", "$1"); // Temple
             }
 
             if (languageCode.Equals("cv")) // Chuvash
             {
                 cleanName = RemoveTextPattern(cleanName, @"\Bskij rajon\b"); // District
+                cleanName = RemoveTextPattern(cleanName, @"\b[Kk]hram\b ([^ ]*)a\b", "$1"); // Temple
             }
 
             if (languageCode.Equals("cz")) // Czech
             {
                 cleanName = RemoveTextPattern(cleanName, @"\Bské [Vv]évodství\b", "sko");
+            }
+
+            if (languageCode.Equals("de") || // German
+                languageCode.Equals("gmh")) // Middle High German
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Hh]eiligtum( [Dd]es )*\b", ""); // Temple
             }
 
             if (languageCode.Equals("en")) // English
@@ -624,6 +643,7 @@ namespace ExonymsAPI.Service.Processors
 
             if (languageCode.Equals("it")) // Italian
             {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Tt]empio( [Dd]i )*\b"); // Temple
                 cleanName = RemoveTextPattern(cleanName, @"\b[Tt]orre\b"); // Tower
             }
 
@@ -642,6 +662,7 @@ namespace ExonymsAPI.Service.Processors
                 cleanName = RemoveTextPattern(cleanName, @"\Bgun\b"); // District
                 cleanName = RemoveTextPattern(cleanName, @"\Bshū\b"); // Province. Or Emirate?
                 cleanName = RemoveTextPattern(cleanName, @"Ken\b");
+                cleanName = RemoveTextPattern(cleanName, @"\Bkamidono\b", ""); // Temple
             }
 
             if (languageCode.Equals("kaa"))
@@ -652,6 +673,7 @@ namespace ExonymsAPI.Service.Processors
             if (languageCode.Equals("kk")) // Kazakh
             {
                 cleanName = RemoveTextPattern(cleanName, @"\bawdanı\b"); // District
+                cleanName = RemoveTextPattern(cleanName, @"\b[Hh]ram\b ([^ ]*)a\b", "$1"); // Temple
             }
 
             if (languageCode.Equals("ko")) // Korean
@@ -660,6 +682,7 @@ namespace ExonymsAPI.Service.Processors
                 cleanName = RemoveTextPattern(cleanName, @" Ju\b"); // Province. Or Emirate?
                 cleanName = RemoveTextPattern(cleanName, @"\B[gj]u\b");
                 cleanName = RemoveTextPattern(cleanName, @"\Bhyeon\b"); // County
+                cleanName = RemoveTextPattern(cleanName, @"\b[Ss]injeon\b"); // Temple
             }
 
             if (languageCode.Equals("lt")) // Lithuanian
@@ -673,9 +696,19 @@ namespace ExonymsAPI.Service.Processors
                 cleanName = RemoveTextPattern(cleanName, @"\Bas mintaka", "a"); // Province. Or Emirate?
             }
 
+            if (languageCode.Equals("mk")) // Macedonian
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Hh]ram\b ([^ ]*)a\b", "$1"); // Temple
+            }
+
             if (languageCode.Equals("ml"))
             {
                 cleanName = RemoveTextPattern(cleanName, @"\bBandar\b"); // Town
+            }
+
+            if (languageCode.Equals("mn")) // Mongol
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Aa]imag\b"); // Province
             }
 
             if (languageCode.Equals("mr")) // Marathi
@@ -699,11 +732,41 @@ namespace ExonymsAPI.Service.Processors
             if (languageCode.Equals("ru"))
             {
                 cleanName = RemoveTextPattern(cleanName, @"\Bskiy rayon\b"); // District
+                cleanName = RemoveTextPattern(cleanName, @"\b[Kk]hram\b ([^ ]*)a\b", "$1"); // Temple
+            }
+
+            if (languageCode.Equals("sr") || // Serbian
+                languageCode.Equals("sr-ec") || // Serbian Cyrillic
+                languageCode.Equals("sh")) // SerboCroatian
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\Bska pokrajina\b"); // Province
+                cleanName = RemoveTextPattern(cleanName, @"\b[Hh]ram\b ([^ ]*)a\b", "$1"); // Temple
             }
 
             if (languageCode.Equals("sv")) // Swedish
             {
-                cleanName = RemoveTextPattern(cleanName, @"s [Hh]ärad\b"); // Hundred
+                cleanName = RemoveTextPattern(cleanName, @"\Bs [Hh]ärad\b"); // Hundred
+                cleanName = RemoveTextPattern(cleanName, @"\Btemplet\b"); // Temple
+            }
+
+            if (languageCode.Equals("ta")) // Tamil
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Kk]ōyil\b", ""); // Temple
+            }
+
+            if (languageCode.Equals("tg")) // Tajik
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Xx]ram\b ([^ ]*)a\b", "$1"); // Temple
+            }
+
+            if (languageCode.Equals("tr")) // Turkish
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Tt]apınağı\b"); // Temple
+            }
+
+            if (languageCode.Equals("tt")) // Tatar
+            {
+                cleanName = RemoveTextPattern(cleanName, @"\b[Xx]ram\b ([^ ]*)a\b", "$1"); // Temple
             }
 
             if (languageCode.Equals("uk")) // Ukrainian
@@ -740,6 +803,8 @@ namespace ExonymsAPI.Service.Processors
                     cleanName = RemoveTextPattern(cleanName, @"\Bhú\b");
                     cleanName = RemoveTextPattern(cleanName, @"\Bhúxiàn\b"); // Lake
                     cleanName = RemoveTextPattern(cleanName, @"\Bōu\b");
+                    cleanName = RemoveTextPattern(cleanName, @"\Bsh[iì]\b"); // City
+                    cleanName = RemoveTextPattern(cleanName, @"\Bshénmiào\b", ""); // Temple
                     cleanName = RemoveTextPattern(cleanName, @"\Bshì\b");
                     cleanName = RemoveTextPattern(cleanName, @"\Bshìzhēn\b");
                     cleanName = RemoveTextPattern(cleanName, @"\Bsì\b"); // Monastery

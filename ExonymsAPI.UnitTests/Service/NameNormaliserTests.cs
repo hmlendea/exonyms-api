@@ -48,6 +48,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Morava de Vest")]
         [TestCase("Oeseukemen")]
         [TestCase("Oshi-le-Eden")]
+        [TestCase("Qudımqar")]
         [TestCase("Qūlja")]
         [TestCase("Rājyamahaḷ")]
         [TestCase("Sakaria")]
@@ -55,6 +56,7 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Solenoye")]
         [TestCase("Stolac")]
         [TestCase("Suðurland")]
+        [TestCase("Tetyushi")]
         [TestCase("Tomislavgrad")]
         [TestCase("Toumanian")]
         [TestCase("Virāṭanagara")]
@@ -119,7 +121,6 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
-        [TestCase("Gurujiyashi", "Gurujiya")]
         [TestCase("Khulj khot", "Khulj")]
         [TestCase("Yainiṅg Nagaraṁ", "Yainiṅg")]
         [TestCase("Yeniṅga Śahar", "Yeniṅg")]
@@ -128,7 +129,6 @@ namespace ExonymsAPI.UnitTests.Service
         [TestCase("Yining Shi", "Yining")]
         [TestCase("Yining Siti", "Yining")]
         [TestCase("Yining Siṭi", "Yining")]
-        [TestCase("Yīníngshì", "Yīníng")]
         public void GivenANameContainsTheWordCity_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
@@ -328,11 +328,12 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
-        [TestCase("Manṭqah Naǧrān", "Naǧrān")]
+        [TestCase("Badaxshan wálayatı", "Badaxshan")]
         [TestCase("Manṭqah Naǧrān", "Naǧrān")]
         [TestCase("Minţaqat Najrān", "Najrān")]
         [TestCase("Najran Prāntaṁ", "Najran")]
         [TestCase("Ríu Chichikleya", "Chichikleya")]
+        [TestCase("Ūlāiyyah Badaẖšān", "Badaẖšān")]
         public void GivenANameContainsTheWordProvince_WhenNormalisingIt_ThenOnlyTheNameRemains(
             string name,
             string expectedNormalisedName)
@@ -403,32 +404,63 @@ namespace ExonymsAPI.UnitTests.Service
             => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
 
         [Test]
+        [TestCase("zh", "Gurujiyashi", "Gurujiya")]
+        [TestCase("zh", "Yīníngshì", "Yīníng")]
+        public void GivenALanguageSpecificNameContainsTheWordCity_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(
+            string languageCode,
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(languageCode, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("ab", "Hram Baalšamina", "Baalšamin")]
+        [TestCase("az", "Baalşamin məbədi", "Baalşamin")]
+        [TestCase("be", "Chram Baalšamina", "Baalšamin")]
         [TestCase("be", "Urdžarski raion", "Urdžar")]
+        [TestCase("bg", "Hram Baalshamina", "Baalshamin")]
         [TestCase("bg", "Urdzharski rayon", "Urdzhar")]
         [TestCase("cu", "Urdžarski rajon", "Urdžar")]
+        [TestCase("cu", "Xram Baalšamina", "Baalšamin")]
+        [TestCase("cv", "Khram Baalšamina", "Baalšamin")]
         [TestCase("cv", "Urdžarskij rajon", "Urdžar")]
         [TestCase("cz", "Holštýnské vévodství", "Holštýnsko")]
+        [TestCase("de", "Heiligtum des Baalshamin", "Baalshamin")]
         [TestCase("en", "Valgorrera Tower", "Valgorrera")]
         [TestCase("en", "Yanchiwan National Natural Reserve", "Yanchiwan")]
         [TestCase("hi", "Sitāng Nadi", "Sitāng")]
         [TestCase("hu", "Nadzsrán tartomány", "Nadzsrán")]
         [TestCase("id", "Kabupaten Kangmar", "Kangmar")]
+        [TestCase("it", "Tempio di Baalshamin", "Baalshamin")]
         [TestCase("it", "Torre Valgorrera", "Valgorrera")]
+        [TestCase("ja", "Barushiyaminkamidono", "Barushiyamin")]
+        [TestCase("kk", "Hram Baalşamina", "Baalşamin")]
         [TestCase("kk", "Ürjar awdanı", "Ürjar")]
+        [TestCase("ko", "Baalshamin Sinjeon", "Baalshamin")]
         [TestCase("lv", "Nedžrānas mintaka", "Nedžrāna")]
+        [TestCase("mk", "Hram Baalšamina", "Baalšamin")]
         [TestCase("ml", "Bandar Nyêmo", "Nyêmo")]
+        [TestCase("mn", "Badakhshan aimag", "Badakhshan")]
         [TestCase("mr", "Kāṅgamār Ṅgar", "Kāṅgamār")]
         [TestCase("mr", "Najren Pardeś", "Najren")]
         [TestCase("ms", "Bandar Kangmar", "Kangmar")]
         [TestCase("ms", "Lapangan Terbang Yangadzha", "Yangadzha")]
         [TestCase("pl", "Port lotniczy Jangadża", "Jangadża")]
         [TestCase("pl", "Sittaung Myit", "Sittaung")]
+        [TestCase("ru", "Khram Baalshamina", "Baalshamin")]
         [TestCase("ru", "Urdzharskiy rayon", "Urdzhar")]
+        [TestCase("sr-ec", "Hram Baalšamina", "Baalšamin")]
+        [TestCase("sr", "Badahšanska pokrajina", "Badahšan")]
+        [TestCase("sv", "Baalshamintemplet", "Baalshamin")]
         [TestCase("sv", "Gillbergs härad", "Gillberg")]
+        [TestCase("ta", "Pālcamīṉ Kōyil", "Pālcamīṉ")]
+        [TestCase("tg", "Xram Baalșamina", "Baalșamin")]
+        [TestCase("tr", "Baalshamin Tapınağı", "Baalshamin")]
+        [TestCase("tt", "Xram Baalşamina", "Baalşamin")]
         [TestCase("uk", "Urdzharskyi raion", "Urdzhar")]
         [TestCase("vi", "Huyện Gorkha", "Gorkha")]
         [TestCase("vi", "Khang Mã Trấn", "Khang Mã")]
         [TestCase("vi", "Sông Sittaung", "Sittaung")]
+        [TestCase("zh", "Bāěrxiàmíngshénmiào", "Bāěrxiàmíng")]
         public void GivenALanguageSpecificName_WhenNormalisingIt_ThenAllUnwantedWordsForThatLanguageAreRemoved(
             string languageCode,
             string name,
