@@ -1,8 +1,7 @@
-using System;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using ExonymsAPI.Client.TransliterationAPI;
 using ExonymsAPI.Service.Models;
 using ExonymsAPI.Service.Processors;
 using Newtonsoft.Json.Linq;
@@ -12,7 +11,7 @@ namespace ExonymsAPI.Service.Gatherers
 {
     public class WikiDataGatherer(
         INameNormaliser nameNormaliser,
-        INameTransliterator nameTransliterator) : IWikiDataGatherer
+        ITransliterationApiClient transliterationApiClient) : IWikiDataGatherer
     {
         public const string DefaultNameLanguageCode = "en";
 
@@ -53,7 +52,7 @@ namespace ExonymsAPI.Service.Gatherers
                         continue;
                     }
 
-                    name.Value = await nameTransliterator.Transliterate(languageCode, name.OriginalValue);
+                    name.Value = await transliterationApiClient.Transliterate(languageCode, name.OriginalValue);
                     name.Value = nameNormaliser.Normalise(languageCode, name.Value);
 
                     location.Names.Add(languageCode, name);
@@ -70,7 +69,7 @@ namespace ExonymsAPI.Service.Gatherers
 
                     Name name = new((string)sitelink.Value["title"]);
 
-                    name.Value = await nameTransliterator.Transliterate(languageCode, name.OriginalValue);
+                    name.Value = await transliterationApiClient.Transliterate(languageCode, name.OriginalValue);
                     name.Value = nameNormaliser.Normalise(languageCode, name.Value);
 
                     if (name.Equals(location.DefaultName))

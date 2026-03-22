@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 
-namespace ExonymsAPI.Service.Processors
+namespace ExonymsAPI.Client.TransliterationAPI
 {
-    public interface INameTransliterator
+    public interface ITransliterationApiClient
     {
         Task<string> Transliterate(string languageCode, string name);
     }

@@ -3,9 +3,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ExonymsAPI.Configuration;
 
-namespace ExonymsAPI.Service.Processors
+namespace ExonymsAPI.Client.TransliterationAPI
 {
-    public class NameTransliterator(TransliterationSettings transliterationSettings) : INameTransliterator
+    public class TransliterationApiClient(
+        TransliterationSettings transliterationSettings) : ITransliterationApiClient
     {
         readonly HttpClient client = new();
 
