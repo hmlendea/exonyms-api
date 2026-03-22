@@ -26,7 +26,7 @@ namespace ExonymsAPI.Service.Gatherers
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new Exception($"Failed to retrieve WikiData entry for ID: {wikiDataId}");
+                    throw new HttpRequestException($"Failed to retrieve the WikiData entry for '{wikiDataId}': {response.StatusCode}");
                 }
 
                 string json = await response.Content.ReadAsStringAsync();
