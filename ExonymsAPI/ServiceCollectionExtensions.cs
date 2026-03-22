@@ -6,6 +6,7 @@ using ExonymsAPI.Service.Gatherers;
 using ExonymsAPI.Service.Processors;
 using ExonymsAPI.Client.TransliterationAPI;
 using ExonymsAPI.Configuration;
+using NuciAPI.Client;
 
 namespace ExonymsAPI
 {
@@ -34,6 +35,7 @@ namespace ExonymsAPI
                 .AddSingleton<INameConstructor, NameConstructor>()
                 .AddSingleton<IGeoNamesGatherer, GeoNamesGatherer>()
                 .AddSingleton<IWikiDataGatherer, WikiDataGatherer>()
-                .AddTransient<ITransliterationApiClient, TransliterationApiClient>();
+                .AddTransient<ITransliterationApiClient, TransliterationApiClient>()
+                .AddTransient<INuciApiClient>(provider => new NuciApiClient(provider.GetRequiredService<TransliterationSettings>().TransliterationApiBaseUrl));
     }
 }

@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ExonymsAPI.Configuration;
+using ExonymsAPI.Client.TransliterationAPI.Requests;
+using ExonymsAPI.Client.TransliterationAPI.Responses;
+using NuciAPI.Client;
+using NuciAPI.Responses;
 
 namespace ExonymsAPI.Client.TransliterationAPI
 {
-    public class TransliterationApiClient(
-        TransliterationSettings transliterationSettings) : ITransliterationApiClient
+    public class TransliterationApiClient(INuciApiClient nuciApiClient) : ITransliterationApiClient
     {
         readonly HttpClient client = new();
 
@@ -70,14 +72,25 @@ namespace ExonymsAPI.Client.TransliterationAPI
                 return name;
             }
 
-            HttpResponseMessage response = await client.GetAsync($"{transliterationSettings.TransliterationApiBaseUrl}/Transliteration?text={name}&language={languageCode}");
+            GetTransliterationsRequest request = new()
+            {
+                Text = name,
+                Language = languageCode
+            };
 
-            if (!response.IsSuccessStatusCode)
+            NuciApiResponse rawResponse = await nuciApiClient.SendRequestAsync<GetTransliterationsRequest, GetTransliterationsResponse>(
+                HttpMethod.Get,
+                request,
+                $"Transliteration");
+
+            if (!rawResponse.IsSuccessful)
             {
                 return name;
             }
 
-            string transliteratedName = await response.Content.ReadAsStringAsync();
+            GetTransliterationsResponse response = rawResponse as GetTransliterationsResponse;
+
+            string transliteratedName = response.Text;
 
             if (string.IsNullOrWhiteSpace(transliteratedName))
             {

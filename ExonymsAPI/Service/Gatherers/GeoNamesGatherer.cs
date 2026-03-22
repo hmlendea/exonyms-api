@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using ExonymsAPI.Client.TransliterationAPI;
 using ExonymsAPI.Service.Models;
 using ExonymsAPI.Service.Processors;
 
@@ -11,7 +12,7 @@ namespace ExonymsAPI.Service.Gatherers
 {
     public class GeoNamesGatherer(
         INameNormaliser nameNormaliser,
-        INameTransliterator nameTransliterator) : IGeoNamesGatherer
+        ITransliterationApiClient transliterationApiClient) : IGeoNamesGatherer
     {
         private static string GeoNamesRequestUrlFormat => "http://api.geonames.org/get?geonameId={0}&username=geonamesfreeaccountt";
         private static string DefaultNameLanguageCode => "en";
@@ -63,7 +64,7 @@ namespace ExonymsAPI.Service.Gatherers
                             continue;
                         }
 
-                        name.Value = await nameTransliterator.Transliterate(languageCode, name.Value);
+                        name.Value = await transliterationApiClient.Transliterate(languageCode, name.Value);
                         name.Value = nameNormaliser.Normalise(languageCode, name.Value);
 
                         location.Names.Add(languageCode, name);
