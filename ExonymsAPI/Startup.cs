@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NuciAPI.Middleware;
 
 namespace ExonymsAPI
 {
@@ -29,6 +30,8 @@ namespace ExonymsAPI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseNuciApiExceptionHandling();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
