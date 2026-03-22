@@ -10,8 +10,6 @@ namespace ExonymsAPI.Client.TransliterationAPI
 {
     public class TransliterationApiClient(INuciApiClient nuciApiClient) : ITransliterationApiClient
     {
-        readonly HttpClient client = new();
-
         readonly IList<string> languageCodesToTransliterate =
             [
                 "ab", // Abkhaz
