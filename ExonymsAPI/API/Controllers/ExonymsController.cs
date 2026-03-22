@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ExonymsAPI.Service;
 using ExonymsAPI.API.Requests;
 using NuciAPI.Controllers;
+using ExonymsAPI.API.Responses;
+using ExonymsAPI.Service.Models;
 
 namespace ExonymsAPI.API.Controllers
 {
@@ -11,10 +12,21 @@ namespace ExonymsAPI.API.Controllers
     public class ExonymsController(IExonymsService exonymsService) : NuciApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromQuery] GetExonymsRequest request)
+        public ActionResult Get([FromQuery] GetExonymsRequest request)
             => ProcessRequest(
                 request,
-                async () => await exonymsService.Gather(request.GeoNamesId, request.WikiDataId),
+                () =>
+                {
+                    Location exonyms = exonymsService.Gather(request.GeoNamesId, request.WikiDataId).Result;
+
+                    GetExonymsResponse response = new()
+                    {
+                        DefaultName = exonyms.DefaultName,
+                        Names = exonyms.Names
+                    };
+
+                    return response;
+                },
                 NuciApiAuthorisation.None);
     }
 }
