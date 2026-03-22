@@ -10,28 +10,29 @@ namespace ExonymsAPI
 {
     public static class ServiceCollectionExtensions
     {
-        static TransliterationSettings transliterationSettings;
-
-        public static IServiceCollection AddConfigurations(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddConfigurations(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
-            transliterationSettings = new TransliterationSettings();
+            TransliterationSettings transliterationSettings = new();
+            SecuritySettings securitySettings = new();
 
             configuration.Bind(nameof(TransliterationSettings), transliterationSettings);
+            configuration.Bind(nameof(SecuritySettings), securitySettings);
 
             services.AddSingleton(transliterationSettings);
+            services.AddSingleton(securitySettings);
 
             return services;
         }
 
-        public static IServiceCollection AddCustomServices(this IServiceCollection services)
-        {
-            return services
+        public static IServiceCollection AddCustomServices(
+            this IServiceCollection services) => services
                 .AddSingleton<IExonymsService, ExonymsService>()
                 .AddSingleton<INameNormaliser, NameNormaliser>()
                 .AddSingleton<INameTransliterator, NameTransliterator>()
                 .AddSingleton<INameConstructor, NameConstructor>()
                 .AddSingleton<IGeoNamesGatherer, GeoNamesGatherer>()
                 .AddSingleton<IWikiDataGatherer, WikiDataGatherer>();
-        }
     }
 }
