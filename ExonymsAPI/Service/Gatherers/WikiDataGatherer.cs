@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ExonymsAPI.Service.Models;
 using ExonymsAPI.Service.Processors;
 using Newtonsoft.Json.Linq;
+using NuciWeb.HTTP;
 
 namespace ExonymsAPI.Service.Gatherers
 {
@@ -19,7 +20,7 @@ namespace ExonymsAPI.Service.Gatherers
         {
             Location location = new();
 
-            using (HttpClient client = new())
+            using (HttpClient client = HttpClientCreator.Create())
             {
                 HttpResponseMessage response = await client.GetAsync($"https://wikidata.org/wiki/Special:EntityData/{wikiDataId}.json");
 
