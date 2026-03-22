@@ -40,10 +40,6 @@ namespace ExonymsAPI
             app.UseCors();
             app.UseHttpsRedirection();
             app.UseRouting();
-
-            app.UseNuciApiHeaderValidation();
-            app.UseNuciApiReplayProtection();
-
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
