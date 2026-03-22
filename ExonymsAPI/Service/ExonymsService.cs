@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using ExonymsAPI.Client.TransliterationAPI;
 using ExonymsAPI.Service.Gatherers;
 using ExonymsAPI.Service.Models;
 using ExonymsAPI.Service.Processors;
@@ -12,7 +12,7 @@ namespace ExonymsAPI.Service
         IGeoNamesGatherer geoNamesGatherer,
         IWikiDataGatherer wikiDataGatherer,
         INameConstructor nameConstructor,
-        INameTransliterator nameTransliterator,
+        ITransliterationApiClient transliterationApiClient,
         INameNormaliser nameNormaliser) : IExonymsService
     {
         private readonly IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
@@ -89,11 +89,11 @@ namespace ExonymsAPI.Service
                         Comment = $"Based on language '{languageToFallbackTo}'"
                     };
 
-                    name.Value = await nameTransliterator.Transliterate(languageToFallbackFrom, name.OriginalValue);
+                    name.Value = await transliterationApiClient.Transliterate(languageToFallbackFrom, name.OriginalValue);
 
                     if (name.Value.Equals(name.OriginalValue))
                     {
-                        name.Value = await nameTransliterator.Transliterate(languageToFallbackTo, name.OriginalValue);
+                        name.Value = await transliterationApiClient.Transliterate(languageToFallbackTo, name.OriginalValue);
                     }
 
                     name.Value = nameNormaliser.Normalise(languageToFallbackTo, name.Value);
