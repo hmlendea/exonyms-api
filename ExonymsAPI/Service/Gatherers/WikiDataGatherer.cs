@@ -1,21 +1,63 @@
+using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ExonymsAPI.Client.TransliterationAPI;
+using ExonymsAPI.Logging;
 using ExonymsAPI.Service.Models;
 using ExonymsAPI.Service.Processors;
 using Newtonsoft.Json.Linq;
+using NuciLog.Core;
 using NuciWeb.HTTP;
 
 namespace ExonymsAPI.Service.Gatherers
 {
     public class WikiDataGatherer(
         INameNormaliser nameNormaliser,
-        ITransliterationApiClient transliterationApiClient) : IWikiDataGatherer
+        ITransliterationApiClient transliterationApiClient,
+        ILogger logger) : IWikiDataGatherer
     {
         public const string DefaultNameLanguageCode = "en";
 
         public async Task<Location> Gather(string wikiDataId)
+        {
+            IEnumerable<LogInfo> logInfos =
+            [
+                new LogInfo(MyLogInfoKey.WikiDataId, wikiDataId)
+            ];
+
+            logger.Info(
+                MyOperation.GatherWikiDataExonyms,
+                OperationStatus.Started,
+                logInfos);
+
+            try
+            {
+                Location location = await FetchLocation(wikiDataId);
+
+                logger.Info(
+                    MyOperation.GatherWikiDataExonyms,
+                    OperationStatus.Success,
+                    logInfos,
+                    new LogInfo(MyLogInfoKey.DefaultName, location.DefaultName),
+                    new LogInfo(MyLogInfoKey.Count, location.Names.Count));
+
+                return location;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(
+                    MyOperation.GatherWikiDataExonyms,
+                    OperationStatus.Failure,
+                    ex,
+                    logInfos);
+
+                throw;
+            }
+        }
+
+        async Task<Location> FetchLocation(string wikiDataId)
         {
             Location location = new();
 

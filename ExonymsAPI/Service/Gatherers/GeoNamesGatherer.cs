@@ -5,14 +5,17 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using ExonymsAPI.Client.TransliterationAPI;
+using ExonymsAPI.Logging;
 using ExonymsAPI.Service.Models;
 using ExonymsAPI.Service.Processors;
+using NuciLog.Core;
 
 namespace ExonymsAPI.Service.Gatherers
 {
     public class GeoNamesGatherer(
         INameNormaliser nameNormaliser,
-        ITransliterationApiClient transliterationApiClient) : IGeoNamesGatherer
+        ITransliterationApiClient transliterationApiClient,
+        ILogger logger) : IGeoNamesGatherer
     {
         private static string GeoNamesRequestUrlFormat => "http://api.geonames.org/get?geonameId={0}&username=geonamesfreeaccountt";
         private static string DefaultNameLanguageCode => "en";
@@ -20,7 +23,43 @@ namespace ExonymsAPI.Service.Gatherers
 
         public async Task<Location> Gather(string geoNamesId)
         {
-            Location location = new();
+            IEnumerable<LogInfo> logInfos =
+            [
+                new LogInfo(MyLogInfoKey.GeoNamesId, geoNamesId)
+            ];
+
+            logger.Info(
+                MyOperation.GatherGeoNamesExonyms,
+                OperationStatus.Started,
+                logInfos);
+
+            try
+            {
+                Location location = await FetchLocation(geoNamesId);
+
+                logger.Info(
+                    MyOperation.GatherGeoNamesExonyms,
+                    OperationStatus.Success,
+                    logInfos,
+                    new LogInfo(MyLogInfoKey.DefaultName, location.DefaultName),
+                    new LogInfo(MyLogInfoKey.Count, location.Names.Count));
+
+                return location;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(
+                    MyOperation.GatherGeoNamesExonyms,
+                    OperationStatus.Failure,
+                    ex,
+                    logInfos);
+
+                throw;
+            }
+        }
+
+        async Task<Location> FetchLocation(string geoNamesId)
+        {Location location = new();
 
             using (HttpClient client = new())
             {
@@ -28,7 +67,7 @@ namespace ExonymsAPI.Service.Gatherers
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    throw new Exception($"Failed to retrieve GeoNames entry for ID: {geoNamesId}");
+                    throw new HttpRequestException($"Failed to retrieve the GeoNames entry for '{geoNamesId}': {response.StatusCode}");
                 }
 
                 string xml = await response.Content.ReadAsStringAsync();
