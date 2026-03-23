@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExonymsAPI.Client.TransliterationAPI;
+using ExonymsAPI.Logging;
 using ExonymsAPI.Service.Gatherers;
 using ExonymsAPI.Service.Models;
 using ExonymsAPI.Service.Processors;
+using NuciLog.Core;
 
 namespace ExonymsAPI.Service
 {
@@ -13,7 +15,8 @@ namespace ExonymsAPI.Service
         IWikiDataGatherer wikiDataGatherer,
         INameConstructor nameConstructor,
         ITransliterationApiClient transliterationApiClient,
-        INameNormaliser nameNormaliser) : IExonymsService
+        INameNormaliser nameNormaliser,
+        ILogger logger) : IExonymsService
     {
         private readonly IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
         {
@@ -40,6 +43,17 @@ namespace ExonymsAPI.Service
 
         public async Task<Location> Gather(string geoNamesId, string wikiDataId)
         {
+            IEnumerable<LogInfo> logInfos =
+            [
+                new LogInfo(MyLogInfoKey.GeoNamesId, geoNamesId),
+                new LogInfo(MyLogInfoKey.WikiDataId, wikiDataId)
+            ];
+
+            logger.Info(
+                MyOperation.GatherExonyms,
+                OperationStatus.Started,
+                logInfos);
+
             IList<Location> gatheredLocations = [];
 
             if (!string.IsNullOrWhiteSpace(wikiDataId))
@@ -74,6 +88,11 @@ namespace ExonymsAPI.Service
             location.Names = location.Names
                 .OrderBy(x => x.Key)
                 .ToDictionary(x => x.Key, x => x.Value);
+
+            logger.Info(
+                MyOperation.GatherExonyms,
+                OperationStatus.Success,
+                logInfos);
 
             return location;
         }
