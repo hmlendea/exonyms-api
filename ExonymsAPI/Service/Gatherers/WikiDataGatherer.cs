@@ -36,7 +36,7 @@ namespace ExonymsAPI.Service.Gatherers
             {
                 Location location = await FetchLocation(wikiDataId);
 
-                logger.Debug(
+                logger.Info(
                     MyOperation.GatherWikiDataExonyms,
                     OperationStatus.Success,
                     logInfos,

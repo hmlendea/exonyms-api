@@ -37,7 +37,7 @@ namespace ExonymsAPI.Service.Gatherers
             {
                 Location location = await FetchLocation(geoNamesId);
 
-                logger.Debug(
+                logger.Info(
                     MyOperation.GatherGeoNamesExonyms,
                     OperationStatus.Success,
                     logInfos,
