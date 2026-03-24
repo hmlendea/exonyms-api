@@ -18,7 +18,7 @@ namespace ExonymsAPI.Service.Gatherers
         ITransliterationApiClient transliterationApiClient,
         ILogger logger) : IGeoNamesGatherer
     {
-        private static string GeoNamesRequestEndpointFormat => "https://api.geonames.org/get?geonameId={0}&username={1}";
+        private static string GeoNamesRequestEndpointFormat => "http://api.geonames.org/get?geonameId={0}&username={1}";
         private static string DefaultNameLanguageCode => "en";
         private static string[] IgnoredLanguageCodes => ["link", "unlc", "wkdt"];
 
