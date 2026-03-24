@@ -71,61 +71,61 @@ namespace ExonymsAPI.Service.Gatherers
 
         async Task<Location> FetchLocation(string geoNamesId)
         {
-            Location location = new();
-
             using HttpClient client = new();
+
+            string geoNamesEndpoint = string.Format(
+                GeoNamesRequestEndpointFormat,
+                geoNamesId,
+                usernames.GetRandomElement());
+
+            HttpResponseMessage response = await client.GetAsync(geoNamesEndpoint);
+
+            if (!response.IsSuccessStatusCode)
             {
-                string geoNamesEndpoint = string.Format(
-                    GeoNamesRequestEndpointFormat,
-                    geoNamesId,
-                    usernames.GetRandomElement());
+                throw new HttpRequestException($"Failed to retrieve the GeoNames entry for '{geoNamesId}': {response.StatusCode}");
+            }
 
-                HttpResponseMessage response = await client.GetAsync(geoNamesEndpoint);
+            Location location = new();
+            string xml = await response.Content.ReadAsStringAsync();
 
-                if (!response.IsSuccessStatusCode)
+            // Parse the XML response
+            XDocument doc = XDocument.Parse(xml);
+            XElement geonameElement = doc.Root;
+
+            // Extract the alternate names
+            IEnumerable<XElement> alternateNameElements = geonameElement.Elements("alternateName");
+
+            location.DefaultName = (string)geonameElement.Element("name");
+            location.DefaultName = nameNormaliser.Normalise(DefaultNameLanguageCode, location.DefaultName);
+
+            if (alternateNameElements is null)
+            {
+                return location;
+            }
+
+            foreach (XElement alternateNameElement in alternateNameElements)
+            {
+                string languageCode = alternateNameElement.Attribute("lang")?.Value;
+
+                if (string.IsNullOrWhiteSpace(languageCode) ||
+                    location.Names.ContainsKey(languageCode) ||
+                    IgnoredLanguageCodes.Contains(languageCode))
                 {
-                    throw new HttpRequestException($"Failed to retrieve the GeoNames entry for '{geoNamesId}': {response.StatusCode}");
+                    continue;
                 }
 
-                string xml = await response.Content.ReadAsStringAsync();
+                Name name = new(alternateNameElement.Value);
 
-                // Parse the XML response
-                XDocument doc = XDocument.Parse(xml);
-                XElement geonameElement = doc.Root;
-
-                // Extract the alternate names
-                IEnumerable<XElement> alternateNameElements = geonameElement.Elements("alternateName");
-
-                location.DefaultName = (string)geonameElement.Element("name");
-                location.DefaultName = nameNormaliser.Normalise(DefaultNameLanguageCode, location.DefaultName);
-
-                if (alternateNameElements is not null)
+                if (string.IsNullOrWhiteSpace(languageCode) ||
+                    Name.IsNullOrWhiteSpace(name))
                 {
-                    foreach (XElement alternateNameElement in alternateNameElements)
-                    {
-                        string languageCode = alternateNameElement.Attribute("lang")?.Value;
-
-                        if (string.IsNullOrWhiteSpace(languageCode) ||
-                            location.Names.ContainsKey(languageCode) ||
-                            IgnoredLanguageCodes.Contains(languageCode))
-                        {
-                            continue;
-                        }
-
-                        Name name = new(alternateNameElement.Value);
-
-                        if (string.IsNullOrWhiteSpace(languageCode) ||
-                            Name.IsNullOrWhiteSpace(name))
-                        {
-                            continue;
-                        }
-
-                        name.Value = await transliterationApiClient.Transliterate(languageCode, name.Value);
-                        name.Value = nameNormaliser.Normalise(languageCode, name.Value);
-
-                        location.Names.Add(languageCode, name);
-                    }
+                    continue;
                 }
+
+                name.Value = await transliterationApiClient.Transliterate(languageCode, name.Value);
+                name.Value = nameNormaliser.Normalise(languageCode, name.Value);
+
+                location.Names.Add(languageCode, name);
             }
 
             return location;
