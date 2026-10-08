@@ -30,3 +30,7 @@ curl --insecure --request GET --location 'http://localhost:5000/Exonyms?wikiData
 # Privacy
 
 See [PRIVACY.md](PRIVACY.md) for information about how this service handles personal data.
+
+# Security
+
+See [SECURITY.md](SECURITY.md) for the security policy, including how to report vulnerabilities.
