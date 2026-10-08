@@ -13,7 +13,7 @@ namespace ExonymsAPI.Service.Processors
             normalisedName = RemoveTextPattern(normalisedName, "[…]");
             normalisedName = RemoveTextPattern(normalisedName, "/.*");
             normalisedName = RemoveTextPattern(normalisedName, "\\(.*");
-            normalisedName = RemoveTextPattern(normalisedName, "\\s*<alternateName .*$");
+            normalisedName = RemoveTextPattern(normalisedName, @"<alternateName[^>]*>.*$");
             normalisedName = RemoveTextPattern(normalisedName, "^\"(.*)\"$", "$1");
             normalisedName = RemoveTextPattern(normalisedName, @"^[^\s]*:");
 
@@ -339,6 +339,7 @@ namespace ExonymsAPI.Service.Processors
                 @"\b[GgHh][ao]ra\b|" +
                 @"Ǧibāl|" +
                 @"[Mm][ouū][u]*n[tț][aei]*([gi]*[ln][es]|ii|s)*\b|" +
+                @"\b[Mm]ountain\b|" +
                 @"[Pp]arvata[ṁ]*|" +
                 @"[Ss]hānmài");
 

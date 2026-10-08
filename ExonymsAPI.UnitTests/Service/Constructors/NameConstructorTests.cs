@@ -179,5 +179,99 @@ namespace ExonymsAPI.UnitTests.Service.Constructors
             string germanName,
             string middleHighGermanName)
             => Assert.That(constructor.Construct(germanName, "gmh"), Is.EqualTo(middleHighGermanName));
+
+        [Test]
+        [TestCase("Test", "Test")]
+        [TestCase("", "")]
+        public void GivenANonGermanName_WhenConstructingWithGmh_ThenNameIsReturnedUnchanged(
+            string name,
+            string expected)
+            => Assert.That(constructor.Construct(name, "gmh"), Is.EqualTo(expected));
+
+        [Test]
+        [TestCase("Test", "Test")]
+        [TestCase("", "")]
+        public void GivenAnyName_WhenConstructingWithUnknownLanguage_ThenNameIsReturnedUnchanged(
+            string name,
+            string expected)
+            => Assert.That(constructor.Construct(name, "unknown"), Is.EqualTo(expected));
+
+        [Test]
+        [TestCase("Berg", "Bërc")]
+        [TestCase("Burg", "Burc")]
+        [TestCase("Brok", "Bruch")]
+        [TestCase("Brun", "Braun")]
+        [TestCase("Nord", "Nort")]
+        [TestCase("Wei", "Wí")]
+        [TestCase("anno", "ano")]
+        [TestCase("ay", "ei")]
+        [TestCase("dal", "tal")]
+        [TestCase("den", "dun")]
+        [TestCase("dm", "dem")]
+        [TestCase("drecht", "chtrad")]
+        [TestCase("ds", "des")]
+        [TestCase("dt", "t")]
+        [TestCase("ed", "eid")]
+        [TestCase("et", "eit")]
+        [TestCase("enb", "ernb")]
+        [TestCase("erar", "ærer")]
+        [TestCase("ere", "eer")]
+        [TestCase("err", "ehr")]
+        [TestCase("ers", "eres")]
+        [TestCase("ert", "irs")]
+        [TestCase("euch", "iuch")]
+        [TestCase("feld", "felt")]
+        [TestCase("ff", "f")]
+        [TestCase("ford", "furt")]
+        [TestCase("gen", "cen")]
+        [TestCase("ger", "cer")]
+        [TestCase("ham", "heim")]
+        [TestCase("ieb", "ib")]
+        [TestCase("ien", "in")]
+        [TestCase("ies", "is")]
+        [TestCase("iern", "iren")]
+        [TestCase("land", "lant")]
+        [TestCase("ler", "lære")]
+        [TestCase("nas", "nes")]
+        [TestCase("or", "ar")]
+        [TestCase("Öster", "Ost")]
+        [TestCase("ouen", "ouwen")]
+        [TestCase("reid", "rid")]
+        [TestCase("reu", "riu")]
+        [TestCase("rik", "rich")]
+        [TestCase("row", "rew")]
+        [TestCase("run", "raun")]
+        [TestCase("sgau", "sachgöu")]
+        [TestCase("ssen", "snede")]
+        [TestCase("sten", "stein")]
+        [TestCase("thal", "tal")]
+        [TestCase("Ts", "Cz")]
+        [TestCase("tt", "t")]
+        [TestCase("uck", "ök")]
+        [TestCase("üd", "üed")]
+        [TestCase("vad", "wat")]
+        [TestCase("ver", "vere")]
+        [TestCase("wick", "weich")]
+        [TestCase("wik", "weich")]
+        [TestCase("wíg", "wích")]
+        [TestCase("x", "cc")]
+        [TestCase("zn", "zen")]
+        [TestCase("lsbërc", "lebërc")]
+        [TestCase("Broun", "Braun")]
+        public void GivenASinglePattern_WhenApplyingGmhTransformation_ThenPatternIsTransformed(
+            string input,
+            string expected)
+            => Assert.That(constructor.Construct(input, "gmh"), Is.EqualTo(expected));
+
+        [Test]
+        [TestCase("achl", "achel")]
+        [TestCase("ck", "k")]
+        [TestCase("on", "un")]
+        [TestCase("ss", "z")]
+        [TestCase("ß", "z")]
+        public void GivenALaterPattern_WhenApplyingGmhTransformation_ThenPatternIsTransformed(
+            string input,
+            string expected)
+            => Assert.That(constructor.Construct(input, "gmh"), Is.EqualTo(expected));
     }
 }
