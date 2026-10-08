@@ -520,5 +520,118 @@ namespace ExonymsAPI.UnitTests.Service
             string name,
             string expectedNormalisedName)
             => Assert.That(nameNormaliser.Normalise("ko", name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test - suffix", "Test")]
+        [TestCase("Test, suffix", "Test")]
+        [TestCase("Test…", "Test")]
+        [TestCase("Test/suffix", "Test")]
+        [TestCase("Test (suffix)", "Test")]
+        [TestCase("Test <alternateName>suffix", "Test")]
+        [TestCase("\"Test\"", "Test")]
+        [TestCase("prefix:Test", "Test")]
+        public void GivenANameWithVariousPatterns_WhenNormalisingIt_ThenPatternsAreRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("  Test  ", "Test")]
+        [TestCase("--Test--", "Test")]
+        [TestCase("  --Test--  ", "Test")]
+        public void GivenANameWithWhitespaceAndDashes_WhenNormalisingIt_ThenTheyAreTrimmed(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test  Test", "Test Test")]
+        [TestCase("Test   Test", "Test Test")]
+        public void GivenANameWithMultipleSpaces_WhenNormalisingIt_ThenSpacesAreCollapsed(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase(" - ")]
+        [TestCase(" , ")]
+        public void GivenAnEmptyOrWhitespaceName_WhenNormalisingIt_ThenEmptyStringIsReturned(
+            string name)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(string.Empty));
+
+        [Test]
+        [TestCase("Test Abbey", "Test")]
+        [TestCase("Abbey Test", "Test")]
+        [TestCase("Test Abbey Test", "Test Test")]
+        public void GivenANameWithAbbeyInDifferentPositions_WhenNormalisingIt_ThenAbbeyIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test Cathedral", "Test")]
+        [TestCase("Cathedral Test", "Test")]
+        public void GivenANameWithCathedral_WhenNormalisingIt_ThenCathedralIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test Church", "Test")]
+        [TestCase("Church Test", "Test")]
+        public void GivenANameWithChurch_WhenNormalisingIt_ThenChurchIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test Fort", "Test")]
+        [TestCase("Fort Test", "Test")]
+        public void GivenANameWithFort_WhenNormalisingIt_ThenFortIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test Island", "Test")]
+        [TestCase("Island Test", "Test")]
+        public void GivenANameWithIsland_WhenNormalisingIt_ThenIslandIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test Lake", "Test")]
+        [TestCase("Lake Test", "Test")]
+        public void GivenANameWithLake_WhenNormalisingIt_ThenLakeIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test Mountain", "Test")]
+        [TestCase("Mountain Test", "Test")]
+        public void GivenANameWithMountain_WhenNormalisingIt_ThenMountainIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test River", "Test")]
+        [TestCase("River Test", "Test")]
+        public void GivenANameWithRiver_WhenNormalisingIt_ThenRiverIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
+
+        [Test]
+        [TestCase("Test Valley", "Test")]
+        [TestCase("Valley Test", "Test")]
+        public void GivenANameWithValley_WhenNormalisingIt_ThenValleyIsRemoved(
+            string name,
+            string expectedNormalisedName)
+            => Assert.That(nameNormaliser.Normalise(string.Empty, name), Is.EqualTo(expectedNormalisedName));
     }
 }
