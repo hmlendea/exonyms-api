@@ -26,3 +26,7 @@ The following example will gather a list of exonyms for _Al Homceima_:
 ```sh
 curl --insecure --request GET --location 'http://localhost:5000/Exonyms?wikiDataId=Q310350'
 ```
+
+# Privacy
+
+See [PRIVACY.md](PRIVACY.md) for information about how this service handles personal data.
