@@ -1,6 +1,6 @@
 namespace ExonymsAPI.Configuration
 {
-    public class TransliterationSettings
+    public sealed class TransliterationSettings
     {
         public string TransliterationApiBaseUrl { get; set; }
     }

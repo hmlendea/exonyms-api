@@ -13,7 +13,7 @@ using NuciLog.Core;
 
 namespace ExonymsAPI.UnitTests.Service
 {
-    public class ExonymsServiceTests
+    public sealed class ExonymsServiceTests
     {
         private Mock<IGeoNamesGatherer> geoNamesGathererMock;
         private Mock<IWikiDataGatherer> wikiDataGathererMock;

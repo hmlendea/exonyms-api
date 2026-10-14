@@ -14,7 +14,7 @@ using NuciLog.Core;
 
 namespace ExonymsAPI.UnitTests.Service.Gatherers
 {
-    public class GeoNamesGathererTests
+    public sealed class GeoNamesGathererTests
     {
         private Mock<INameNormaliser> nameNormaliserMock;
         private Mock<ITransliterationApiClient> transliterationApiClientMock;

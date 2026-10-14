@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ExonymsAPI.Service;
-using ExonymsAPI.API.Requests;
+
 using NuciAPI.Controllers;
+
+using ExonymsAPI.API.Requests;
 using ExonymsAPI.API.Responses;
-using ExonymsAPI.Service.Models;
 using ExonymsAPI.Configuration;
+using ExonymsAPI.Service;
+using ExonymsAPI.Service.Models;
 
 namespace ExonymsAPI.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ExonymsController(
+    public sealed class ExonymsController(
         IExonymsService exonymsService,
         SecuritySettings securitySettings) : NuciApiController
     {

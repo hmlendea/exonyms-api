@@ -7,7 +7,7 @@ using NuciAPI.Middleware;
 
 namespace ExonymsAPI
 {
-    public class Startup(IConfiguration configuration)
+    public sealed class Startup(IConfiguration configuration)
     {
         public IConfiguration Configuration { get; } = configuration;
 

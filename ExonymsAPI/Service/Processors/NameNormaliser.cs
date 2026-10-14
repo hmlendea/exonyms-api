@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace ExonymsAPI.Service.Processors
 {
-    public class NameNormaliser : INameNormaliser
+    public sealed class NameNormaliser : INameNormaliser
     {
         public string Normalise(string languageCode, string name)
         {
@@ -33,7 +33,7 @@ namespace ExonymsAPI.Service.Processors
             string cleanName = name;
 
             // of
-            string of_pattern =
+            string ofPattern =
                 @"\b(" +
                 @"[AaĀā]p[h]*[a]*|" +
                 @"[Dd][aeio]*[ls]*|" +
@@ -555,8 +555,8 @@ namespace ExonymsAPI.Service.Processors
             cleanName = RemoveTextPattern(cleanName,
                 @"V[éo][ij]*[e]*vod[ae]*(s(hip|tv[iío])|t(e|ul))");
 
-            cleanName = RemoveTextPattern(cleanName, "^\\s*" + of_pattern);
-            cleanName = RemoveTextPattern(cleanName, of_pattern + "\\s*$");
+            cleanName = RemoveTextPattern(cleanName, "^\\s*" + ofPattern);
+            cleanName = RemoveTextPattern(cleanName, ofPattern + "\\s*$");
             cleanName = cleanName.Trim();
 
             if (string.IsNullOrWhiteSpace(cleanName))

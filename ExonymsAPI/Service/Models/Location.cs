@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ExonymsAPI.Service.Models
 {
-    public class Location(string defaultName)
+    public sealed class Location(string defaultName)
     {
         public string DefaultName { get; set; } = defaultName;
 
