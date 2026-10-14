@@ -1,11 +1,12 @@
+using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using ExonymsAPI.Client.TransliterationAPI;
+using ExonymsAPI.Configuration;
 using ExonymsAPI.Service;
 using ExonymsAPI.Service.Gatherers;
 using ExonymsAPI.Service.Processors;
-using ExonymsAPI.Client.TransliterationAPI;
-using ExonymsAPI.Configuration;
 
 using NuciAPI.Client;
 using NuciLog;
@@ -35,8 +36,8 @@ namespace ExonymsAPI
             return services;
         }
 
-        public static IServiceCollection AddCustomServices(
-            this IServiceCollection services) => services
+        public static IServiceCollection AddCustomServices(this IServiceCollection services)
+            => services
                 .AddSingleton<IExonymsService, ExonymsService>()
                 .AddSingleton<INameNormaliser, NameNormaliser>()
                 .AddSingleton<INameConstructor, NameConstructor>()

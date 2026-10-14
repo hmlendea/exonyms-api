@@ -4,7 +4,7 @@ using ExonymsAPI.Service.Processors;
 
 namespace ExonymsAPI.UnitTests.Service.Constructors
 {
-    public class GermanMiddleHighConstructorTests
+    public sealed class GermanMiddleHighConstructorTests
     {
         private INameConstructor constructor;
 

@@ -10,7 +10,7 @@ using NuciLog.Core;
 
 namespace ExonymsAPI.Service
 {
-    public class ExonymsService(
+    public sealed class ExonymsService(
         IGeoNamesGatherer geoNamesGatherer,
         IWikiDataGatherer wikiDataGatherer,
         INameConstructor nameConstructor,
@@ -18,7 +18,7 @@ namespace ExonymsAPI.Service
         INameNormaliser nameNormaliser,
         ILogger logger) : IExonymsService
     {
-        private readonly IDictionary<string, IEnumerable<string>> languageFallbacks = new Dictionary<string, IEnumerable<string>>
+        private static readonly IDictionary<string, IEnumerable<string>> LanguageFallbacks = new Dictionary<string, IEnumerable<string>>
         {
             { "ab", new List<string> { "ru", "uk", "be", "tg", "kk", "tt", "cv", "bg", "mk", "sr-ec", "cu" } },
             { "be", new List<string> { "ru", "uk", "cu", "bg", "mk", "sr-ec", "tt", "kk", "cv", "tg", "ab" } },
@@ -36,7 +36,7 @@ namespace ExonymsAPI.Service
             { "uk", new List<string> { "ru", "be", "cu", "bg", "mk", "sr-ec", "tt", "kk", "cv", "tg", "ab" } }
         };
 
-        private readonly IDictionary<string, IEnumerable<string>> languagesToConstruct = new Dictionary<string, IEnumerable<string>>
+        private static readonly IDictionary<string, IEnumerable<string>> LanguagesToConstruct = new Dictionary<string, IEnumerable<string>>
         {
             { "gmh", new List<string> { "de" } }
         };
@@ -99,9 +99,9 @@ namespace ExonymsAPI.Service
 
         private async Task<Location> ApplyFallbacks(Location location)
         {
-            foreach (string languageToFallbackFrom in languageFallbacks.Keys.Where(l => !location.Names.ContainsKey(l)))
+            foreach (string languageToFallbackFrom in LanguageFallbacks.Keys.Where(l => !location.Names.ContainsKey(l)))
             {
-                foreach (string languageToFallbackTo in languageFallbacks[languageToFallbackFrom].Where(location.Names.ContainsKey))
+                foreach (string languageToFallbackTo in LanguageFallbacks[languageToFallbackFrom].Where(location.Names.ContainsKey))
                 {
                     Name name = new(location.Names[languageToFallbackTo].OriginalValue)
                     {
@@ -141,9 +141,9 @@ namespace ExonymsAPI.Service
 
         private Location ConstructNames(Location location)
         {
-            foreach (string language in languagesToConstruct.Keys.Where(l => !location.Names.ContainsKey(l)))
+            foreach (string language in LanguagesToConstruct.Keys.Where(l => !location.Names.ContainsKey(l)))
             {
-                foreach (string baseLanguage in languagesToConstruct[language].Where(location.Names.ContainsKey))
+                foreach (string baseLanguage in LanguagesToConstruct[language].Where(location.Names.ContainsKey))
                 {
                     Name name = new(location.Names[baseLanguage].OriginalValue)
                     {

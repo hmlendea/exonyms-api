@@ -13,7 +13,7 @@ using NuciLog.Core;
 
 namespace ExonymsAPI.UnitTests.Service.Gatherers
 {
-    public class WikiDataGathererTests
+    public sealed class WikiDataGathererTests
     {
         private Mock<INameNormaliser> nameNormaliserMock;
         private Mock<ITransliterationApiClient> transliterationApiClientMock;

@@ -3,7 +3,7 @@ using ExonymsAPI.Service.Processors;
 
 namespace ExonymsAPI.UnitTests.Service
 {
-    public class NameNormaliserTests
+    public sealed class NameNormaliserTests
     {
         private INameNormaliser nameNormaliser;
 

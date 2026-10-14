@@ -1,6 +1,6 @@
 namespace ExonymsAPI.Configuration
 {
-    public class SecuritySettings
+    public sealed class SecuritySettings
     {
         public string HmacSigningKey { get; set; }
     }

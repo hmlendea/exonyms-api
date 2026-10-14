@@ -13,7 +13,7 @@ using NuciLog.Core;
 
 namespace ExonymsAPI.Service.Gatherers
 {
-    public class GeoNamesGatherer(
+    public sealed class GeoNamesGatherer(
         INameNormaliser nameNormaliser,
         ITransliterationApiClient transliterationApiClient,
         ILogger logger) : IGeoNamesGatherer
@@ -22,7 +22,7 @@ namespace ExonymsAPI.Service.Gatherers
         private static string DefaultNameLanguageCode => "en";
         private static string[] IgnoredLanguageCodes => ["link", "unlc", "wkdt"];
 
-        readonly IEnumerable<string> usernames =
+        private readonly IEnumerable<string> usernames =
         [
             "geonamesfreeaccountt", "freacctest1", "freacctest2", "commando.gaztons", "berestesievici", "izvoli.prostagma",
             "gesturioso", "random.name.ftw", "b75268", "b75375", "b75445", "b75445",
@@ -69,7 +69,7 @@ namespace ExonymsAPI.Service.Gatherers
             }
         }
 
-        async Task<Location> FetchLocation(string geoNamesId)
+        private async Task<Location> FetchLocation(string geoNamesId)
         {
             using HttpClient client = new();
 

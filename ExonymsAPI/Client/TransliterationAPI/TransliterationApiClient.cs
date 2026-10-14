@@ -8,9 +8,9 @@ using NuciAPI.Responses;
 
 namespace ExonymsAPI.Client.TransliterationAPI
 {
-    public class TransliterationApiClient(INuciApiClient nuciApiClient) : ITransliterationApiClient
+    public sealed class TransliterationApiClient(INuciApiClient nuciApiClient) : ITransliterationApiClient
     {
-        readonly IList<string> languageCodesToTransliterate =
+        private readonly IList<string> languageCodesToTransliterate =
             [
                 "ab", // Abkhaz
                 "ady", // Adyghe

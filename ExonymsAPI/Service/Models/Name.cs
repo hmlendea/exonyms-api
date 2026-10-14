@@ -1,8 +1,9 @@
+using System;
 using System.Text.Json.Serialization;
 
 namespace ExonymsAPI.Service.Models
 {
-    public class Name(string name)
+    public sealed class Name(string name) : IEquatable<Name>
     {
         private string value;
 
@@ -10,15 +11,7 @@ namespace ExonymsAPI.Service.Models
 
         public string Value
         {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    return OriginalValue;
-                }
-
-                return value;
-            }
+            get => string.IsNullOrWhiteSpace(value) ? OriginalValue : value;
             set => this.@value = value;
         }
 
@@ -38,6 +31,26 @@ namespace ExonymsAPI.Service.Models
             }
 
             return false;
+        }
+
+        public bool Equals(Name other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+
+            return Value == other.Value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Name);
+        }
+
+        public override int GetHashCode()
+        {
+            return Value?.GetHashCode() ?? 0;
         }
     }
 }

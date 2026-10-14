@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace ExonymsAPI.Service.Processors
 {
-    public class NameConstructor : INameConstructor
+    public sealed class NameConstructor : INameConstructor
     {
-        readonly Dictionary<string, string> germanMiddleHighTransformations;
+        private readonly Dictionary<string, string> germanMiddleHighTransformations;
 
         public NameConstructor()
         {
