@@ -4,6 +4,9 @@
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>ExonymsAPI.UnitTests</RootNamespace>
     <IsPackable>false</IsPackable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
