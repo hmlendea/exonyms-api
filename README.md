@@ -46,6 +46,7 @@ REST API that gathers exonyms for a geographic location, transliterates names to
 - [Versioning](#versioning)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
 - [Acknowledgements](#acknowledgements)
 - [Security](#security)
 - [Project Engagement](#project-engagement)
@@ -310,6 +311,10 @@ When doing so, please:
 - Raise a new [issue](https://github.com/hmlendea/exonyms-api/issues) for problems or suggestions
 
 See the [contributing guidelines](./CONTRIBUTING.md) for details on how to report issues, suggest enhancements, and submit changes.
+
+## 📜 Code of Conduct
+
+This project follows the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## 🙏 Acknowledgements
 
