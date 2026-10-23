@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
-using Newtonsoft.Json.Linq;
 
 using NuciLog.Core;
 using NuciWeb.HTTP;
@@ -75,22 +74,23 @@ namespace ExonymsAPI.Service.Gatherers
 
             string json = await response.Content.ReadAsStringAsync();
 
-            JObject data = JObject.Parse(json);
-            JObject entities = (JObject)data["entities"];
-            JObject entity = (JObject)entities[wikiDataId];
-            JObject labels = (JObject)entity["labels"];
-            JObject sitelinks = (JObject)entity["sitelinks"];
+            JsonNode data = JsonNode.Parse(json);
+            JsonObject entities = data["entities"].AsObject();
+            JsonObject entity = entities[wikiDataId].AsObject();
+            JsonObject labels = entity["labels"].AsObject();
+            JsonObject sitelinks = entity["sitelinks"].AsObject();
 
-            if (labels.TryGetValue(DefaultNameLanguageCode, out var defaultLabel))
+            if (labels.ContainsKey(DefaultNameLanguageCode))
             {
-                location.DefaultName = (string)defaultLabel["value"];
+                JsonNode defaultLabel = labels[DefaultNameLanguageCode];
+                location.DefaultName = defaultLabel["value"].GetValue<string>();
                 location.DefaultName = nameNormaliser.Normalise(DefaultNameLanguageCode, location.DefaultName);
             }
 
             foreach (var label in labels)
             {
                 string languageCode = label.Key;
-                Name name = new((string)label.Value["value"]);
+                Name name = new(label.Value["value"].GetValue<string>());
 
                 if (Name.IsNullOrWhiteSpace(name))
                 {
@@ -112,7 +112,7 @@ namespace ExonymsAPI.Service.Gatherers
                     continue;
                 }
 
-                Name name = new((string)sitelink.Value["title"]);
+                Name name = new(sitelink.Value["title"].GetValue<string>());
 
                 name.Value = await transliterationApiClient.Transliterate(languageCode, name.OriginalValue);
                 name.Value = nameNormaliser.Normalise(languageCode, name.Value);
