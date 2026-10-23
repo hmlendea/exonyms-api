@@ -6,6 +6,17 @@ The Exonyms API uses a comprehensive unit testing strategy with **NUnit** as the
 
 ## Test Project Structure
 
+Architecture tests live in the dedicated [ExonymsAPI.ArchitectureTests project](../ExonymsAPI.ArchitectureTests/ExonymsAPI.ArchitectureTests.csproj), using NUnit and ArchUnit.NET. They run with `dotnet test ExonymsAPI.sln` or `dotnet test ExonymsAPI.ArchitectureTests/ExonymsAPI.ArchitectureTests.csproj`.
+
+The architecture suite checks:
+- Presentation delegates through service contracts instead of using gatherers, processors, or clients directly.
+- Orchestration uses injected interfaces and does not access HTTP or ASP.NET Core directly.
+- Gatherers, processors, clients, and models preserve their documented inward dependency boundaries.
+- Models and processors remain isolated from inappropriate framework and infrastructure dependencies.
+- Production project declarations and compiled assembly references exclude test dependencies and do not expose internals.
+
+The production application is a single assembly, loaded once for the architecture suite. Namespace rules model its existing components rather than assuming separate Domain, Application, and Infrastructure projects. Presentation may use service models for response mapping, as the current controller does. Each production-component selector must match types; forbidden external namespaces may be absent. Project-reference checks independently guard the current single-production-project structure.
+
 ```
 ExonymsAPI.UnitTests/
 ├── ExonymsAPI.UnitTests.csproj
@@ -243,7 +254,7 @@ transliterationApiClient
 
 ### Current State
 
-**No integration tests** exist. All tests are unit tests with mocked dependencies.
+**No integration tests** exist. Unit tests use mocked dependencies; architecture tests inspect production dependencies without making external requests.
 
 ### Recommended Integration Tests
 
