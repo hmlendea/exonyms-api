@@ -76,19 +76,19 @@ namespace ExonymsAPI.Client.TransliterationAPI
                 Language = languageCode
             };
 
-            NuciApiResponse rawResponse = await nuciApiClient.SendRequestAsync<GetTransliterationsRequest, GetTransliterationsResponse>(
+            NuciApiResponse rawResponse = await nuciApiClient.SendRequestAsync<GetTransliterationsRequest, NuciApiContentResponse<TransliterationResponseContent>>(
                 HttpMethod.Get,
                 request,
-                $"Transliteration");
+                $"transliteration");
 
             if (!rawResponse.IsSuccessful)
             {
                 return name;
             }
 
-            GetTransliterationsResponse response = rawResponse as GetTransliterationsResponse;
+            NuciApiContentResponse<TransliterationResponseContent> response = rawResponse as NuciApiContentResponse<TransliterationResponseContent>;
 
-            string transliteratedName = response.Text;
+            string transliteratedName = response?.Content?.Text;
 
             if (string.IsNullOrWhiteSpace(transliteratedName))
             {
