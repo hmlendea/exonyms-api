@@ -34,9 +34,11 @@ ExonymsAPI.UnitTests/
 
 | Component | Version | Purpose |
 |-----------|---------|---------|
-| NUnit | 3.x | Test framework |
-| Moq | 4.x | Mocking framework |
-| FluentAssertions | 6.x | Assertion library |
+| NUnit | 5.0.0 | Test framework |
+| NUnit3TestAdapter | 6.3.1 | VS Test Platform adapter |
+| Moq | 4.21.0 | Mocking framework |
+| Microsoft.NET.Test.Sdk | 18.11.0 | Test runner infrastructure |
+| TngTech.ArchUnitNET.NUnit | 0.13.5 | Architecture fitness tests |
 
 ## Test Categories
 
@@ -401,11 +403,11 @@ jobs:
 
 | Package | Version | Purpose |
 |---------|---------|---------|
-| NUnit | 3.x | Test framework |
-| Moq | 4.x | Mocking |
-| FluentAssertions | 6.x | Assertions |
-| Microsoft.NET.Test.Sdk | 17.x | Test runner |
-| coverlet.collector | 3.x | Code coverage |
+| NUnit | 5.0.0 | Test framework |
+| NUnit3TestAdapter | 6.3.1 | VS Test Platform adapter |
+| Moq | 4.21.0 | Mocking |
+| Microsoft.NET.Test.Sdk | 18.11.0 | Test runner |
+| TngTech.ArchUnitNET.NUnit | 0.13.5 | Architecture fitness tests |
 
 ### Test Project Configuration
 

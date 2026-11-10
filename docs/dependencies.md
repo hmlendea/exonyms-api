@@ -7,23 +7,26 @@
 | Package | Version | Purpose | License |
 |---------|---------|---------|---------|
 | `Newtonsoft.Json` | 13.0.4 | WikiData JSON parsing | MIT |
-| `NuciAPI` | 3.3.0 | Core API abstractions (requests, responses, middleware) | MIT |
-| `NuciAPI.Client` | 1.2.0 | HTTP client abstractions for NuciAPI | MIT |
-| `NuciAPI.Controllers` | 2.2.0 | Base controller classes (NuciApiController) | MIT |
-| `NuciAPI.Middleware` | 1.3.0 | Request logging, exception handling middleware | MIT |
-| `NuciLog` | 1.1.2 | Structured logging implementation | MIT |
-| `NuciLog.Core` | 2.5.0 | Logging abstractions (ILogger, Operation, LogInfoKey) | MIT |
-| `NuciSecurity.HMAC` | 4.1.2 | HMAC response signing | MIT |
-| `NuciWeb.HTTP` | 1.2.0 | HttpClient factory, creator utilities | MIT |
+| `NuciAPI` | 3.6.2 | Core API abstractions (requests, responses, middleware) | MIT |
+| `NuciAPI.Client` | 1.2.4 | HTTP client abstractions for NuciAPI | MIT |
+| `NuciAPI.Controllers` | 2.3.2 | Base controller classes (NuciApiController) | MIT |
+| `NuciAPI.Middleware.ExceptionHandling` | 1.0.3 | Exception handling middleware | MIT |
+| `NuciAPI.Middleware.Logging` | 1.0.3 | Request logging middleware | MIT |
+| `NuciAPI.Middleware.Security` | 1.0.6 | Security middleware | MIT |
+| `NuciLog` | 1.2.3 | Structured logging implementation | MIT |
+| `NuciLog.Core` | 3.1.1 | Logging abstractions (ILogger, Operation, LogInfoKey) | MIT |
+| `NuciSecurity.HMAC` | 4.1.5 | HMAC response signing | MIT |
+| `NuciWeb.HTTP` | 1.7.3 | HttpClient factory, creator utilities | MIT |
 
 ### Test Dependencies
 
 | Package | Version | Purpose | License |
 |---------|---------|---------|---------|
-| `Microsoft.NET.Test.Sdk` | 18.3.0 | Test runner infrastructure | MIT |
-| `Moq` | 4.20.72 | Mocking framework | BSD-3-Clause |
-| `NUnit` | 4.5.1 | Test framework | MIT |
-| `NUnit3TestAdapter` | 6.2.0 | VS Test Platform adapter | MIT |
+| `Microsoft.NET.Test.Sdk` | 18.11.0 | Test runner infrastructure | MIT |
+| `Moq` | 4.21.0 | Mocking framework | BSD-3-Clause |
+| `NUnit` | 5.0.0 | Test framework | MIT |
+| `NUnit3TestAdapter` | 6.3.1 | VS Test Platform adapter | MIT |
+| `TngTech.ArchUnitNET.NUnit` | 0.13.5 | Architecture fitness tests | Apache-2.0 |
 
 ## Internal Dependencies
 
@@ -91,7 +94,9 @@ ExonymsAPI
 ├── NuciAPI
 │   ├── NuciAPI.Client
 │   ├── NuciAPI.Controllers
-│   └── NuciAPI.Middleware
+│   ├── NuciAPI.Middleware.ExceptionHandling
+│   ├── NuciAPI.Middleware.Logging
+│   └── NuciAPI.Middleware.Security
 ├── NuciLog
 │   └── NuciLog.Core
 ├── NuciSecurity.HMAC
@@ -102,6 +107,13 @@ ExonymsAPI.UnitTests
 ├── Moq
 ├── NUnit
 └── NUnit3TestAdapter
+
+ExonymsAPI.ArchitectureTests
+├── ExonymsAPI
+├── Microsoft.NET.Test.Sdk
+├── NUnit
+├── NUnit3TestAdapter
+└── TngTech.ArchUnitNET.NUnit
 ```
 
 ## Version Constraints

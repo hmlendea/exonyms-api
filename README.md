@@ -219,16 +219,21 @@ This script downloads and executes an external release helper from `https://raw.
 | Package | Version | Scope | Purpose |
 |---------|---------|-------|---------|
 | `Newtonsoft.Json` | `13.0.4` | Runtime | JSON processing. |
-| `NuciAPI` | `3.3.0` | Runtime | API request and response primitives. |
-| `NuciAPI.Client` | `1.2.0` | Runtime | External API client support. |
-| `NuciAPI.Controllers` | `2.2.0` | Runtime | Controller and response handling. |
-| `NuciAPI.Middleware` | `1.3.0` | Runtime | Request logging and exception handling middleware. |
-| `NuciLog` | `1.1.2` | Runtime | Application logging. |
-| `NuciLog.Core` | `2.5.0` | Runtime | Logging configuration and implementation. |
-| `NuciSecurity.HMAC` | `4.1.2` | Runtime | HMAC response signing. |
-| `NuciWeb.HTTP` | `1.2.0` | Runtime | HTTP utilities. |
-| `NUnit` | `4.5.1` | Development | Unit testing framework. |
-| `Moq` | `4.20.72` | Development | Test dependency mocking. |
+| `NuciAPI` | `3.6.2` | Runtime | API request and response primitives. |
+| `NuciAPI.Client` | `1.2.4` | Runtime | External API client support. |
+| `NuciAPI.Controllers` | `2.3.2` | Runtime | Controller and response handling. |
+| `NuciAPI.Middleware.ExceptionHandling` | `1.0.3` | Runtime | Exception handling middleware. |
+| `NuciAPI.Middleware.Logging` | `1.0.3` | Runtime | Request logging middleware. |
+| `NuciAPI.Middleware.Security` | `1.0.6` | Runtime | Security middleware. |
+| `NuciLog` | `1.2.3` | Runtime | Application logging. |
+| `NuciLog.Core` | `3.1.1` | Runtime | Logging configuration and implementation. |
+| `NuciSecurity.HMAC` | `4.1.5` | Runtime | HMAC response signing. |
+| `NuciWeb.HTTP` | `1.7.3` | Runtime | HTTP utilities. |
+| `Microsoft.NET.Test.Sdk` | `18.11.0` | Development | Test runner infrastructure. |
+| `NUnit` | `5.0.0` | Development | Unit testing framework. |
+| `NUnit3TestAdapter` | `6.3.1` | Development | VS Test Platform adapter. |
+| `Moq` | `4.21.0` | Development | Test dependency mocking. |
+| `TngTech.ArchUnitNET.NUnit` | `0.13.5` | Development | Architecture fitness tests. |
 
 ## ⚙️ GitHub Actions
 

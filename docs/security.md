@@ -364,10 +364,16 @@ dotnet add package <package> --version <safe-version>
 | Package | Version | Known Vulnerabilities |
 |---------|---------|----------------------|
 | Newtonsoft.Json | 13.0.4 | Check CVE database |
-| NuciAPI | 3.3.0 | Check CVE database |
-| NuciLog | 1.1.2 | Check CVE database |
-| NuciSecurity.HMAC | 4.1.2 | Check CVE database |
-| NuciWeb.HTTP | 1.2.0 | Check CVE database |
+| NuciAPI | 3.6.2 | Check CVE database |
+| NuciAPI.Client | 1.2.4 | Check CVE database |
+| NuciAPI.Controllers | 2.3.2 | Check CVE database |
+| NuciAPI.Middleware.ExceptionHandling | 1.0.3 | Check CVE database |
+| NuciAPI.Middleware.Logging | 1.0.3 | Check CVE database |
+| NuciAPI.Middleware.Security | 1.0.6 | Check CVE database |
+| NuciLog | 1.2.3 | Check CVE database |
+| NuciLog.Core | 3.1.1 | Check CVE database |
+| NuciSecurity.HMAC | 4.1.5 | Check CVE database |
+| NuciWeb.HTTP | 1.7.3 | Check CVE database |
 
 ### Dependency Updates
 

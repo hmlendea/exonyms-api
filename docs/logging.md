@@ -8,8 +8,8 @@ The Exonyms API uses **NuciLog** for structured logging with custom operation ty
 
 | Component | Version | Purpose |
 |-----------|---------|---------|
-| NuciLog | 1.1.2 | Structured logging |
-| NuciLog.Core | 2.5.0 | Core logging infrastructure |
+| NuciLog | 1.2.3 | Structured logging |
+| NuciLog.Core | 3.1.1 | Core logging infrastructure |
 
 ## Log Structure
 
