@@ -266,7 +266,7 @@ Paths:
 
 Responsibilities:
 - Generic host bootstrap
-- Middleware pipeline (NuciAPI logging, exception handling, HTTPS, routing)
+- Middleware pipeline (NuciAPI.Middleware.Logging, NuciAPI.Middleware.ExceptionHandling, HTTPS, routing)
 - DI composition (singletons for services, transient for clients)
 - Configuration binding
 - Structured logging with custom operations and log info keys
@@ -310,7 +310,8 @@ flowchart LR
 | GeoNames API | Outbound | `GET /get?geonameId={id}&username={user}` → XML | `GeoNamesGatherer` | Exception → 500; username rotation on failure |
 | WikiData API | Outbound | `GET /wiki/Special:EntityData/{id}.json` → JSON | `WikiDataGatherer` | Exception → 500; empty result if entity missing |
 | Transliteration API | Outbound | NuciAPI envelope (request/response) → JSON | `TransliterationApiClient` | Graceful degradation (return original text) |
-| NuciAPI Middleware | Inbound/Outbound | Request/response logging, exception handling | `Startup` | Logs and returns standardised error envelope |
+| NuciAPI.Middleware.Logging | Inbound/Outbound | Request/response logging | `Startup` | Logs requests and responses |
+| NuciAPI.Middleware.ExceptionHandling | Inbound/Outbound | Exception handling | `Startup` | Returns standardised error envelope |
 | HMAC Signing | Outbound | `NuciSecurity.HMAC` SHA256 on response body | `ExonymsController` | Invalid key → unsigned response (no failure) |
 
 ## ⚙️ CI/CD Pipelines

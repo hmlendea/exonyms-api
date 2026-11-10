@@ -177,7 +177,9 @@ string languageCode = Regex.Replace(sitelink.Key, @"(news|quote|source|voyage|wi
 | Component | Purpose | Integration Type |
 |-----------|---------|------------------|
 | NuciAPI.Controllers | Controller base classes, middleware | Internal dependency |
-| NuciAPI.Middleware | Request logging, exception handling | Internal dependency |
+| NuciAPI.Middleware.ExceptionHandling | Exception handling middleware | Internal dependency |
+| NuciAPI.Middleware.Logging | Request logging middleware | Internal dependency |
+| NuciAPI.Middleware.Security | Security middleware | Internal dependency |
 | NuciLog | Structured logging with MyOperation/MyLogInfoKey | Internal dependency |
 | NuciSecurity.HMAC | Response signing | Internal dependency |
 | NuciWeb.HTTP | HTTP client with retry policies | Internal dependency |
