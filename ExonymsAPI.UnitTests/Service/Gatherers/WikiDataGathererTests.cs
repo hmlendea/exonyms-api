@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using ExonymsAPI.Client.TransliterationAPI;
 using ExonymsAPI.Logging;
@@ -7,7 +8,6 @@ using ExonymsAPI.Service.Gatherers;
 using ExonymsAPI.Service.Models;
 using ExonymsAPI.Service.Processors;
 using Moq;
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using NuciLog.Core;
 
@@ -55,15 +55,15 @@ namespace ExonymsAPI.UnitTests.Service.Gatherers
                 }
             }";
 
-            JObject data = JObject.Parse(json);
-            JObject entities = (JObject)data["entities"];
-            JObject entity = (JObject)entities["Q123"];
-            JObject labels = (JObject)entity["labels"];
+            JsonNode data = JsonNode.Parse(json);
+            JsonObject entities = data["entities"].AsObject();
+            JsonObject entity = entities["Q123"].AsObject();
+            JsonObject labels = entity["labels"].AsObject();
 
             Assert.That(labels.Count, Is.EqualTo(3));
-            Assert.That((string)labels["en"]["value"], Is.EqualTo("Test City"));
-            Assert.That((string)labels["de"]["value"], Is.EqualTo("Test Stadt"));
-            Assert.That((string)labels["fr"]["value"], Is.EqualTo("Test Ville"));
+            Assert.That(labels["en"]["value"].GetValue<string>(), Is.EqualTo("Test City"));
+            Assert.That(labels["de"]["value"].GetValue<string>(), Is.EqualTo("Test Stadt"));
+            Assert.That(labels["fr"]["value"].GetValue<string>(), Is.EqualTo("Test Ville"));
         }
 
         [Test]
@@ -84,14 +84,14 @@ namespace ExonymsAPI.UnitTests.Service.Gatherers
                 }
             }";
 
-            JObject data = JObject.Parse(json);
-            JObject entities = (JObject)data["entities"];
-            JObject entity = (JObject)entities["Q123"];
-            JObject sitelinks = (JObject)entity["sitelinks"];
+            JsonNode data = JsonNode.Parse(json);
+            JsonObject entities = data["entities"].AsObject();
+            JsonObject entity = entities["Q123"].AsObject();
+            JsonObject sitelinks = entity["sitelinks"].AsObject();
 
             Assert.That(sitelinks.Count, Is.EqualTo(3));
-            Assert.That((string)sitelinks["dewiki"]["title"], Is.EqualTo("Test Stadt"));
-            Assert.That((string)sitelinks["frwiki"]["title"], Is.EqualTo("Test Ville"));
+            Assert.That(sitelinks["dewiki"]["title"].GetValue<string>(), Is.EqualTo("Test Stadt"));
+            Assert.That(sitelinks["frwiki"]["title"].GetValue<string>(), Is.EqualTo("Test Ville"));
         }
 
         [Test]
@@ -123,10 +123,10 @@ namespace ExonymsAPI.UnitTests.Service.Gatherers
                 }
             }";
 
-            JObject data = JObject.Parse(json);
-            JObject entities = (JObject)data["entities"];
-            JObject entity = (JObject)entities["Q123"];
-            JObject labels = (JObject)entity["labels"];
+            JsonNode data = JsonNode.Parse(json);
+            JsonObject entities = data["entities"].AsObject();
+            JsonObject entity = entities["Q123"].AsObject();
+            JsonObject labels = entity["labels"].AsObject();
 
             Assert.That(labels.Count, Is.EqualTo(0));
         }
@@ -138,8 +138,8 @@ namespace ExonymsAPI.UnitTests.Service.Gatherers
                 ""entities"": {}
             }";
 
-            JObject data = JObject.Parse(json);
-            JObject entities = (JObject)data["entities"];
+            JsonNode data = JsonNode.Parse(json);
+            JsonObject entities = data["entities"].AsObject();
 
             Assert.That(entities["Q123"], Is.Null);
         }
