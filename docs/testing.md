@@ -196,6 +196,29 @@ dotnet test --filter "Category=Unit"
 
 Tests run as part of CI pipeline on every push and pull request.
 
+### Security Testing
+
+**File**: `.github/workflows/security.yml`
+
+```yaml
+- name: Check for vulnerable packages
+  run: dotnet list package --vulnerable --include-transitive
+
+- name: Run CodeQL Analysis
+  uses: github/codeql-action/init@v4
+  with:
+    languages: csharp
+
+- name: Perform CodeQL Analysis
+  uses: github/codeql-action/analyze@v4
+```
+
+Security scans run on every push, pull request, and weekly schedule. They include:
+- **Dependency vulnerability scanning** Checks all NuGet packages (including transitive dependencies) for known vulnerabilities.
+- **CodeQL static analysis** Performs semantic code analysis for C# to detect security anti-patterns, injection flaws, and other code-level vulnerabilities.
+
+Results are published to the [Security](https://github.com/hmlendea/exonyms-api/security) tab and the [Actions](https://github.com/hmlendea/exonyms-api/actions/workflows/security.yml) workflow page.
+
 ## Mocking Strategy
 
 ### Interfaces Mocked

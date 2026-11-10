@@ -1,6 +1,7 @@
 [![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/funding)
 [![Latest Release](https://img.shields.io/github/v/release/hmlendea/exonyms-api)](https://github.com/hmlendea/exonyms-api/releases/latest)
 [![Build Status](https://github.com/hmlendea/exonyms-api/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/exonyms-api/actions/workflows/dotnet.yml)
+[![Security Scan](https://github.com/hmlendea/exonyms-api/actions/workflows/security.yml/badge.svg)](https://github.com/hmlendea/exonyms-api/actions/workflows/security.yml)
 [![License](https://img.shields.io/github/license/hmlendea/exonyms-api)](https://github.com/hmlendea/exonyms-api/blob/master/LICENSE)
 
 # Exonyms API
@@ -234,6 +235,7 @@ This script downloads and executes an external release helper from `https://raw.
 | Workflow | Purpose | What it does |
 |----------|---------|--------------|
 | [ .NET ](https://github.com/hmlendea/exonyms-api/blob/master/.github/workflows/dotnet.yml) | Validate .NET changes on pushes and pull requests to `master`. | Checks out the repository, installs .NET 10, restores dependencies, builds the solution, and runs tests. |
+| [ Security ](https://github.com/hmlendea/exonyms-api/blob/master/.github/workflows/security.yml) | Scan for security vulnerabilities on pushes, pull requests, and weekly schedule. | Checks out the repository, installs .NET 10, restores dependencies, checks for vulnerable packages, runs CodeQL analysis, and uploads SARIF results. |
 
 ## 🗂️ Project Structure
 

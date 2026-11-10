@@ -9,6 +9,7 @@ exonyms-api/
 ├── README.md                               # Project overview, build/run instructions
 ├── release.sh                              # Release script (delegates to deployment-scripts)
 ├── .github/workflows/dotnet.yml            # CI/CD pipeline
+├── .github/workflows/security.yml          # Security scanning pipeline
 ├── ExonymsAPI/                             # Main API project
 │   ├── ExonymsAPI.csproj                   # Project file (net10.0)
 │   ├── Program.cs                          # Entry point

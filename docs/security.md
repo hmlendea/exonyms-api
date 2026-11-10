@@ -421,6 +421,63 @@ public void VerifyHmac_WithWrongKey_ReturnsFalse()
 
 ### Security Scanning
 
+The repository runs automated security scans via GitHub Actions:
+
+**File**: `.github/workflows/security.yml`
+
+```yaml
+name: Security
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Check for vulnerable packages
+      run: dotnet list package --vulnerable --include-transitive
+
+    - name: Run CodeQL Analysis
+      uses: github/codeql-action/init@v4
+      with:
+        languages: csharp
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v4
+```
+
+**Scan Components**:
+- **Dependency vulnerability scanning** Checks all NuGet packages (including transitive dependencies) for known vulnerabilities using `dotnet list package --vulnerable --include-transitive`.
+- **CodeQL static analysis** Performs semantic code analysis for C# to detect security anti-patterns, injection flaws, and other code-level vulnerabilities.
+
+Results are published to the [Security](https://github.com/hmlendea/exonyms-api/security) tab and the [Actions](https://github.com/hmlendea/exonyms-api/actions/workflows/security.yml) workflow page.
+
+### Manual Scanning Commands
+
 ```bash
 # SAST (Static Application Security Testing)
 dotnet build --configuration Release
