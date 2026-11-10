@@ -21,13 +21,14 @@ namespace ExonymsAPI.Client.TransliterationAPI
                 "be", // Belarussian
                 "bg", // Bulgarian
                 "bn", // Bengali
+                "ber", // Berber
                 "cop", // Coptic
                 "cu", // Old Church Slavonic
                 "cv", // Chuvash
                 "el", // Greek
                 "grc", // Ancient Greek
                 "grc-dor", // Ancient Greek - Doric
-                "gu", // Gujarati
+                "gy", // Gujarati
                 "he", // Hebrew
                 "hi", // Hindi
                 "hy", // Armenian
