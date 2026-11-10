@@ -51,3 +51,11 @@ This project follows coordinated disclosure:
 ## 🧾 Safe Harbour
 
 If your research is conducted in good faith, confined to authorised scope, and disclosed responsibly, the maintainers will not pursue action for policy-compliant activity.
+
+## 🔍 Automated Security Scanning
+
+This repository runs automated security scans on every push, pull request, and weekly schedule. The scan includes:
+- **Dependency vulnerability scanning** Checks all NuGet packages (including transitive dependencies) for known vulnerabilities using `dotnet list package --vulnerable --include-transitive`.
+- **CodeQL static analysis** Performs semantic code analysis for C# to detect security anti-patterns, injection flaws, and other code-level vulnerabilities.
+
+Results are published to the [Security](https://github.com/hmlendea/exonyms-api/security) tab and the [Actions](https://github.com/hmlendea/exonyms-api/actions/workflows/security.yml) workflow page.

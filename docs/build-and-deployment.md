@@ -44,7 +44,7 @@ publish/
 
 ## CI Pipeline
 
-### GitHub Actions Workflow
+### GitHub Actions Workflows
 
 **File**: `.github/workflows/dotnet.yml`
 
@@ -78,6 +78,53 @@ jobs:
         run: dotnet test ExonymsAPI.sln --configuration Release --no-build --verbosity normal
 ```
 
+**File**: `.github/workflows/security.yml`
+
+```yaml
+name: Security
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Check for vulnerable packages
+      run: dotnet list package --vulnerable --include-transitive
+
+    - name: Run CodeQL Analysis
+      uses: github/codeql-action/init@v4
+      with:
+        languages: csharp
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v4
+```
+
 ### CI Stages
 
 | Stage | Command | Purpose |
@@ -87,6 +134,18 @@ jobs:
 | Restore | `dotnet restore` | Download NuGet packages |
 | Build | `dotnet build` | Compile solution |
 | Test | `dotnet test` | Run unit tests |
+
+### Security Scan Stages
+
+| Stage | Command | Purpose |
+|-------|---------|---------|
+| Checkout | `actions/checkout@v7` | Get source code |
+| Setup .NET | `actions/setup-dotnet@v5` | Install .NET SDK |
+| Restore | `dotnet restore` | Download NuGet packages |
+| Vulnerability Check | `dotnet list package --vulnerable --include-transitive` | Scan dependencies for known vulnerabilities |
+| CodeQL Init | `github/codeql-action/init@v4` | Initialize CodeQL for C# analysis |
+| Build | `dotnet build --no-restore` | Compile for analysis |
+| CodeQL Analyze | `github/codeql-action/analyze@v4` | Run static analysis and upload SARIF |
 
 ## Release Process
 

@@ -312,3 +312,30 @@ flowchart LR
 | Transliteration API | Outbound | NuciAPI envelope (request/response) → JSON | `TransliterationApiClient` | Graceful degradation (return original text) |
 | NuciAPI Middleware | Inbound/Outbound | Request/response logging, exception handling | `Startup` | Logs and returns standardised error envelope |
 | HMAC Signing | Outbound | `NuciSecurity.HMAC` SHA256 on response body | `ExonymsController` | Invalid key → unsigned response (no failure) |
+
+## ⚙️ CI/CD Pipelines
+
+### .NET Build and Test Pipeline
+
+**File**: `.github/workflows/dotnet.yml`
+
+Runs on every push and pull request to `master`:
+- Checks out the repository
+- Installs .NET 10
+- Restores dependencies
+- Builds the solution
+- Runs unit tests
+
+### Security Scanning Pipeline
+
+**File**: `.github/workflows/security.yml`
+
+Runs on every push, pull request to `master`, and weekly schedule (Sunday 00:00 UTC):
+- Checks out the repository
+- Installs .NET 10
+- Restores dependencies
+- Checks for vulnerable NuGet packages (including transitive dependencies)
+- Runs CodeQL static analysis for C#
+- Uploads SARIF results to GitHub Code Scanning
+
+Results are published to the [Security](https://github.com/hmlendea/exonyms-api/security) tab and the [Actions](https://github.com/hmlendea/exonyms-api/actions/workflows/security.yml) workflow page.
