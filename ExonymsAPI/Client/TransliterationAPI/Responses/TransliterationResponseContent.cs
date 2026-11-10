@@ -3,7 +3,7 @@ using NuciAPI.Responses;
 
 namespace ExonymsAPI.Client.TransliterationAPI.Responses
 {
-    public class GetTransliterationsResponse : NuciApiSuccessResponse
+    public sealed class TransliterationResponseContent : NuciApiResponseContent
     {
         [JsonPropertyName("text")]
         public string Text { get; set; }
