@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ExonymsAPI/ExonymsAPI.csproj" />
+  <Project Path="ExonymsAPI.ArchitectureTests/ExonymsAPI.ArchitectureTests.csproj" />
+  <Project Path="ExonymsAPI.IntegrationTests/ExonymsAPI.IntegrationTests.csproj" />
+  <Project Path="ExonymsAPI.UnitTests/ExonymsAPI.UnitTests.csproj" />
+</Solution>

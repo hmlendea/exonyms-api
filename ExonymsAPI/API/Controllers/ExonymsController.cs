@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using NuciAPI.Controllers;
+using NuciAPI.Responses;
 
 using ExonymsAPI.API.Requests;
 using ExonymsAPI.API.Responses;
@@ -18,7 +19,13 @@ namespace ExonymsAPI.API.Controllers
     {
         [HttpGet]
         public ActionResult Get([FromQuery] GetExonymsRequest request)
-            => ProcessRequest(
+        {
+            if (string.IsNullOrWhiteSpace(request.GeoNamesId) && string.IsNullOrWhiteSpace(request.WikiDataId))
+            {
+                return BadRequest(NuciApiErrorResponse.FromMessage("At least one of geoNamesId or wikiDataId must be provided."));
+            }
+
+            return ProcessRequest(
                 request,
                 () =>
                 {
@@ -35,5 +42,6 @@ namespace ExonymsAPI.API.Controllers
                     return response;
                 },
                 NuciApiAuthorisation.None);
+        }
     }
 }

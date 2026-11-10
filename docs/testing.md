@@ -198,6 +198,125 @@ dotnet test --filter "Category=Unit"
 
 Tests run as part of CI pipeline on every push and pull request.
 
+## Integration Tests
+
+### Overview
+
+Integration tests live in the dedicated [ExonymsAPI.IntegrationTests project](../ExonymsAPI.IntegrationTests/ExonymsAPI.IntegrationTests.csproj), using NUnit, FluentAssertions, and Microsoft.AspNetCore.Mvc.Testing. They run with `dotnet test ExonymsAPI.sln` or `dotnet test ExonymsAPI.IntegrationTests/ExonymsAPI.IntegrationTests.csproj`.
+
+The integration suite validates the full HTTP pipeline including:
+- Controller routing and model binding
+- Request validation (at least one identifier required)
+- External dependency mocking (GeoNames, WikiData, Transliteration)
+- Response signing (HMAC-SHA256)
+- Error handling middleware
+
+### Test Project Structure
+
+```
+ExonymsAPI.IntegrationTests/
+├── ExonymsAPI.IntegrationTests.csproj
+├── ExonymsApiFactory.cs
+└── ExonymsControllerIntegrationTests.cs
+```
+
+### Test Framework
+
+| Component | Version | Purpose |
+|-----------|---------|---------|
+| NUnit | 5.0.0 | Test framework |
+| NUnit3TestAdapter | 6.3.1 | VS Test Platform adapter |
+| FluentAssertions | 8.2.0 | Assertion library |
+| Microsoft.AspNetCore.Mvc.Testing | 10.0.0 | WebApplicationFactory for integration testing |
+| Moq | 4.21.0 | Mocking framework |
+
+### ExonymsApiFactory
+
+**File**: `ExonymsAPI.IntegrationTests/ExonymsApiFactory.cs`
+
+Custom `WebApplicationFactory<Program>` that:
+- Removes the production `Startup` class
+- Registers controllers with `AddApplicationPart`
+- Manually registers configuration settings (`SecuritySettings`, `TransliterationSettings`, `NuciLoggerSettings`)
+- Calls `AddCustomServices()` to register application services
+- Replaces real external dependencies with Moq mocks:
+  - `IGeoNamesGatherer` → returns test data for "310350" and empty for "invalid"
+  - `IWikiDataGatherer` → returns test data for "Q310350"
+  - `ITransliterationApiClient` → returns "TransliteratedText"
+- Configures middleware pipeline: exception handling, HTTPS redirection, routing, authorization, controller mapping
+
+### ExonymsControllerIntegrationTests
+
+**File**: `ExonymsAPI.IntegrationTests/ExonymsControllerIntegrationTests.cs`
+
+**Coverage**:
+- Empty request → 400 Bad Request
+- Only GeoNamesId → 200 OK with GeoNames exonyms
+- Only WikiDataId → 200 OK with WikiData exonyms
+- Both IDs → 200 OK with merged exonyms (WikiData precedence for default name)
+- Invalid GeoNamesId → 200 OK with empty result
+
+**Key Test Cases**:
+```csharp
+[Test]
+public async Task GivenEmptyRequest_WhenGetExonyms_ThenReturnsBadRequest()
+{
+    HttpResponseMessage response = await client.GetAsync("/exonyms");
+    response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+}
+
+[Test]
+public async Task GivenOnlyGeoNamesId_WhenGetExonyms_ThenReturnsOkWithExonyms()
+{
+    HttpResponseMessage response = await client.GetAsync("/exonyms?geoNamesId=310350");
+    response.StatusCode.Should().Be(HttpStatusCode.OK);
+    string content = await response.Content.ReadAsStringAsync();
+    content.Should().Contain("GeoNamesDefault");
+}
+
+[Test]
+public async Task GivenOnlyWikiDataId_WhenGetExonyms_ThenReturnsOkWithExonyms()
+{
+    HttpResponseMessage response = await client.GetAsync("/exonyms?wikiDataId=Q310350");
+    response.StatusCode.Should().Be(HttpStatusCode.OK);
+    string content = await response.Content.ReadAsStringAsync();
+    content.Should().Contain("WikiDataDefault");
+}
+
+[Test]
+public async Task GivenBothIds_WhenGetExonyms_ThenReturnsOkWithMergedExonyms()
+{
+    HttpResponseMessage response = await client.GetAsync("/exonyms?geoNamesId=310350&wikiDataId=Q310350");
+    response.StatusCode.Should().Be(HttpStatusCode.OK);
+    string content = await response.Content.ReadAsStringAsync();
+    content.Should().Contain("WikiDataDefault");
+    content.Should().Contain("GermanValue");
+    content.Should().Contain("FrenchValue");
+    content.Should().Contain("gmh");
+}
+
+[Test]
+public async Task GivenInvalidGeoNamesId_WhenGetExonyms_ThenReturnsOkWithEmptyResult()
+{
+    HttpResponseMessage response = await client.GetAsync("/exonyms?geoNamesId=invalid");
+    response.StatusCode.Should().Be(HttpStatusCode.OK);
+    string content = await response.Content.ReadAsStringAsync();
+    content.Should().Contain("success");
+}
+```
+
+**Assertion Strategy**: Tests assert raw JSON strings rather than deserializing to `GetExonymsResponse` because the `Name` model uses a parameterized constructor incompatible with `System.Text.Json` deserialization.
+
+### Running Integration Tests
+
+```bash
+# From repository root
+dotnet test ExonymsAPI.IntegrationTests/ExonymsAPI.IntegrationTests.csproj
+
+# With verbose output
+dotnet test ExonymsAPI.IntegrationTests/ExonymsAPI.IntegrationTests.csproj --verbosity normal
+```
+
 ### Security Testing
 
 **File**: `.github/workflows/security.yml`
