@@ -10,8 +10,8 @@ Retrieves exonyms (alternative names in different languages) for a geographic lo
 
 ## Controller Class
 
-**File**: `ExonymsAPI/API/Controllers/ExonymsController.cs`  
-**Namespace**: `ExonymsAPI.API.Controllers`  
+**File**: `ExonymsAPI/API/Controllers/ExonymsController.cs`
+**Namespace**: `ExonymsAPI.API.Controllers`
 **Base Class**: `NuciApiController` (from `NuciAPI.Controllers`)
 
 ```csharp
@@ -53,14 +53,14 @@ public class ExonymsController : NuciApiController
 
 ### GetExonymsRequest
 
-**File**: `ExonymsAPI/API/Requests/GetExonymsRequest.cs`  
+**File**: `ExonymsAPI/API/Requests/GetExonymsRequest.cs`
 **Namespace**: `ExonymsAPI.API.Requests`
 
 ```csharp
 public class GetExonymsRequest
 {
-    public int? GeoNamesId { get; set; }
-    public string WikiDataId { get; set; }
+    public string? GeoNamesId { get; set; }
+    public string? WikiDataId { get; set; }
 }
 ```
 
@@ -68,7 +68,7 @@ public class GetExonymsRequest
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `geoNamesId` | `integer` | No* | GeoNames numeric identifier (e.g., `310350`) |
+| `geoNamesId` | `string` | No* | GeoNames numeric identifier as string (e.g., `310350`) |
 | `wikiDataId` | `string` | No* | WikiData entity ID (e.g., `Q310350`) |
 
 *At least one parameter must be provided.
@@ -99,8 +99,8 @@ GET /Exonyms
 
 ### GetExonymsResponse
 
-**File**: `ExonymsAPI/API/Responses/GetExonymsResponse.cs`  
-**Namespace**: `ExonymsAPI.API.Responses`  
+**File**: `ExonymsAPI/API/Responses/GetExonymsResponse.cs`
+**Namespace**: `ExonymsAPI.API.Responses`
 **Base Class**: `NuciApiSuccessResponse` (from `NuciAPI.Controllers`)
 
 ```csharp
@@ -114,7 +114,7 @@ public class GetExonymsResponse : NuciApiSuccessResponse
 
 ### Name Model
 
-**File**: `ExonymsAPI/Service/Models/Name.cs`  
+**File**: `ExonymsAPI/Service/Models/Name.cs`
 **Namespace**: `ExonymsAPI.Service.Models`
 
 ```csharp

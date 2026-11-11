@@ -229,9 +229,11 @@ This script downloads and executes an external release helper from `https://raw.
 | `NuciLog.Core` | `3.1.1` | Runtime | Logging configuration and implementation. |
 | `NuciSecurity.HMAC` | `4.1.5` | Runtime | HMAC response signing. |
 | `NuciWeb.HTTP` | `1.7.3` | Runtime | HTTP utilities. |
+| `Microsoft.AspNetCore.Mvc.Testing` | `10.0.0` | Development | Integration test host factory. |
 | `Microsoft.NET.Test.Sdk` | `18.11.0` | Development | Test runner infrastructure. |
 | `NUnit` | `5.0.0` | Development | Unit testing framework. |
 | `NUnit3TestAdapter` | `6.3.1` | Development | VS Test Platform adapter. |
+| `FluentAssertions` | `8.2.0` | Development | Assertion library. |
 | `Moq` | `4.21.0` | Development | Test dependency mocking. |
 | `TngTech.ArchUnitNET.NUnit` | `0.13.5` | Development | Architecture fitness tests. |
 
@@ -244,7 +246,7 @@ This script downloads and executes an external release helper from `https://raw.
 
 ## 🗂️ Project Structure
 
-The repository contains the production API, its unit tests, and supporting documentation.
+The repository contains the production API, its unit, integration, and architecture tests, and supporting documentation.
 
 ### Projects and Packages
 
@@ -252,6 +254,8 @@ The repository contains the production API, its unit tests, and supporting docum
 |---------|------|---------|
 | `ExonymsAPI/` | .NET web application | Hosts the REST API and application services. |
 | `ExonymsAPI.UnitTests/` | .NET test project | Tests service, processor, and gatherer behaviour. |
+| `ExonymsAPI.IntegrationTests/` | .NET test project | Tests full HTTP pipeline with mocked external dependencies. |
+| `ExonymsAPI.ArchitectureTests/` | .NET test project | Architecture fitness tests with ArchUnit.NET. |
 
 ### Directories
 

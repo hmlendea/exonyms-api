@@ -68,6 +68,16 @@ exonyms-api/
     │       └── WikiDataGathererTests.cs
     ├── bin/                                # Build output (gitignored)
     └── obj/                                # Build intermediates (gitignored)
+├── ExonymsAPI.IntegrationTests/            # Integration test project
+│   ├── ExonymsAPI.IntegrationTests.csproj
+│   ├── ExonymsApiFactory.cs                # WebApplicationFactory with mocked dependencies
+│   └── ExonymsControllerIntegrationTests.cs
+│   ├── bin/                                # Build output (gitignored)
+│   └── obj/                                # Build intermediates (gitignored)
+└── ExonymsAPI.ArchitectureTests/           # Architecture fitness tests
+    ├── ExonymsAPI.ArchitectureTests.csproj
+    ├── DependencyTests.cs
+    └── ProjectReferenceTests.cs
 ```
 
 ## Module Organisation
@@ -96,10 +106,24 @@ exonyms-api/
 | `ExonymsAPI.UnitTests.Service.Constructors` | NameConstructor tests | `NameConstructorTests.cs` |
 | `ExonymsAPI.UnitTests.Service.Gatherers` | Gatherer tests | `GeoNamesGathererTests.cs`, `WikiDataGathererTests.cs` |
 
+### ExonymsAPI.IntegrationTests (Test Project)
+
+| Namespace | Purpose | Key Files |
+|-----------|---------|-----------|
+| `ExonymsAPI.IntegrationTests` | Full HTTP pipeline tests | `ExonymsApiFactory.cs`, `ExonymsControllerIntegrationTests.cs` |
+
+### ExonymsAPI.ArchitectureTests (Test Project)
+
+| Namespace | Purpose | Key Files |
+|-----------|---------|-----------|
+| `ExonymsAPI.ArchitectureTests` | Architecture fitness tests | `DependencyTests.cs`, `ProjectReferenceTests.cs` |
+
 ## Project References
 
 ```
 ExonymsAPI.UnitTests → ExonymsAPI (ProjectReference)
+ExonymsAPI.IntegrationTests → ExonymsAPI (ProjectReference)
+ExonymsAPI.ArchitectureTests → ExonymsAPI (ProjectReference)
 ```
 
 ## Build Output
