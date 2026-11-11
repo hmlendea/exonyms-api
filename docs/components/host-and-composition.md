@@ -47,6 +47,15 @@ public class Startup(IConfiguration configuration)
     {
         services.AddControllers();
 
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+                policy
+                    .WithOrigins(AllowedCorsOrigins)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+        });
+
         services
             .AddConfigurations(Configuration)
             .AddCustomServices();
@@ -63,6 +72,7 @@ public class Startup(IConfiguration configuration)
         }
 
         app.UseHttpsRedirection();
+        app.UseCors();
         app.UseDefaultFiles();
         app.UseStaticFiles();
         app.UseRouting();
@@ -90,11 +100,12 @@ public class Startup(IConfiguration configuration)
 | 2 | `UseNuciApiExceptionHandling` | Global exception handling (NuciAPI) |
 | 3 | `UseDeveloperExceptionPage` | Detailed errors in Development |
 | 4 | `UseHttpsRedirection` | HTTP → HTTPS redirect |
-| 5 | `UseDefaultFiles` | Serve default files (index.html) |
-| 6 | `UseStaticFiles` | Serve static files (wwwroot) |
-| 7 | `UseRouting` | Endpoint routing |
-| 8 | `UseAuthorization` | Authorization (no-op, no policies) |
-| 9 | `UseEndpoints` | Map controllers |
+| 5 | `UseCors` | Cross-origin request policy for browser clients |
+| 6 | `UseDefaultFiles` | Serve default files (index.html) |
+| 7 | `UseStaticFiles` | Serve static files (wwwroot) |
+| 8 | `UseRouting` | Endpoint routing |
+| 9 | `UseAuthorization` | Authorization (no-op, no policies) |
+| 10 | `UseEndpoints` | Map controllers |
 
 ## ServiceCollectionExtensions.cs
 

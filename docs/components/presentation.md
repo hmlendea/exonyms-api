@@ -148,6 +148,7 @@ app.UseNuciApiRequestLogging();      // Logs request/response
 app.UseNuciApiExceptionHandling();   // Catches exceptions, returns standard error
 app.UseDeveloperExceptionPage();     // Development only
 app.UseHttpsRedirection();
+app.UseCors();                       // Applies the allowed-origins CORS policy
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseRouting();

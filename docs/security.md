@@ -81,6 +81,20 @@ public bool VerifyHmac(GetExonymsResponse response, string key)
 - **Authenticity**: Confirms response came from the API
 - **Non-repudiation**: Server cannot deny sending response
 
+## Cross-Origin Resource Sharing (CORS)
+
+Cross-origin requests are governed by ASP.NET Core CORS middleware. The allowed origins policy permits browser-based consumers (such as the MCN Exonyms Retriever on GitHub Pages and local development servers) to query the API directly:
+
+- `https://hmlendea.github.io`
+- `http://localhost:5000`
+- `https://localhost:5001`
+- `http://localhost:7000`
+- `https://localhost:7001`
+- `http://localhost:8080`
+- `http://localhost:8081`
+
+Requests from disallowed origins do not receive CORS headers and are rejected by the browser.
+
 ## Configuration Security
 
 ### HMAC Signing Key
