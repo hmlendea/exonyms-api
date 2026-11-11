@@ -37,6 +37,21 @@ namespace ExonymsAPI.IntegrationTests
                     .AddControllers()
                     .AddApplicationPart(typeof(ExonymsAPI.API.Controllers.ExonymsController).Assembly);
                 services.AddAuthorization();
+                services.AddCors(options =>
+                {
+                    options.AddDefaultPolicy(policy =>
+                        policy
+                            .WithOrigins(
+                                "https://hmlendea.github.io",
+                                "http://localhost:5000",
+                                "https://localhost:5001",
+                                "http://localhost:7000",
+                                "https://localhost:7001",
+                                "http://localhost:8080",
+                                "http://localhost:8081")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod());
+                });
 
                 // Register all configuration settings manually (bypass AddConfigurations to avoid binding issues)
                 SecuritySettings securitySettings = new()
@@ -113,6 +128,7 @@ namespace ExonymsAPI.IntegrationTests
                 }
 
                 app.UseHttpsRedirection();
+                app.UseCors();
                 app.UseDefaultFiles();
                 app.UseStaticFiles();
                 app.UseRouting();

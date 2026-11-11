@@ -78,6 +78,8 @@ Middleware Pipeline (Startup.Configure)
     │
     ├── UseHttpsRedirection
     │
+    ├── UseCors
+    │
     ├── UseDefaultFiles
     │
     ├── UseStaticFiles

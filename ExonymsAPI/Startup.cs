@@ -13,9 +13,29 @@ namespace ExonymsAPI
     {
         public IConfiguration Configuration { get; } = configuration;
 
+        private static string[] AllowedCorsOrigins =>
+        [
+            "https://hmlendea.github.io",
+            "http://localhost:5000",
+            "https://localhost:5001",
+            "http://localhost:7000",
+            "https://localhost:7001",
+            "http://localhost:8080",
+            "http://localhost:8081"
+        ];
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                    policy
+                        .WithOrigins(AllowedCorsOrigins)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+            });
 
             services
                 .AddConfigurations(Configuration)
@@ -33,6 +53,7 @@ namespace ExonymsAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseCors();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
