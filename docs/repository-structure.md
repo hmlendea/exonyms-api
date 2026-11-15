@@ -7,9 +7,9 @@ exonyms-api/
 ├── ExonymsAPI.sln                          # Solution file
 ├── LICENSE                                 # MIT License
 ├── README.md                               # Project overview, build/run instructions
-├── release.sh                              # Release script (delegates to deployment-scripts)
 ├── .github/workflows/dotnet.yml            # CI/CD pipeline
 ├── .github/workflows/security.yml          # Security scanning pipeline
+├── .github/workflows/github-release.yml    # Release build and asset publication
 ├── ExonymsAPI/                             # Main API project
 │   ├── ExonymsAPI.csproj                   # Project file (net10.0)
 │   ├── Program.cs                          # Entry point
