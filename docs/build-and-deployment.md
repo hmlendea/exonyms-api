@@ -149,15 +149,83 @@ jobs:
 
 ## Release Process
 
-### Release Script
+### GitHub Release Workflow
 
-**File**: `release.sh`
+**File**: `.github/workflows/github-release.yml`
 
-```bash
-#!/bin/bash
-# Delegates to deployment-scripts repository
-./deployment-scripts/release.sh "$@"
+```yaml
+name: GitHub Release
+
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+
+    - name: Determine the .NET version
+      id: dotnet
+      run: |
+        TARGET_FRAMEWORK="$(sed -n 's|.*<TargetFramework>\(.*\)</TargetFramework>.*|\1|p' ExonymsAPI/ExonymsAPI.csproj | head -n 1)"
+
+        if [[ -z "${TARGET_FRAMEWORK}" ]]; then
+          echo 'ERROR: Could not determine the target framework from ExonymsAPI/ExonymsAPI.csproj.' >&2
+          exit 1
+        fi
+
+        DOTNET_VERSION="${TARGET_FRAMEWORK#net}"
+        echo "version=${DOTNET_VERSION}" >> "$GITHUB_OUTPUT"
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: ${{ steps.dotnet.outputs.version }}.x
+
+    - name: Extract the version from the GitHub tag
+      id: version
+      run: |
+        VERSION="${{ github.event.release.tag_name }}"
+        VERSION="${VERSION#v}"
+        echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+    - name: Normalise the origin remote URL
+      run: git remote set-url origin "https://github.com/${GITHUB_REPOSITORY}.git"
+
+    - name: Build the release artefacts
+      env:
+        DOTNET_VERSION: ${{ steps.dotnet.outputs.version }}
+        RELEASE_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        RELEASE_SCRIPT_URL="https://raw.githubusercontent.com/hmlendea/dotnet-release-scripts/refs/heads/master/dotnet/${DOTNET_VERSION}.sh"
+        wget --quiet -O - "${RELEASE_SCRIPT_URL}" | bash /dev/stdin "${RELEASE_VERSION}"
+
+    - name: Publish the release assets
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ExonymsAPI/bin/Release/exonyms-api_*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+### Release Stages
+
+| Stage | Command | Purpose |
+|-------|---------|---------|
+| Checkout | `actions/checkout@v7` | Get the full source history |
+| Setup .NET | `actions/setup-dotnet@v5` | Install the SDK version declared by the project |
+| Build | Shared release script | Produce the platform archives in `ExonymsAPI/bin/Release` |
+| Publish | `softprops/action-gh-release@v2` | Attach `exonyms-api_*` archives to the GitHub release |
 
 ### Versioning
 
@@ -173,30 +241,22 @@ jobs:
 
 ### Release Steps
 
-1. **Update version** in `ExonymsAPI.csproj`:
-   ```xml
-   <Version>1.2.3</Version>
-   ```
-
-2. **Create release commit**:
+1. **Create release commit**:
    ```bash
    git commit -am "chore: release v1.2.3"
    ```
 
-3. **Tag release**:
+2. **Tag release**:
    ```bash
    git tag -a v1.2.3 -m "Release v1.2.3"
    ```
 
-4. **Push**:
+3. **Push**:
    ```bash
-   git push origin main --tags
+   git push origin master --tags
    ```
 
-5. **GitHub Actions** automatically:
-   - Builds and tests
-   - Creates GitHub Release
-   - Publishes to NuGet (if configured)
+4. **Publish the GitHub release** for the pushed tag. Publishing triggers `.github/workflows/github-release.yml`, which builds the platform archives and attaches them to the release.
 
 ## Deployment
 

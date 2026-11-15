@@ -204,15 +204,12 @@ dotnet test ExonymsAPI.sln
 
 ### Release
 
-The repository includes `release.sh`, which delegates to the upstream deployment script used by the project maintainer.
+Releases are produced by the [GitHub Release](./.github/workflows/github-release.yml) workflow. Publishing a GitHub release with a `v`-prefixed tag triggers it; the workflow builds the platform archives in `ExonymsAPI/bin/Release` and attaches them to the release.
 
 ```bash
-bash ./release.sh 3.1.1
+git tag -a v3.1.1 -m "Release v3.1.1"
+git push origin master --tags
 ```
-
-This script downloads and executes an external release helper from `https://raw.githubusercontent.com/hmlendea/deployment-scripts/master/release/dotnet/10.0.sh`.
-
-**Note:** Piping into `bash` is an intensely controversial topic. Please review any external scripts before running them in your environment!
 
 ### Dependencies
 
@@ -243,6 +240,7 @@ This script downloads and executes an external release helper from `https://raw.
 |----------|---------|--------------|
 | [ .NET ](https://github.com/hmlendea/exonyms-api/blob/master/.github/workflows/dotnet.yml) | Validate .NET changes on pushes and pull requests to `master`. | Checks out the repository, installs .NET 10, restores dependencies, builds the solution, and runs tests. |
 | [ Security ](https://github.com/hmlendea/exonyms-api/blob/master/.github/workflows/security.yml) | Scan for security vulnerabilities on pushes, pull requests, and weekly schedule. | Checks out the repository, installs .NET 10, restores dependencies, checks for vulnerable packages, runs CodeQL analysis, and uploads SARIF results. |
+| [ GitHub Release ](https://github.com/hmlendea/exonyms-api/blob/master/.github/workflows/github-release.yml) | Build and publish release assets when a release is published. | Checks out the repository, installs the .NET version declared by the project, builds the platform archives through the shared release script, and attaches them to the GitHub release. |
 
 ## 🗂️ Project Structure
 
